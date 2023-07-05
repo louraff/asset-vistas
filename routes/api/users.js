@@ -9,8 +9,8 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 // CREATE
 // Endpoint: /api/users
 // Endpoint in routes file: /
-router.post('/', usersCtrl.create)
 
+router.post('/', usersCtrl.create);
 // POST /api/users/login
 router.post('/login', usersCtrl.login);
 

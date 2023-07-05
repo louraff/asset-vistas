@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
+const SALT_ROUNDS = 12;
+
+
 // User model
 // Basic implementation that can be modified at a later date
 // Only implementing fields needed for authentication at this point
@@ -41,7 +44,7 @@ userSchema.pre('save', async function(next){
   if(!this.isModified('password')) return next()
 
   // Use bcrypt to hash password
-  this.password = await bcrypt.hash(this.password, 12)
+  this.password = await bcrypt.hash(this.password, SALT_ROUNDS)
   
   // Pass to the next action, in this case save the document
   return next()
