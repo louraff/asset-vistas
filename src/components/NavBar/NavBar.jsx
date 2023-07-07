@@ -10,11 +10,13 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav>
-      <Link to='/orders'>Order History</Link>
-      &nbsp; | &nbsp;
-      <Link to='/orders/new'>New Order</Link>
-      &nbsp; | &nbsp;
       <Link to='/dashboard'>Dashboard</Link>
+      &nbsp; | &nbsp;
+      <Link to='/assets'>My Assets</Link>
+      &nbsp; | &nbsp;
+      <Link to='/add-asset'>Add Asset</Link>
+      &nbsp; | &nbsp;
+      <Link to='/profile'>Profile</Link>
       &nbsp; | &nbsp;
       Welcome, {user.name}
       &nbsp; | &nbsp;

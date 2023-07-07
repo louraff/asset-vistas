@@ -10,8 +10,9 @@ import { getUser } from '../../utilities/users-service';
 
 // Custom Components
 import AuthPage from '../AuthPage/AuthPage';
-import NewOrderPage from '../NewOrderPage/NewOrderPage'
-import OrderHistoryPage from '../OrderHistoryPage/OrderHistoryPage'
+import AddAsset from '../AddAsset/AddAsset'
+import MyAssets from '../MyAssets/MyAssets'
+import Profile from '../Profile/Profile'
 import Dashboard from '../Dashboard/Dashboard'
 import NavBar from '../../components/NavBar/NavBar'
 
@@ -27,8 +28,9 @@ export default function App() {
           <NavBar user={user} setUser={setUser} />
           {/* // Routes is sitting inside this ternary so that the AuthPage is always rendered when a user state is null, no matter what the path is. When user has a value, it will render the relevant Route */}
           <Routes>
-            <Route path="/orders/new" element={<NewOrderPage />}/>
-            <Route path="/orders" element={<OrderHistoryPage />} />
+            <Route path="/assets" element={<MyAssets />}/>
+            <Route path="/add-asset" element={<AddAsset />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
           </>
