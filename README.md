@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -72,3 +73,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 =======
 # MERN-infrastructure
 >>>>>>> c04557d80741a11e5971fb80169cf905c2463159
+=======
+# asset-vistas
+>>>>>>> 5f95182a2d8b8d5940cb8ebc8cc33a5e8af3b676
