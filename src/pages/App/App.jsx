@@ -11,12 +11,13 @@ import { getUser } from '../../utilities/users-service';
 // Custom Components
 import AuthPage from '../AuthPage/AuthPage';
 import NewOrderPage from '../NewOrderPage/NewOrderPage'
-import OrderHistoryPage from '../OrderHistoryPage/OrderHistoryPage'
+import Dashboard from '../Dashboard/Dashboard'
 import NavBar from '../../components/NavBar/NavBar'
 
 export default function App() {
 
   const [user, setUser] = useState(getUser())
+  console.log(user)
 
   return (
     <main className="App">
@@ -27,7 +28,7 @@ export default function App() {
           {/* // Routes is sitting inside this ternary so that the AuthPage is always rendered when a user state is null, no matter what the path is. When user has a value, it will render the relevant Route */}
           <Routes>
             <Route path="/orders/new" element={<NewOrderPage />}/>
-            <Route path="/orders" element={<OrderHistoryPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
           </>
         :
