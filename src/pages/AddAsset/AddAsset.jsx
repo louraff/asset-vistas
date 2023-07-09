@@ -1,5 +1,7 @@
-export default function AddAsset() {
+import NewAssetForm from "../../components/NewAssetForm/NewAssetForm";
+
+export default function AddAsset({user}) {
   return (
-    <h1>Add Asset</h1>
+    <NewAssetForm user={user}/>
   );
 }

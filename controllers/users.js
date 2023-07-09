@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Portfolio = require('../models/portfolio')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -30,7 +31,24 @@ function checkToken(req, res) {
 
 async function create(req, res) {
   try {
-    const user = await User.create(req.body);
+    // Create a new portfolio for the user
+    const newPortfolio = new Portfolio({
+      user: req.body._id, 
+      assets: [],
+      TotalValue: 0,
+    });
+
+    await newPortfolio.save();
+
+    console.log("Portfolio created with ID:", newPortfolio._id);
+
+    const user = await User.create({
+      ...req.body,
+      portfolio: newPortfolio._id,
+    });
+
+    console.log("User created with portfolio ID:", user.portfolio);
+
     // token is a string
     const token = createJWT(user);
     // Yes, we can serialize (to JSON) strings
