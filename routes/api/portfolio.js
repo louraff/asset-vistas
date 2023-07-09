@@ -3,21 +3,51 @@ const router = express.Router();
 const Portfolio = require('../../models/portfolio'); 
 const User = require('../../models/user');
 const Asset = require('../../models/asset'); 
+const axios = require('axios');
+
+const fetchHistoricalData = async (symbol, interval, adjusted=true, extended_hours=true, month=null, outputsize='compact') => {
+    const params = {
+        function: 'TIME_SERIES_INTRADAY',
+        symbol,
+        interval,
+        adjusted,
+        extended_hours,
+        outputsize,
+        apikey: process.env.API_KEY,
+    };
+
+    if (month) params.month = month;
+
+    try {
+        const response = await axios.get('https://www.alphavantage.co/query', {params});
+        return response.data;
+    } catch (err) {
+        console.error('Failed to fetch histrical data from API ', err);
+        throw err
+    }
+};
 
 router.get('/:userId', async (req, res) => {
     try {
-        // Look up a portfolio that has the user ID equal to the one in the request parameters.
-        // Use the populate method to replace the IDs in the assets field with the actual asset documents.
-        console.log(Portfolio);
-
-        const portfolio = await Portfolio.findOne({user: req.params.userId }).populate('assets');
-        // Return the portfolio as JSON.
+        const user = await User.findById(req.params.userId);
+    
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+    
+        const portfolio = await Portfolio.findById(user.portfolio).populate('assets');
+    
+        if (!portfolio) {
+          return res.status(404).json({ message: "Portfolio not found" });
+        }
+    
         res.json(portfolio)
-    } catch (error) {
+      } catch (error) {
         console.log(error);
         res.status(500).json({message: "Server Error"})
-    }
-})
+      }
+});
+
 
 router.post('/:userId/asset', async (req, res) => {
     try {
@@ -50,6 +80,14 @@ router.post('/:userId/asset', async (req, res) => {
 
         // Add asset to portfolio and save
         portfolio.assets.push(newAsset);
+
+        // Calculate the value of the new asset and add it to the total value of the portfolio
+        const data = await fetchHistoricalData(newAsset.ticker, '60min');
+        if(data) {
+        const assetValue = data[0].close * newAsset.units;
+        portfolio.TotalValue = (portfolio.TotalValue || 0) + assetValue;
+        }
+
         await portfolio.save();
 
         // Send response
@@ -60,45 +98,5 @@ router.post('/:userId/asset', async (req, res) => {
     }
 });
 
-
-// router.post('/:userId/asset', async (req, res) => {
-//     try {
-
-//         const portfolioId = req.params.userId;  
-//         console.log("Received portfolio ID:", portfolioId);
-
-//         const user = await User.findById(portfolioId);
-//         console.log("Found user:", user);
-
-//         const por = await Portfolio.findOne({user: portfolioId}); 
-//         console.log("Found portfolio:", por);
-
-//         const newAssetData = req.body;
-//         const userId = req.params.userId;
-
-//         console.log(`User ID: ${userId}`);
-
-//         // Find the portfolio for the user
-//         const portfolio = await Portfolio.findOne({user: userId});
-
-//         if (!portfolio) {
-//             return res.status(404).json({ message: "Portfolio not found" });
-//         }
-
-//         // Create new asset
-//         const newAsset = new Asset(newAssetData);
-//         await newAsset.save();
-
-//         // Add asset to portfolio and save
-//         portfolio.assets.push(newAsset);
-//         await portfolio.save();
-
-//         // Send response
-//         res.json(portfolio);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({message: "Server Error"});
-//     }
-// });
 
 module.exports = router
