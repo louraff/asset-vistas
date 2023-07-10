@@ -1,6 +1,12 @@
 import {Line} from 'react-chartjs-2';
+import { Chart, CategoryScale } from 'chart.js';
+
 
 export default function LineChart({data, labels}) {
+
+    Chart.register(CategoryScale);
+
+    
     const chartData = {
         labels: labels,
         datasets: [

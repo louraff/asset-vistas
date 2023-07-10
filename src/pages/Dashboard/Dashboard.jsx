@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LineGraph from "../../Visuals/LineGraph";
-import LineChart from "../Visualisations/LineChart";
 import PieChart from "../../Visuals/PieChart";
 import { fetchHistoricalData } from "../../utilities/historicalData-api";
 
@@ -106,7 +105,6 @@ export default function Dashboard({user}) {
     <>
     <h1>Dashboard</h1>
     <PieChart data={sectorAllocations} />
-    <LineChart data={values} labels={dates} />
     <h2>{user.name}'s Portfolio</h2>
     <h1>{portfolio.TotalValue}</h1>
     {portfolio.assets.map(asset => (
