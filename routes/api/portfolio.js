@@ -5,23 +5,18 @@ const User = require('../../models/user');
 const Asset = require('../../models/asset'); 
 const axios = require('axios');
 
-const fetchHistoricalData = async (symbol, interval, outputsize='compact') => {
-    const params = {
-        function: 'TIME_SERIES_INTRADAY',
-        symbol,
-        interval,
-        outputsize,
-        apikey: process.env.REACT_APP_API_KEY,
-    };
+ async function fetchHistoricalData(symbol, range='1y') {
+    const url = `https://api.iex.cloud/v1/data/core/historical_prices/${symbol}?range=${range}&token=${process.env.REACT_APP_IEX_API_KEY}`;
 
     try {
-        const response = await axios.get('https://www.alphavantage.co/query', {params});
+        const response = await axios.get(url);
         return response.data;
     } catch (err) {
-        console.error('Failed to fetch histrical data from API ', err);
-        throw err
+        console.error('Failed to fetch historical data from API ', err);
+        throw err;
     }
-};
+}
+
 
 router.get('/:userId', async (req, res) => {
     try {
@@ -81,13 +76,13 @@ router.post('/:userId/asset', async (req, res) => {
         // Calculate the value of the new asset and add it to the total value of the portfolio
         const data = await fetchHistoricalData(newAsset.ticker, '60min');
         console.log("Data fetched: ", data)
-        if(data && data['Time Series (60min)']) {
+        if(data && data.values) {
             // Parse the data based on the structure of AlphaVantage's API response
-        const lastUpdateTime = Object.keys(data['Time Series (60min)'])[0];  // Get the last update time
-        const lastClosePrice = data['Time Series (60min)'][lastUpdateTime]['4. close'];  // Get the last close price
+        // const lastUpdateTime = data.values[0].datetime;  // Get the last update time
+        const lastClosePrice = data.values[0].close;  // Get the last close price
         const assetValue = lastClosePrice * newAsset.units;
         portfolio.TotalValue = (portfolio.TotalValue || 0) + assetValue;
-     
+    
 
         await portfolio.save();
     }
@@ -98,6 +93,7 @@ router.post('/:userId/asset', async (req, res) => {
         res.status(500).json({message: "Server Error"});
     }
 });
+
 
 
 module.exports = router
