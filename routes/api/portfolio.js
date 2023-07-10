@@ -5,18 +5,14 @@ const User = require('../../models/user');
 const Asset = require('../../models/asset'); 
 const axios = require('axios');
 
-const fetchHistoricalData = async (symbol, interval, adjusted=true, extended_hours=true, month=null, outputsize='compact') => {
+const fetchHistoricalData = async (symbol, interval, outputsize='compact') => {
     const params = {
         function: 'TIME_SERIES_INTRADAY',
         symbol,
         interval,
-        adjusted,
-        extended_hours,
         outputsize,
-        apikey: process.env.API_KEY,
+        apikey: process.env.REACT_APP_API_KEY,
     };
-
-    if (month) params.month = month;
 
     try {
         const response = await axios.get('https://www.alphavantage.co/query', {params});
@@ -73,6 +69,7 @@ router.post('/:userId/asset', async (req, res) => {
         }
 
         const newAssetData = req.body;
+        console.log('New asset data:', newAssetData);
 
         // Create new asset
         const newAsset = new Asset(newAssetData);
@@ -83,13 +80,17 @@ router.post('/:userId/asset', async (req, res) => {
 
         // Calculate the value of the new asset and add it to the total value of the portfolio
         const data = await fetchHistoricalData(newAsset.ticker, '60min');
-        if(data) {
-        const assetValue = data[0].close * newAsset.units;
+        console.log("Data fetched: ", data)
+        if(data && data['Time Series (60min)']) {
+            // Parse the data based on the structure of AlphaVantage's API response
+        const lastUpdateTime = Object.keys(data['Time Series (60min)'])[0];  // Get the last update time
+        const lastClosePrice = data['Time Series (60min)'][lastUpdateTime]['4. close'];  // Get the last close price
+        const assetValue = lastClosePrice * newAsset.units;
         portfolio.TotalValue = (portfolio.TotalValue || 0) + assetValue;
-        }
+     
 
         await portfolio.save();
-
+    }
         // Send response
         res.json(portfolio);
     } catch (error) {

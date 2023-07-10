@@ -7,10 +7,10 @@ export async function fetchHistoricalData(symbol, interval, outputsize='compact'
                 symbol,
                 interval,
                 outputsize,
-                apikey: process.env.API_KEY,
+                apikey: process.env.REACT_APP_API_KEY,
             };
 
-            console.log(process.env.API_KEY);
+            console.log(process.env.REACT_APP_API_KEY);
     try {
         const response = await axios.get('https://www.alphavantage.co/query', {params});
         return response.data;
