@@ -22,10 +22,13 @@ export default function Dashboard({user}) {
     for (const asset of assets) {
       try {
         const data = await fetchHistoricalData(asset.ticker, '60min');
+        console.log('Data for', asset.ticker, ':', data);
       
         if (data) {
           // Check if data.values is an array. If it's not, convert it to an array.
-          const timeSeries = Array.isArray(data.values) ? data.values : [data.values];
+          const timeSeries = Array.isArray(data) ? data : [data];
+          console.log('Time series data for asset', asset.ticker, ':', timeSeries);
+  
       
           if (!timeSeries) {
             throw new Error('No time series data available');
@@ -33,9 +36,11 @@ export default function Dashboard({user}) {
       
           for (const pointData of timeSeries) {
             const closePrice = parseFloat(pointData.close);
+            const datetime = pointData.date;
             const assetValue = closePrice * asset.units;
-            assetData.get(asset.ticker).push({ datetime: pointData.datetime, value: assetValue });
-          }
+            console.log(`For asset ${asset.ticker} at time ${datetime}: closePrice is ${closePrice}, assetValue is ${assetValue}`);
+            assetData.get(asset.ticker).push({ datetime: datetime, value: assetValue });
+        }
         }
       } catch (error) {
         console.error('Error fetching and processing data for asset:', asset.ticker, error);
@@ -59,13 +64,14 @@ export default function Dashboard({user}) {
       for (const asset of assets) {
         const assetValues = assetData.get(asset.ticker);
         const assetAtTime = assetValues.find(a => a.datetime === timestamp);
+        console.log('Asset at time for asset', asset.ticker, 'at timestamp', timestamp, ':', assetAtTime);
         
         totalValueAtTimestamp += assetAtTime ? assetAtTime.value : 0;
       }
   
       assetValues.push({ datetime: timestamp, value: totalValueAtTimestamp });
     }
-  
+    console.log('Asset values:', assetValues);
     return assetValues;
   };
   
@@ -114,6 +120,7 @@ export default function Dashboard({user}) {
   }
 
   console.log(portfolio)
+  console.log("Historical data:", historicalData);
   return (
     <>
     <h1>Dashboard</h1>

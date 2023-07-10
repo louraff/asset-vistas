@@ -6,7 +6,10 @@ export async function fetchHistoricalData(symbol, range='1y') {
         console.log(process.env.REACT_APP_IEX_API_KEY)
     try {
         const response = await axios.get(url);
+        console.log('From historicalData-api.js response.data:', JSON.stringify(response.data, null, 2));
+
         return response.data;
+        
     } catch (err) {
         console.error('Failed to fetch historical data from API ', err);
         throw err;

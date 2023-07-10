@@ -12,6 +12,7 @@ export default function LineGraph({data}) {
     const svgRef = useRef();
 
     useEffect(() => {
+        console.log('Rendering graph with data:', data);
         if (data.length === 0) {
           return;
         }
@@ -19,16 +20,18 @@ export default function LineGraph({data}) {
         const svg = select(svgRef.current);
 
         const xScale = scaleTime()
-        .domain(extent(data, d => new Date(d.datetime)))
-        .range([margin.left, width - margin.right]);
+            .domain(extent(data, d => new Date(d.datetime)))
+            .range([margin.left, width - margin.right]);
 
-    const yScale = scaleLinear()
-        .domain(extent(data, d => d.close))
-        .range([height - margin.bottom, margin.top]);
+        const yScale = scaleLinear()
+            .domain(extent(data, d => d.value))
+            .range([height - margin.bottom, margin.top]);
+        
 
-    const lineGenerator = line()
-        .x(d => xScale(new Date(d.datetime)))
-        .y(d => yScale(d.close));
+        const lineGenerator = line()
+            .x(d => xScale(new Date(d.datetime)))
+            .y(d => yScale(d.value));
+        
 
     // Render the line
     svg
