@@ -1,0 +1,39 @@
+.suggestions-container {
+    border: 1px solid #aaa;
+    background-color: #fff;
+    position: absolute;
+    top: 7.5vmin;
+    width: 71vmin;
+    z-index: 2;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 1vmin;
+  }
+  
+  .suggestion-item {
+    padding: 0.5vmin;
+    list-style-type: none;
+    text-align: start;
+    padding-left: 0;
+    width: 100%;
+    color: white;
+  }
+  
+  .suggestion-item--highlighted {
+    background-color: #ddd;
+  }
+
+  .MuiDataGrid-cellContent {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+
+  .css-t89xny-MuiDataGrid-columnHeaderTitle {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: var(--unstable_DataGrid-headWeight);
+    color: white;
+      }

@@ -22,12 +22,12 @@ export default function Dashboard({user}) {
     for (const asset of assets) {
       try {
         const data = await fetchHistoricalData(asset.ticker, '1y');
-        console.log('Data for', asset.ticker, ':', data);
+        // console.log('Data for', asset.ticker, ':', data);
       
         if (data) {
           // Check if data.values is an array. If it's not, convert it to an array.
           const timeSeries = Array.isArray(data) ? data : [data];
-          console.log('Time series data for asset', asset.ticker, ':', timeSeries);
+          // console.log('Time series data for asset', asset.ticker, ':', timeSeries);
   
           if (!timeSeries) {
             throw new Error('No time series data available');
@@ -37,7 +37,7 @@ export default function Dashboard({user}) {
             const closePrice = parseFloat(pointData.close);
             const datetime = new Date(pointData.date).getTime(); // Convert the date to a UNIX timestamp
             const assetValue = closePrice * asset.units;
-            console.log(`For asset ${asset.ticker} at time ${datetime}: closePrice is ${closePrice}, assetValue is ${assetValue}`);
+            // console.log(`For asset ${asset.ticker} at time ${datetime}: closePrice is ${closePrice}, assetValue is ${assetValue}`);
             assetData.get(asset.ticker).push({ datetime: datetime, value: assetValue });
           }
         }
@@ -63,17 +63,20 @@ export default function Dashboard({user}) {
       for (const asset of assets) {
         const assetValues = assetData.get(asset.ticker);
         const assetAtTime = assetValues.find(a => a.datetime === timestamp);
-        console.log('Asset at time for asset', asset.ticker, 'at timestamp', timestamp, ':', assetAtTime);
+        // console.log('Asset at time for asset', asset.ticker, 'at timestamp', timestamp, ':', assetAtTime);
         
         totalValueAtTimestamp += assetAtTime ? assetAtTime.value : 0;
       }
   
       assetValues.push({ datetime: timestamp, value: totalValueAtTimestamp });
     }
-    console.log('Asset values:', assetValues);
+    // console.log('Asset values:', assetValues);
     return assetValues;
   };
   
+  useEffect(() => {
+    console.log("Sector Allocations:", sectorAllocations);
+  }, [sectorAllocations]);
 
   useEffect(() => {
     const userId = user._id;
@@ -87,9 +90,11 @@ export default function Dashboard({user}) {
 
           const sectorAllocation = res.data.assets.reduce((acc, asset) => {
             const sector = asset.sector;
-            acc[sector] = (acc[sector] || 0) + 1; // add one for each asset in a sector
+            acc[sector] = (acc[sector] || 0) + asset.units; // add one for each asset in a sector
             return acc;
           }, {});
+        console.log("Calculated Sector Allocations:", sectorAllocation); // Logging the calculated value
+
           setSectorAllocations(sectorAllocation);
 
           fetchAndCalculateAssetValues(res.data.assets)
@@ -97,9 +102,9 @@ export default function Dashboard({user}) {
               if(assetValues.length > 0) {
               const sortedData = assetValues.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
               setHistoricalData(sortedData);
-              console.log('Sorted historical data:', sortedData);
+              // console.log('Sorted historical data:', sortedData);
             } else {
-              console.error('No asset values to sort.');
+              // console.error('No asset values to sort.');
             }})
             .catch(err => {
               console.error('Error fetching historical data: ', err);
@@ -119,7 +124,7 @@ export default function Dashboard({user}) {
   }
 
   console.log(portfolio)
-  console.log("Historical data:", historicalData);
+  // console.log("Historical data:", historicalData);
   return (
     <>
     <h1>Dashboard</h1>

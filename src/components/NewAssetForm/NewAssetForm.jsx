@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import axios from 'axios';
 import Autosuggest from "react-autosuggest";
+import '../css/NewAssetForm.css'
 
 export default class NewAssetForm extends Component {
     state = {
@@ -72,7 +73,7 @@ export default class NewAssetForm extends Component {
     getTickerSuggestionValue = (suggestion) => suggestion['1. symbol'];
 
     renderTickerSuggestion = (suggestion) => (
-        <div key={suggestion['1. symbol']}>
+        <div key={suggestion['1. symbol']} className="suggestion-item">
         {`${suggestion['1. symbol']} - ${suggestion['2. name']}`}
       </div>
     );
@@ -86,11 +87,13 @@ export default class NewAssetForm extends Component {
       render() {
         const { ticker, tickerSuggestions } = this.state;
 
+
         // Autosuggest will pass through all these props to the input field.
     const tickerInputProps = {
         placeholder: "Type a ticker",
         value: ticker,
-        onChange: this.handleTickerChange
+        onChange: this.handleTickerChange,
+        className: "form-control"
       };
   
 
@@ -100,13 +103,18 @@ export default class NewAssetForm extends Component {
               <form autoComplete="off" onSubmit={this.handleSubmit}>
                 <label>Ticker</label>
                 <Autosuggest
-              suggestions={tickerSuggestions}
-              onSuggestionsFetchRequested={this.onTickerSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onTickerSuggestionsClearRequested}
-              getSuggestionValue={this.getTickerSuggestionValue}
-              renderSuggestion={this.renderTickerSuggestion}
-              inputProps={tickerInputProps}
-            />
+                    suggestions={tickerSuggestions}
+                    onSuggestionsFetchRequested={this.onTickerSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onTickerSuggestionsClearRequested}
+                    getSuggestionValue={this.getTickerSuggestionValue}
+                    renderSuggestion={this.renderTickerSuggestion}
+                    inputProps={tickerInputProps}
+                    theme={{
+                        suggestionsContainer: 'suggestions-container',
+                        suggestion: 'suggestion-item',
+                        suggestionHighlighted: 'suggestion-item--highlighted'
+                      }}                
+                />
 
                 <label>Units</label>
                 <input type="number" name="units" value={this.state.units} onChange={this.handleChange} required />

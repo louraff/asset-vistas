@@ -76,16 +76,18 @@ router.post('/:userId/asset', async (req, res) => {
         // Calculate the value of the new asset and add it to the total value of the portfolio
         const data = await fetchHistoricalData(newAsset.ticker, '1y');
         console.log("Data fetched: ", data)
-        if(data && data.values) {
-            // Parse the data based on the structure of AlphaVantage's API response
-        // const lastUpdateTime = data.values[0].datetime;  // Get the last update time
-        const lastClosePrice = data.values[0].close;  // Get the last close price
-        const assetValue = lastClosePrice * newAsset.units;
-        portfolio.TotalValue = (portfolio.TotalValue || 0) + assetValue;
-    
+        
+        if(data && data.length > 0) {
+            const lastClosePrice = data[0].close;  // Get the last close price
+            const assetValue = lastClosePrice * newAsset.units;
+            portfolio.TotalValue = (portfolio.TotalValue || 0) + assetValue;
 
-        await portfolio.save();
-    }
+            await portfolio.save();
+        }
+        else {
+            console.error('No historical data available for ticker: ', newAsset.ticker);
+        }
+
         // Send response
         res.json(portfolio);
     } catch (error) {
@@ -93,6 +95,85 @@ router.post('/:userId/asset', async (req, res) => {
         res.status(500).json({message: "Server Error"});
     }
 });
+
+router.put('/:userId/asset/:assetId', async (req, res) => {
+    try {
+        const {userId, assetId} = req.params;
+        const updatedAssetData = req.body;
+
+        // Find the user
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({message: "User not found"});
+        }
+
+        // Find the portfolio for the user using user's portfolio ID
+        const portfolio = await Portfolio.findById(user.portfolio);
+
+        if (!portfolio) {
+            return res.status(404).json({message: "Portfolio not found"});
+        }
+
+        const asset = portfolio.assets.id(assetId);
+
+        if (!asset) {
+            return res.status(404).json({message: "Asset not found"});
+        }
+
+        // Overwrite the asset data
+        Object.assign(asset, updatedAssetData);
+
+        await portfolio.save();
+
+        res.json(portfolio);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: "Server Error"});
+    }
+});
+
+router.delete('/:userId/asset/:assetId', async (req, res) => {
+    console.log(`Received DELETE request for asset ${req.params.assetId} for user ${req.params.userId}`); 
+
+    try {
+        const { userId, assetId } = req.params;
+
+        // Find the user first
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Find the portfolio for the user using user's portfolio ID
+        const portfolio = await Portfolio.findById(user.portfolio).populate('assets');
+
+        if (!portfolio) {
+            return res.status(404).json({ message: "Portfolio not found" });
+        }
+
+        // Find the asset index in the portfolio
+        const assetIndex = portfolio.assets.findIndex(asset => asset._id.toString() === assetId);
+
+        if (assetIndex === -1) {
+            return res.status(404).json({ message: "Asset not found" });
+        }
+
+        // Remove the asset from the portfolio and from the Asset collection
+        const asset = portfolio.assets[assetIndex];
+        portfolio.assets.splice(assetIndex, 1);
+        await Asset.findByIdAndRemove(asset._id);
+
+        await portfolio.save();
+
+        res.json(portfolio);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: "Server Error"});
+    }
+});
+
 
 
 

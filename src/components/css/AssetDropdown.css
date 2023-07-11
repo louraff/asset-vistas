@@ -1,0 +1,6 @@
+.my-dropdown .dropdown-menu.show {
+    position: fixed;
+    inset: 0px auto auto 0px;
+    transform: translate(320px, 53px);
+    z-index: 9999;
+}

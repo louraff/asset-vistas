@@ -21,11 +21,13 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--tan-4);
+  background-color: rgba(30,30,47,255);
   padding: 2vmin;
   height: 100vh;
 }
-
+h1 {
+  color: white;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -70,7 +72,7 @@ code {
   justify-content: space-around;
   align-items: center;
   background-color: var(--tan-1);
-  color: var(--text-dark);
+  color: var(--white);
   border: .1vmin solid var(--tan-3);
   border-radius: 1vmin;
   padding: .6vmin;
@@ -86,7 +88,7 @@ code {
 }
 
 p.error-message {
-  color: var(--orange);
+  color: var(--white);
   text-align: center;
 }
 
@@ -94,7 +96,7 @@ form {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1.25vmin;
-  color: var(--text-light);
+  color: white;
 }
 
 label {
@@ -108,7 +110,7 @@ input {
   font-size: 2vmin;
   border: .1vmin solid var(--tan-3);
   border-radius: .5vmin;
-  color: var(--text-dark);
+  color: var(--white);
   background-image: none !important; /* prevent lastpass */
   outline: none;
 }
