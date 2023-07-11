@@ -17,15 +17,20 @@ export default function LineGraph({data}) {
           return;
         }
 
-        const svg = select(svgRef.current);
+        const svg = select(svgRef.current)
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom);
+
+        const g = svg.append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
 
         const xScale = scaleTime()
             .domain(extent(data, d => new Date(d.datetime)))
-            .range([margin.left, width - margin.right]);
+            .range([0, width]);
 
         const yScale = scaleLinear()
             .domain(extent(data, d => d.value))
-            .range([height - margin.bottom, margin.top]);
+            .range([height, 0]);
         
 
         const lineGenerator = line()
@@ -34,7 +39,7 @@ export default function LineGraph({data}) {
         
 
     // Render the line
-    svg
+    g
         .selectAll(".line")
         .data([data]) // Line generator expects an array of arrays
         .join("path")
@@ -44,22 +49,25 @@ export default function LineGraph({data}) {
         .attr("stroke", "steelblue");
 
     // Render the axes
-    svg
-        .select(".x-axis")
-        .style("transform", `translateY(${height - margin.bottom}px)`)
+    g
+        .append("g")
+        .attr("class", "x-axis")
+        .attr("transform", `translate(0, ${height})`)
         .call(axisBottom(xScale));
 
-    svg
-        .select(".y-axis")
-        .style("transform", `translateX(${margin.left}px)`)
+    g
+        .append("g")
+        .attr("class", "y-axis")
         .call(axisLeft(yScale));
+
+    return () => {
+        svg.selectAll("*").remove();
+        };
 
 }, [data]);
 
 return (
-  <svg ref={svgRef} width="800" height="600">
-    <g className="x-axis" />
-    <g className="y-axis" />
-  </svg>
+    <svg ref={svgRef}>
+        </svg>
 );
 }

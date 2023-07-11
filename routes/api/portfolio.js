@@ -74,7 +74,7 @@ router.post('/:userId/asset', async (req, res) => {
         portfolio.assets.push(newAsset);
 
         // Calculate the value of the new asset and add it to the total value of the portfolio
-        const data = await fetchHistoricalData(newAsset.ticker, '60min');
+        const data = await fetchHistoricalData(newAsset.ticker, '1y');
         console.log("Data fetched: ", data)
         if(data && data.values) {
             // Parse the data based on the structure of AlphaVantage's API response

@@ -21,7 +21,7 @@ export default function Dashboard({user}) {
     
     for (const asset of assets) {
       try {
-        const data = await fetchHistoricalData(asset.ticker, '60min');
+        const data = await fetchHistoricalData(asset.ticker, '1y');
         console.log('Data for', asset.ticker, ':', data);
       
         if (data) {
@@ -29,18 +29,17 @@ export default function Dashboard({user}) {
           const timeSeries = Array.isArray(data) ? data : [data];
           console.log('Time series data for asset', asset.ticker, ':', timeSeries);
   
-      
           if (!timeSeries) {
             throw new Error('No time series data available');
           }
       
           for (const pointData of timeSeries) {
             const closePrice = parseFloat(pointData.close);
-            const datetime = pointData.date;
+            const datetime = new Date(pointData.date).getTime(); // Convert the date to a UNIX timestamp
             const assetValue = closePrice * asset.units;
             console.log(`For asset ${asset.ticker} at time ${datetime}: closePrice is ${closePrice}, assetValue is ${assetValue}`);
             assetData.get(asset.ticker).push({ datetime: datetime, value: assetValue });
-        }
+          }
         }
       } catch (error) {
         console.error('Error fetching and processing data for asset:', asset.ticker, error);

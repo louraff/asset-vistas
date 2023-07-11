@@ -38,15 +38,24 @@ export default class NewAssetForm extends Component {
       };
 
       getTickerSuggestions = async (value) => {
-        const response = await axios.get(`https://twelve-data1.p.rapidapi.com/symbol_search?q=${value}`, {
-            headers: {
-                'x-rapidapi-host': 'twelve-data1.p.rapidapi.com',
-                'x-rapidapi-key': process.env.REACT_APP_API_KEY
-            }
-        });
-    
-        this.setState({ tickerSuggestions: response.data.data.symbols });
-    };
+        try {
+          const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${value}&apikey=${process.env.REACT_APP_ALPHA_API_KEY}`, {
+              headers: {
+                //   'User-Agent': 'request'
+              }
+          });
+          
+          if (response.data && response.data['bestMatches']) {
+            this.setState({ tickerSuggestions: response.data['bestMatches'] });
+        } else {
+            this.setState({ tickerSuggestions: [] });
+        }
+    } catch (error) {
+        console.log('Ticker API error:', error);
+        this.setState({ tickerSuggestions: [] });
+    }
+};
+      
 
     // Autosuggest will call this function every time you need to update suggestions.
     onTickerSuggestionsFetchRequested = ({ value }) => {
@@ -60,12 +69,12 @@ export default class NewAssetForm extends Component {
         });
     }; 
         // When suggestion is clicked, Autosuggest needs to populate the input field based on the clicked suggestion.
-    getTickerSuggestionValue = (suggestion) => suggestion;
+    getTickerSuggestionValue = (suggestion) => suggestion['1. symbol'];
 
     renderTickerSuggestion = (suggestion) => (
-        <div>
-          {suggestion}
-        </div>
+        <div key={suggestion['1. symbol']}>
+        {`${suggestion['1. symbol']} - ${suggestion['2. name']}`}
+      </div>
     );
     
     handleTickerChange = (event, { newValue }) => {
