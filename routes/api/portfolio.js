@@ -69,6 +69,7 @@ router.post('/:userId/asset', async (req, res) => {
         // Create new asset
         const newAsset = new Asset(newAssetData);
         await newAsset.save();
+        console.log('New asset created:', newAsset);
 
         // Add asset to portfolio and save
         portfolio.assets.push(newAsset);
@@ -98,35 +99,17 @@ router.post('/:userId/asset', async (req, res) => {
 
 router.put('/:userId/asset/:assetId', async (req, res) => {
     try {
-        const {userId, assetId} = req.params;
+        const { userId, assetId } = req.params;
         const updatedAssetData = req.body;
 
-        // Find the user
-        const user = await User.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({message: "User not found"});
-        }
-
-        // Find the portfolio for the user using user's portfolio ID
-        const portfolio = await Portfolio.findById(user.portfolio);
-
-        if (!portfolio) {
-            return res.status(404).json({message: "Portfolio not found"});
-        }
-
-        const asset = portfolio.assets.id(assetId);
+        // Find the asset directly and update it
+        const asset = await Asset.findByIdAndUpdate(assetId, updatedAssetData, { new: true });
 
         if (!asset) {
             return res.status(404).json({message: "Asset not found"});
         }
 
-        // Overwrite the asset data
-        Object.assign(asset, updatedAssetData);
-
-        await portfolio.save();
-
-        res.json(portfolio);
+        res.json(asset);
     } catch (error) {
         console.error(error);
         res.status(500).json({message: "Server Error"});
