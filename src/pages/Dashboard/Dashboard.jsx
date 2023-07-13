@@ -3,6 +3,7 @@ import axios from "axios";
 // import LineGraph from "../../Visuals/LineGraph";
 import PieChart from "../../Visuals/PieChart";
 import LineGraph from "../../Visuals/LineGraph";
+import Card from "../../components/Card/Card";
 import { fetchHistoricalData } from "../../utilities/historicalData-api";
 
 export default function Dashboard({user}) {
@@ -118,6 +119,95 @@ export default function Dashboard({user}) {
   }, []);
 
 
+  async function highestValue() {
+    const assets = portfolio.assets;
+    let highestValuedAsset;
+    let highestValue = 0;
+
+    for (const asset of assets) {
+        try {
+            const data = await fetchHistoricalData(asset.ticker);
+            if (data && data.length > 0) {
+                const latestData = data[data.length -1];
+                const closePrice = parseFloat(latestData.close);
+                const assetValue = asset.units * closePrice;
+
+                if (assetValue > highestValue) {
+                    highestValue = assetValue;
+                    highestValuedAsset = asset;
+                }
+            }
+        } catch (error) {
+                console.error('Error calculating highest valued asset:', asset.ticker, error);
+            }
+        }
+    return Promise.resolve(highestValuedAsset);
+}
+
+async function highestGrowth() {
+    const assets = portfolio.assets;
+    let highestGrowth = 0;
+    let highestGrowthAsset = null;
+
+    for (const asset of assets) {
+        try {
+            const data = await fetchHistoricalData(asset.ticker);
+            if (data && data.length > 1) {
+                const initialData = data[0];
+                const latestData = data[data.length - 1];
+                const initialClosePrice = parseFloat(initialData.close);
+                const latestClosePrice = parseFloat(latestData.close);
+                const growth = ((latestClosePrice - initialClosePrice) / initialClosePrice) * 100;
+
+                if (growth > highestGrowth) {
+                    highestGrowth = growth;
+                    highestGrowthAsset = asset;
+                }
+            }
+        } catch (error) {
+            console.error('Error calculating highest growth asset:', asset.ticker, error);
+        }
+    }
+
+    return Promise.resolve(highestGrowthAsset);
+}
+
+
+async function highestLoss() {
+    const assets = portfolio.assets;
+    let highestLoss = 0;
+    let highestLossAsset = null;
+
+    for (const asset of assets) {
+        try {
+            const data = await fetchHistoricalData(asset.ticker);
+            if (data && data.length > 1) {
+                const initialData = data[0];
+                const latestData = data[data.length - 1];
+                const initialClosePrice = parseFloat(initialData.close);
+                const latestClosePrice = parseFloat(latestData.close);
+                const loss = ((initialClosePrice - latestClosePrice) / initialClosePrice) * 100;
+
+                if (loss > highestLoss) {
+                    highestLoss = loss;
+                    highestLossAsset = asset;
+                }
+            }
+        } catch (error) {
+            console.error('Error calculating highest loss asset:', asset.ticker, error);
+        }
+    }
+
+    return Promise.resolve(highestLossAsset);
+}
+
+
+
+function assetCount() {
+    return portfolio.assets.length;
+}
+
+
   // If portfolio data is still loading, display this loading message
   if (!portfolio) {
     return <p>Grabbing your portfolio now...</p>
@@ -131,6 +221,12 @@ export default function Dashboard({user}) {
     <PieChart data={sectorAllocations} />
     <h2>{user.name}'s Portfolio</h2>
     <LineGraph data={historicalData} />
+    <div className="card-container">
+      <Card header="Highest Value Asset" calculate={highestValue} portfolio={portfolio} />
+      <Card header="Asset with Highest Growth" calculate={highestGrowth} portfolio={portfolio} />
+      <Card header="Asset with Highest Loss" calculate={highestLoss} portfolio={portfolio} />
+      <Card header="Total Number of Assets" calculate={assetCount} portfolio={portfolio} />
+    </div>
     <h1>{portfolio.TotalValue}</h1>
     {/* <LineChart data={historicalData.map(point => point.value)} labels={historicalData.map(point => new Date(point.datetime))} /> */}
     {portfolio.assets.map(asset => (
