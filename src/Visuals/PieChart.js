@@ -18,7 +18,7 @@ export default function PieChart({data, width=500, height=500, user, portfolio, 
         const pie = d3.pie().value(d => d[1]);
         const data_ready = pie(Object.entries(data));
 
-        const arcGenerator = d3.arc().innerRadius(0).outerRadius(width / 2);
+        const arcGenerator = d3.arc().innerRadius(width/4).outerRadius(width / 2);
 
         svg.selectAll('mySlices')
             .data(data_ready)

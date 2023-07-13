@@ -230,7 +230,7 @@ const calculateNumberOfAssets = (assets) => {
   return (
     <>
     <h1>Dashboard</h1>
-    <PieChart data={sectorAllocations} />
+    
     <h2>{user.name}'s Portfolio</h2>
     <LineGraph data={historicalData} />
 
@@ -250,6 +250,7 @@ const calculateNumberOfAssets = (assets) => {
     <TotalAssetsCard 
       numAssets={numAssets}
      />
+     <PieChart data={sectorAllocations} />
 
     <h1>{portfolio.TotalValue}</h1>
     {/* <LineChart data={historicalData.map(point => point.value)} labels={historicalData.map(point => new Date(point.datetime))} /> */}
