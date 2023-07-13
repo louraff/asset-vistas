@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
+import HighestGrowthAssetCard from "../../components/Cards/HighestGrowthAssetCard";
+import HighestLossAssetCard from "../../components/Cards/HighestLossAssetCard";
+import HighestValueAssetCard from "../../components/Cards/HighestValueAssetCard";
+import TotalAssetsCard from "../../components/Cards/TotalAssetsCard";
 import axios from "axios";
 // import LineGraph from "../../Visuals/LineGraph";
 import PieChart from "../../Visuals/PieChart";
 import LineGraph from "../../Visuals/LineGraph";
 import { fetchHistoricalData } from "../../utilities/historicalData-api";
 
+
 export default function Dashboard({user}) {
   const [portfolio, setPortfolio] = useState(null);
   const [historicalData, setHistoricalData] = useState([]);
   const [sectorAllocations, setSectorAllocations] = useState(null)
+  const [highestValueAsset, setHighestValueAsset] = useState({});
+  const [highestGrowthAsset, setHighestGrowthAsset] = useState({});
+  const [highestLossAsset, setHighestLossAsset] = useState({});
+  const [numAssets, setNumAssets] = useState(0);
+  
+
 
   const fetchAndCalculateAssetValues = async (assets) => {
     const assetValues = [];
@@ -22,24 +33,21 @@ export default function Dashboard({user}) {
     for (const asset of assets) {
       try {
         const data = await fetchHistoricalData(asset.ticker, '1y');
-        // console.log('Data for', asset.ticker, ':', data);
-      
+    
         if (data) {
-          // Check if data.values is an array. If it's not, convert it to an array.
           const timeSeries = Array.isArray(data) ? data : [data];
-          // console.log('Time series data for asset', asset.ticker, ':', timeSeries);
-  
-          if (!timeSeries) {
-            throw new Error('No time series data available');
-          }
-      
+          
           for (const pointData of timeSeries) {
             const closePrice = parseFloat(pointData.close);
-            const datetime = new Date(pointData.date).getTime(); // Convert the date to a UNIX timestamp
+            const datetime = new Date(pointData.date).getTime();
+            // const assetValue = closePrice * asset.units; 
+    
             const assetValue = closePrice * asset.units;
-            // console.log(`For asset ${asset.ticker} at time ${datetime}: closePrice is ${closePrice}, assetValue is ${assetValue}`);
             assetData.get(asset.ticker).push({ datetime: datetime, value: assetValue });
           }
+    
+          // Attach the fetched data back to the asset
+          asset.historicalData = assetData.get(asset.ticker);
         }
       } catch (error) {
         console.error('Error fetching and processing data for asset:', asset.ticker, error);
@@ -73,49 +81,143 @@ export default function Dashboard({user}) {
     // console.log('Asset values:', assetValues);
     return assetValues;
   };
-  
+
+// In the calculateHighestValueAsset function
+const calculateHighestValueAsset = (assets) => {
+  if (!assets || assets.length === 0) {
+    return {};
+  }
+
+  let highestValueAsset = assets[0];
+
+  highestValueAsset.totalValue = Array.isArray(highestValueAsset.historicalData)
+    ? highestValueAsset.historicalData[highestValueAsset.historicalData.length - 1].value
+    : 0;
+
+  for (let i = 1; i < assets.length; i++) {
+    let asset = assets[i];
+
+    if (Array.isArray(asset.historicalData)) {
+      asset.totalValue = asset.historicalData[asset.historicalData.length - 1].value;
+
+      if (asset.totalValue > highestValueAsset.totalValue) {
+        highestValueAsset = asset;
+      }
+    }
+  }
+
+  return highestValueAsset;
+};
+
+const calculateAssetChange = (asset) => {
+  if (!asset.historicalData || asset.historicalData.length === 0) {
+    return 0;
+  }
+
+  let firstValue = asset.historicalData[0].value;
+  let lastValue = asset.historicalData[asset.historicalData.length - 1].value;
+
+  let change = lastValue - firstValue;
+
+  return change;
+};
+
+const calculateHighestGrowthAsset = (assets) => {
+  if (!assets || assets.length === 0) {
+    return {};
+  }
+
+  let highestGrowthAsset = assets[0];
+  let highestGrowthValue = calculateAssetChange(highestGrowthAsset);
+
+  for (let i = 1; i < assets.length; i++) {
+    let assetGrowthValue = calculateAssetChange(assets[i]);
+    if (assetGrowthValue > highestGrowthValue) {
+      highestGrowthAsset = assets[i];
+      highestGrowthValue = assetGrowthValue;
+    }
+  }
+
+  return { asset: highestGrowthAsset, totalValue: highestGrowthValue };
+};
+
+const calculateHighestLossAsset = (assets) => {
+  if (!assets || assets.length === 0) {
+    return {};
+  }
+
+  let highestLossAsset = assets[0];
+  let highestLossValue = calculateAssetChange(highestLossAsset);
+
+  for (let i = 1; i < assets.length; i++) {
+    let assetLossValue = calculateAssetChange(assets[i]);
+    if (assetLossValue < highestLossValue) {
+      highestLossAsset = assets[i];
+      highestLossValue = assetLossValue;
+    }
+  }
+
+  return { asset: highestLossAsset, totalValue: highestLossValue };
+};
+
+
+
+// Function to calculate the number of assets
+const calculateNumberOfAssets = (assets) => {
+  return assets ? assets.length : 0;
+};
+
   useEffect(() => {
     console.log("Sector Allocations:", sectorAllocations);
   }, [sectorAllocations]);
 
   useEffect(() => {
     const userId = user._id;
-
+  
     axios
       .get(`/api/portfolio/${userId}`)
-      .then((res) => {
+      .then(async (res) => {
         // check if res.data exists and it contains the assets property
         if (res.data && res.data.assets) {
           setPortfolio(res.data);
-
+  
           const sectorAllocation = res.data.assets.reduce((acc, asset) => {
             const sector = asset.sector;
             acc[sector] = (acc[sector] || 0) + asset.units; // add one for each asset in a sector
             return acc;
           }, {});
-        console.log("Calculated Sector Allocations:", sectorAllocation); // Logging the calculated value
-
+          console.log("Calculated Sector Allocations:", sectorAllocation); // Logging the calculated value
+  
           setSectorAllocations(sectorAllocation);
-
-          fetchAndCalculateAssetValues(res.data.assets)
+  
+          await fetchAndCalculateAssetValues(res.data.assets)
             .then(assetValues => {
               if(assetValues.length > 0) {
-              const sortedData = assetValues.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
-              setHistoricalData(sortedData);
-              // console.log('Sorted historical data:', sortedData);
-            } else {
-              // console.error('No asset values to sort.');
-            }})
-            .catch(err => {
-              console.error('Error fetching historical data: ', err);
-              throw err; // rethrow the error
-            });
+                const sortedData = assetValues.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+                setHistoricalData(sortedData);
+                // console.log('Sorted historical data:', sortedData);
+                
+                // Calculate highest value, growth and loss assets after historical data has been fetched and calculated.
+                if (res.data.assets && res.data.assets.length > 0) {
+                  setHighestValueAsset(calculateHighestValueAsset(res.data.assets));
+                  setNumAssets(calculateNumberOfAssets(res.data.assets));
+                  setHighestLossAsset(calculateHighestLossAsset(res.data.assets));
+                  setHighestGrowthAsset(calculateHighestGrowthAsset(res.data.assets));
+                }
+              } else {
+                // console.error('No asset values to sort.');
+              }}).catch(err => {
+                console.error('Error fetching historical data: ', err);
+                throw err; // rethrow the error
+              });
         }
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
   }, []);
+  
+  
 
 
   // If portfolio data is still loading, display this loading message
@@ -131,6 +233,24 @@ export default function Dashboard({user}) {
     <PieChart data={sectorAllocations} />
     <h2>{user.name}'s Portfolio</h2>
     <LineGraph data={historicalData} />
+
+    <HighestValueAssetCard 
+      ticker={highestValueAsset ? highestValueAsset.ticker : 'Loading...'}
+      value={highestValueAsset ? highestValueAsset.totalValue : 'Loading...'}
+    />
+    <HighestLossAssetCard 
+      ticker={highestLossAsset && highestLossAsset.asset ? highestLossAsset.asset.ticker : 'Loading...'}
+      value={highestLossAsset ? highestLossAsset.totalValue : 'Loading...'}
+    />
+    <HighestGrowthAssetCard 
+      ticker={highestGrowthAsset && highestGrowthAsset.asset ? highestGrowthAsset.asset.ticker : 'Loading...'}
+      value={highestGrowthAsset ? highestGrowthAsset.totalValue : 'Loading...'}
+    />
+
+    <TotalAssetsCard 
+      numAssets={numAssets}
+     />
+
     <h1>{portfolio.TotalValue}</h1>
     {/* <LineChart data={historicalData.map(point => point.value)} labels={historicalData.map(point => new Date(point.datetime))} /> */}
     {portfolio.assets.map(asset => (
