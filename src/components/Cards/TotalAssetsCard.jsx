@@ -1,5 +1,3 @@
-
-
   import "../css/Cards.css"
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
   import { faGlobe } from '@fortawesome/free-solid-svg-icons'
@@ -17,7 +15,7 @@
           </div>
         </div>
         <hr className="divider"/>
-        <div className="row">
+        <div className="roww">
           <h2 className="card-title">Total Asset Number</h2>
         </div>
       </div>

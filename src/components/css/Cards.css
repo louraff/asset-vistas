@@ -10,14 +10,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 11vmin;
+    max-height: 12vmin;
     border-radius: 0.5vmin;
 }
 
-.roww {
-    display: flex;
-    /* flex-direction: column; */
-}
+
 
 .asset-icon {
     height: 3vmin;
@@ -27,7 +24,7 @@
 .asset-icon.growth {
     height: 3vmin;
     width: 3vmin;
-    
+
 }
 
 .col-icon {
@@ -49,13 +46,18 @@
     margin-top: 1vmin;
   }
 
-.roww > .divider {
-    margin: 1rem 1rem;
+.asset-card .divider {
+    margin: 1rem 1rem !important;
     color: inherit;
     border: 0;
     border-top: var(--bs-border-width) solid;
     opacity: .25;
     margin-top: 0.2vmin;
+}
+
+.roww {
+    display: flex;
+    /* flex-direction: column; */
 }
 
 .ticker {
@@ -91,8 +93,7 @@ h2.card-title {
     line-height: 1.2;
     font-weight: 200;
     color: hsla(0,0%,100%,.6);
-    margin-bottom: 1.2vmin;
-    margin-left: 1vmin;
+    padding-bottom: 1vmin !important;    margin-left: 1vmin !important;
 }
 
 .asset-card-body {
