@@ -276,8 +276,9 @@ const calculateNumberOfAssets = (assets) => {
      </div>
 
      <div className="donut">
-      <PieChart data={sectorAllocations} />
-     </div>
+  <h3 className="donut">Sector Allocation Overview</h3>
+  <PieChart data={sectorAllocations} />
+</div>
 
      <div className="asset-table">
       <AssetTable />

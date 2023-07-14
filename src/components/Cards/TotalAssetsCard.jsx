@@ -16,7 +16,7 @@
         </div>
         <hr className="divider"/>
         <div className="roww">
-          <h2 className="card-title">Total Asset Number</h2>
+          <h2 className="card-title">Total Assets</h2>
         </div>
       </div>
     );

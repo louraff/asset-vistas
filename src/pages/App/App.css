@@ -1,46 +1,3 @@
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-.total-body {
-  min-height: 100vh;
-} */
 
 .App {
   display: flex;
@@ -88,6 +45,16 @@ h1,
   font-weight: 100;
 }
 
+h3.donut {
+  font-size: 0.9rem;
+  margin-top: -0.5vmin;
+  line-height: 1.2;
+  font-weight: 200;
+  color: hsla(0,0%,100%,.6);
+  padding-bottom: 1vmin;
+  margin-left: -0.3vmin;
+}
+
 @media screen and (max-width: 768px) {
   .navbar {
     flex-basis: 100px; /* reduce width of the navbar on smaller screens */
@@ -107,6 +74,15 @@ h1,
 
 .donut, .asset-table {
   padding: 1rem;
+}
+
+.donut {
+  padding: 1vmin;
+  background: #27293d;
+  border-radius: 0.5vmin;
+  margin-left: 1.2vmin;
+  margin-top: -2vmin;
+  width: 79.5%;
 }
 
 .line-graph, .cards {
@@ -129,12 +105,13 @@ h1,
   justify-content: space-between;
   gap: 1rem;
   margin-right: 2vmin;
-  width: 95.5%;
+  width: 94%;
 
 }
 
 .asset-table {
   grid-row: 5;
+  margin-top: 10vmin;
 }
 
 

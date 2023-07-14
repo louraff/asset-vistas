@@ -1,0 +1,17 @@
+.tooltip {
+    position: absolute;
+    text-align: start;
+    width: 11vmin;
+    height: 8vmin;
+    padding: 1vmin;
+    font: 0.75rem, 'Poppins', sans-serif;
+    background: #fff;
+    border: 0px;
+    border-radius: 0.5vmin;
+    pointer-events: none;
+}
+
+.actual-donut {
+    margin-bottom: 1vmin;
+    margin-left: 1vmin;
+}

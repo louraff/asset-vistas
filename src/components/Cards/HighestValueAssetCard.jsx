@@ -16,7 +16,7 @@ export default function HighestGrowthAssetCard({ ticker, value }) {
       </div>
       <hr className="divider"/>
       <div className="roww">
-        <h2 className="card-title">Highest Value</h2>
+        <h2 className="card-title">Highest Valued Asset</h2>
       </div>
     </div>
   );
