@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import * as d3 from 'd3';
 
-export default function PieChart({data, width=500, height=500, user, portfolio, setPortfolio}) {
+export default function PieChart({data, width=200, height=200, user, portfolio, setPortfolio}) {
     const ref = useRef();
 
     useEffect(() => {

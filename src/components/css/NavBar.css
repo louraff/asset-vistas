@@ -1,0 +1,32 @@
+#sidebar {
+    width: 20%; 
+    height: 95vh;
+    color: white;
+    border-radius: 1vmin !important;
+
+  }
+  
+.sc-JrDLc.hMzbYH.pro-sidebar,
+#sidebar-corners,
+.gaTCvF {
+    border-radius: 1vmin !important;
+    color: white;
+    height: 95vh;
+}
+
+.sc-fjvvzt,
+.bBCvMk,
+.sc-bbSZdi,
+.eETGfq {
+  background: linear-gradient(to bottom, #1d8af8, #3358f4);
+    border-radius: 1vmin !important;
+}
+
+#sidebar-wrapper {
+  border-radius: 1vmin !important;
+  overflow: hidden;
+}
+
+.fa-bars:before {
+  margin-right: 0.7vmin;
+}

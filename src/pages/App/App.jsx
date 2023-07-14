@@ -1,5 +1,6 @@
 // Assets
 import './App.css';
+import '../../components/css/Dashboard.css'
 
 // React Components
 import { useState } from 'react'
@@ -24,8 +25,10 @@ export default function App() {
     <main className="App">
       {
         user ?
-        <>
+        <div className='total-body'>
+        <div className="navbar">
           <NavBar user={user} setUser={setUser} />
+          </div>
           {/* // Routes is sitting inside this ternary so that the AuthPage is always rendered when a user state is null, no matter what the path is. When user has a value, it will render the relevant Route */}
           <Routes>
             <Route path="/assets" element={<MyAssets user={user}/>}/>
@@ -33,7 +36,7 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard user={user}/>} />
           </Routes>
-          </>
+          </div>
         :
         <AuthPage setUser={setUser}/>
       }

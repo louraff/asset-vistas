@@ -7,7 +7,10 @@ import axios from "axios";
 // import LineGraph from "../../Visuals/LineGraph";
 import PieChart from "../../Visuals/PieChart";
 import LineGraph from "../../Visuals/LineGraph";
+import AssetTable from "../../components/AssetTable/AssetTable";
 import { fetchHistoricalData } from "../../utilities/historicalData-api";
+import "../../components/css/Dashboard.css"
+import "../App/App.css"
 
 
 export default function Dashboard({user}) {
@@ -228,39 +231,58 @@ const calculateNumberOfAssets = (assets) => {
   console.log(portfolio)
   // console.log("Historical data:", historicalData);
   return (
-    <>
-    <h1>Dashboard</h1>
+    <div className="main-content">
     
-    <h2>{user.name}'s Portfolio</h2>
-    <LineGraph data={historicalData} />
+    <div className="row">
+    <div className="col-12">
+    <div className="card-chart cardd">
+    <div className="card-header">
+    <div className="rowy">
+    <div className="text-left col-sm-6">   
+    <h5 className="card-categoryy">Total Portfolio Value</h5>
+    <h2 className="card-title">{portfolio.TotalValue}</h2>
+  </div>
+  <div className="card-body">
+  <div className="chart-area">
+  <LineGraph data={historicalData} />
+  </div>
+  </div>
+  </div>
+ 
+  </div>
+  </div>
 
-    <HighestValueAssetCard 
-      ticker={highestValueAsset ? highestValueAsset.ticker : 'Loading...'}
-      value={highestValueAsset ? highestValueAsset.totalValue : 'Loading...'}
-    />
-    <HighestLossAssetCard 
-      ticker={highestLossAsset && highestLossAsset.asset ? highestLossAsset.asset.ticker : 'Loading...'}
-      value={highestLossAsset ? highestLossAsset.totalValue : 'Loading...'}
-    />
-    <HighestGrowthAssetCard 
-      ticker={highestGrowthAsset && highestGrowthAsset.asset ? highestGrowthAsset.asset.ticker : 'Loading...'}
-      value={highestGrowthAsset ? highestGrowthAsset.totalValue : 'Loading...'}
-    />
+</div>
+</div>
+  
 
-    <TotalAssetsCard 
-      numAssets={numAssets}
-     />
-     <PieChart data={sectorAllocations} />
+    <div className="cards">
+      <HighestValueAssetCard 
+        ticker={highestValueAsset ? highestValueAsset.ticker : 'Loading...'}
+        value={highestValueAsset ? highestValueAsset.totalValue : 'Loading...'}
+      />
+      <HighestLossAssetCard 
+        ticker={highestLossAsset && highestLossAsset.asset ? highestLossAsset.asset.ticker : 'Loading...'}
+        value={highestLossAsset ? highestLossAsset.totalValue : 'Loading...'}
+      />
+      <HighestGrowthAssetCard 
+        ticker={highestGrowthAsset && highestGrowthAsset.asset ? highestGrowthAsset.asset.ticker : 'Loading...'}
+        value={highestGrowthAsset ? highestGrowthAsset.totalValue : 'Loading...'}
+      />
 
-    <h1>{portfolio.TotalValue}</h1>
-    {/* <LineChart data={historicalData.map(point => point.value)} labels={historicalData.map(point => new Date(point.datetime))} /> */}
-    {portfolio.assets.map(asset => (
-      <div key={asset._id}>
-      <h3>{asset.ticker}</h3>
-      <p>Units: {asset.units}</p>
-      <p>Sector: {asset.sector}</p>
-      </div>
-    ))}
-    </>
-  )
-}
+      <TotalAssetsCard 
+        numAssets={numAssets}
+      />
+     </div>
+
+     <div className="donut">
+      <PieChart data={sectorAllocations} />
+     </div>
+
+     <div className="asset-table">
+      <AssetTable />
+     </div>
+    </div>
+    )
+  }
+    

@@ -1,27 +1,49 @@
-import React, {useState, useRef, useEffect} from "react";
-import { scaleTime, scaleLinear, line, axisBottom, axisLeft, extent, select } from 'd3';
+import React, { useState, useEffect, useRef } from "react";
+import { select, scaleLinear, scaleTime, axisBottom, axisLeft, line, extent } from 'd3';
+import * as d3 from 'd3';
+import '../components/css/LineGraph.css'
 
-// Basic chart with variables
+const margin = { top: 40, right: 80, bottom: 60, left: 60 };
 
-const margin = { top: 40, right:80, bottom:60, left:50},
-    width = 960 - margin.left - margin.right,
-    height = 280 - margin.top - margin.bottom,
-    color = "DarkPurple";
-
-export default function LineGraph({data}) {
+export default function LineGraph({ data }) {
     const svgRef = useRef();
+    const wrapperRef = useRef();
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+    // Set dimensions to wrapper's client width and height
+    useEffect(() => {
+        const currentWrapperRef = wrapperRef.current;
+        const resizeObserver = new ResizeObserver(entries => {
+            entries.forEach(entry => {
+                setDimensions({
+                    width: entry.contentRect.width,
+                    height: entry.contentRect.height,
+                });
+            });
+        });
+
+        resizeObserver.observe(currentWrapperRef);
+
+        return () => {
+            resizeObserver.unobserve(currentWrapperRef);
+        };
+    }, []);
 
     useEffect(() => {
-        console.log('Rendering graph with data:', data);
-        if (data.length === 0) {
-          return;
+        if (!dimensions.width || !dimensions.height) {
+            return;
         }
 
-        const svg = select(svgRef.current)
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom);
+        const width = dimensions.width - margin.left - margin.right;
+        const height = dimensions.height - margin.top - margin.bottom;
 
-        const g = svg.append('g')
+        const svg = select(svgRef.current)
+            .attr('width', dimensions.width)
+            .attr('height', dimensions.height);
+
+        const g = svg.selectAll('g')
+            .data([null]) // Pass a dummy dataset of one element
+            .join('g')
             .attr('transform', `translate(${margin.left},${margin.top})`);
 
         const xScale = scaleTime()
@@ -31,43 +53,136 @@ export default function LineGraph({data}) {
         const yScale = scaleLinear()
             .domain(extent(data, d => d.value))
             .range([height, 0]);
-        
 
         const lineGenerator = line()
             .x(d => xScale(new Date(d.datetime)))
             .y(d => yScale(d.value));
-        
 
-    // Render the line
-    g
-        .selectAll(".line")
-        .data([data]) // Line generator expects an array of arrays
-        .join("path")
-        .attr("class", "line")
-        .attr("d", lineGenerator)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue");
+        const xAxis = axisBottom(xScale)
+            .ticks(12) // set the number of ticks
+            .tickFormat(d3.timeFormat("%b")); // format the date
 
-    // Render the axes
-    g
-        .append("g")
-        .attr("class", "x-axis")
-        .attr("transform", `translate(0, ${height})`)
-        .call(axisBottom(xScale));
+        const yAxis = axisLeft(yScale)
+            .ticks(8); // set the number of ticks
 
-    g
-        .append("g")
-        .attr("class", "y-axis")
-        .call(axisLeft(yScale));
+        const tooltip = d3.select("body").append("div")
+            .style("position", "absolute")
+            .style("visibility", "hidden")
+            .style("background", "#fff")
+            .style("padding", "5px")
+            .style("border", "1px solid #000")
+            .style("border-radius", "5px")
+            .style("font-family", "poppins, sans-serif")
+            .style("font-size", ".875rem");
 
-    return () => {
-        svg.selectAll("*").remove();
-        };
+        const bisectDate = d3.bisector(d => new Date(d.datetime)).left;
 
-}, [data]);
+        const circles = g.selectAll(".circle")
+            .data(data)
+            .join("circle")
+            .attr("class", "circle")
+            .attr("cx", d => xScale(new Date(d.datetime)))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 4)
+            .style("opacity", 0)
+            .style("fill", "#1f8ef1");
 
-return (
-    <svg ref={svgRef}>
-        </svg>
-);
+        g
+            .selectAll(".line")
+            .data([data]) // Line generator expects an array of arrays
+            .join("path")
+            .attr("class", "line")
+            .attr("d", lineGenerator)
+            .attr("fill", "none")
+            .attr("stroke", "#1f8ef1")
+            .style("filter", "url(#shadow)")
+            // .on("mouseover", (event, d) => {  // d is the datum
+            //     // show the tooltip
+            //     const [x, y] = d3.pointer(event);  // get the x and y coordinates of the cursor
+            //     const date = xScale.invert(x - margin.left);  // convert x coordinate to date
+            //     const value = d.find(item => item && new Date(item.datetime).getTime() === date.getTime())?.value;
+            //     // find the value corresponding to the date
+            //     tooltip.style("visibility", "visible").text(value);  // set the text of the tooltip
+            // })
+            // .on("mousemove", event => {
+            //     // move the tooltip with the cursor
+            //     const [x, y] = d3.pointer(event);
+            //     tooltip.style("top", (y + 20) + "px").style("left", (x + 20) + "px");
+            // })
+            // .on("mouseout", () => {
+            //     // hide the tooltip
+            //     tooltip.style("visibility", "hidden");
+            // });
+
+        g.selectAll('.x-axis')
+            .data([null]) // Pass a dummy dataset of one element
+            .join('g')
+            .attr("class", "x-axis")
+            .attr("transform", `translate(0, ${height})`)
+            .call(xAxis)
+            .call(g => g.selectAll(".tick line") // select all the tick lines
+                .clone() // clone them
+                .attr("y2", -height) // extend them to the top of the graph
+                .attr("stroke-opacity", 0.1) // make them slightly transparent
+                .attr("stroke", "pink")
+            )
+            .call(g => g.select(".domain").remove()); // remove the domain line
+
+
+        g.selectAll('.y-axis')
+            .data([null]) // Pass a dummy dataset of one element
+            .join('g')
+            .attr("class", "y-axis")
+            .call(yAxis)
+            .call(g => g.select(".domain").remove()) // remove the domain line
+            .call(g => g.selectAll(".tick line").remove()); // remove all the tick lines
+
+        // Append a transparent react to catch mouse events
+        g.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .style("fill", "none")
+        .style("pointer-events", "all")
+        .on("mouseover", () => {
+            circles.style("opacity", 1);
+            tooltip.style("visibility", "visible");
+        })
+        .on("mousemove", (event) => {
+            const [x] = d3.pointer(event);  
+            let date = xScale.invert(x - margin.left);
+            let index = bisectDate(data, date, 1);
+            let d0 = data[index - 1];
+            let d1 = data[index];
+            let d = date - new Date(d0.datetime) > new Date(d1.datetime) - date ? d1 : d0;
+            circles.attr("cx", xScale(new Date(d.datetime))).attr("cy", yScale(d.value));
+            tooltip
+                .style("top", (yScale(d.value) + 20) + "px")
+                .style("left", (xScale(new Date(d.datetime)) + 20) + "px")
+                .text(`Date: ${d.datetime}, Value: ${d.value}`);
+        })
+        .on("mouseout", () => {
+            circles.style("opacity", 0);
+            tooltip.style("visibility", "hidden");
+        })
+            
+    }, [data, dimensions]);
+
+    return (
+        <div ref={wrapperRef} className="line-graph-wrapper">
+            <svg ref={svgRef}>
+                <defs>
+                    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                        <feOffset dx="0" dy="0" result="offsetblur" />
+                        <feFlood floodColor="black" floodOpacity="0.5" />
+                        <feComposite in2="offsetblur" operator="in" />
+                        <feMerge>
+                            <feMergeNode />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+    );
 }
