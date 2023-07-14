@@ -261,15 +261,15 @@ const calculateNumberOfAssets = (assets) => {
         ticker={highestValueAsset ? highestValueAsset.ticker : 'Loading...'}
         value={highestValueAsset ? highestValueAsset.totalValue : 'Loading...'}
       />
-      <HighestLossAssetCard 
-        ticker={highestLossAsset && highestLossAsset.asset ? highestLossAsset.asset.ticker : 'Loading...'}
-        value={highestLossAsset ? highestLossAsset.totalValue : 'Loading...'}
-      />
+    
       <HighestGrowthAssetCard 
         ticker={highestGrowthAsset && highestGrowthAsset.asset ? highestGrowthAsset.asset.ticker : 'Loading...'}
         value={highestGrowthAsset ? highestGrowthAsset.totalValue : 'Loading...'}
       />
-
+<HighestLossAssetCard 
+        ticker={highestLossAsset && highestLossAsset.asset ? highestLossAsset.asset.ticker : 'Loading...'}
+        value={highestLossAsset ? highestLossAsset.totalValue : 'Loading...'}
+      />
       <TotalAssetsCard 
         numAssets={numAssets}
       />

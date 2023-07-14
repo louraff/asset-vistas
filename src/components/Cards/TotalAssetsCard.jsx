@@ -7,7 +7,7 @@
       <div className="asset-card">
         <div className="roww">
           <div className="col-icon">
-            <FontAwesomeIcon icon={faGlobe} className="asset-icon"/>
+            <FontAwesomeIcon icon={faGlobe} className="asset-icon total"/>
           </div>
           <div className="col-info">
     

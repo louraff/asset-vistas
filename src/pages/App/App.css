@@ -70,7 +70,7 @@ body {
   height: 100%;
   overflow-y: auto;
   margin-left: 2vmin;
-  margin-right: 2vmin;
+  margin-right: 0.4vmin;
   border-radius: 0.5vmin !important;
   z-index: 1;
   font-family: 'Poppins', sans-serif;

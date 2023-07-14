@@ -17,22 +17,34 @@
 
 
 .asset-icon {
-    height: 3vmin;
-    width: 3vmin;
+    height: 2vmin;
+    width: 2vmin;
+    padding: 1vmin;
+    border-radius: 3vmin;
 }
 
 .asset-icon.growth {
-    height: 3vmin;
-    width: 3vmin;
-
-}
+    background: linear-gradient(to right, #ff6e8a, #ff8677);
+  }
+  
+  .asset-icon.valuee {
+    background: linear-gradient(to right, #c253ec, #d750d6);
+  }
+  
+  .asset-icon.loss {
+    background: linear-gradient(to right, #ef3129, #fa5279);
+  }
+  
+  .asset-icon.total {
+    background: linear-gradient(to right, #00aae7, #01dfc8);
+  }
 
 .col-icon {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: steelblue;
+
     margin-top: 1vmin;
   }
   
