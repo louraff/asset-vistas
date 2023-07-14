@@ -7,15 +7,92 @@
     width: 100%;
     margin-bottom: 30px;
     box-shadow: 0 1px 20px 0 rgba(0,0,0,.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 11vmin;
+    border-radius: 0.5vmin;
 }
 
-.asset-card.value {
+.roww {
+    display: flex;
+    /* flex-direction: column; */
+}
+
+.asset-icon {
+    height: 3vmin;
+    width: 3vmin;
+}
+
+.asset-icon.growth {
+    height: 3vmin;
+    width: 3vmin;
+    
+}
+
+.col-icon {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: steelblue;
+    margin-top: 1vmin;
+  }
+  
+.col-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    margin-right: 1.5vmin;
+    margin-top: 1vmin;
+  }
+
+.roww > .divider {
+    margin: 1rem 1rem;
+    color: inherit;
+    border: 0;
+    border-top: var(--bs-border-width) solid;
+    opacity: .25;
+    margin-top: 0.2vmin;
+}
+
+.ticker {
+    margin-bottom: 0;
+    color: #9a9a9a;
+    font-size: .75rem;
+    text-transform: capitalize;
+    font-weight: 300;
+}
+
+.value {
     color: #fff;
     text-transform: inherit;
     font-weight: 300;
     margin-bottom: 0.75rem;
     line-height: 1.4em;
     font-size: 1.4375rem;
+}
+
+.asset-value {
+    color: #fff;
+    text-transform: inherit;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+    line-height: 1.4em;
+    font-size: 1.4375rem;
+    margin-top: 1.8vmin;
+}
+
+h2.card-title {
+    font-size: 0.9rem;
+    margin-top: 0;
+    line-height: 1.2;
+    font-weight: 200;
+    color: hsla(0,0%,100%,.6);
+    margin-bottom: 1.2vmin;
+    margin-left: 1vmin;
 }
 
 .asset-card-body {
@@ -56,20 +133,7 @@
     border: 0;
     border-radius: 0 0 0.2232rem 0.2232rem;
 }
-.asset-card-hr {
-    border-color: #2b3553;
-    margin: 5px 15px;
-    border-top: 1px solid rgba(0,0,0,.1);
-    box-sizing: initial;
-    height: 0;
-    overflow: visible;
-}
 
-.asset-card-title {
-    color: hsla(0,0%,100%,.6);
-    margin: 10px 15px;
-    font-size: .9em;
-}
 
 .asset-card-header {
     display: flex;

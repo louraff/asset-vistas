@@ -3,26 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartLine } from '@fortawesome/free-solid-svg-icons'
 
 export default function HighestGrowthAssetCard({ ticker, value }) {
-    return (
-      <div className="asset-card growth">
-        <div className="asset-card-header">
-          <FontAwesomeIcon icon={faChartLine} />
-          <h2 className="asset-card">Highest Growth</h2>
+  return (
+    <div className="asset-card">
+      <div className="roww">
+        <div className="col-icon">
+          <FontAwesomeIcon icon={faChartLine} className="asset-icon growth"/>
         </div>
-        <div className="asset-card-body">
-          <div className="asset-row">
-            <div className="asset-row-1">
-              <div className="info-icon">
-              </div>
-              <div className="asset-row-2">
-                <div className="numbers">
-        <p className="asset-card ticker">{ticker}</p>
-        <h3 className="asset-card value">{value}</h3>
-        </div>
-        </div>
-        </div>
+        <div className="col-info">
+          <p className="ticker">{ticker}</p>
+          <h2 className="value">{parseFloat(value).toFixed(2)}</h2>
         </div>
       </div>
+      <hr className="divider"/>
+      <div className="row">
+        <h2 className="card-title">Highest Growth</h2>
       </div>
-    );
-  }
+    </div>
+  );
+}
