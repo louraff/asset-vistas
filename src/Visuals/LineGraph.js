@@ -77,15 +77,28 @@ export default function LineGraph({ data }) {
 
         const bisectDate = d3.bisector(d => new Date(d.datetime)).left;
 
+        data.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+
+        let monthlyData = [];
+        let previousMonth = null;
+
+        for(let i = 0; i < data.length; i++) {
+            const currentMonth = new Date(data[i].datetime).getMonth();
+            if (currentMonth !== previousMonth) {
+                monthlyData.push(data[i]);
+                previousMonth = currentMonth;
+            }
+        }
+
         const circles = g.selectAll(".circle")
-            .data(data)
+            .data(monthlyData)
             .join("circle")
             .attr("class", "circle")
             .attr("cx", d => xScale(new Date(d.datetime)))
             .attr("cy", d => yScale(d.value))
             .attr("r", 4)
-            .style("opacity", 0)
-            .style("fill", "#1f8ef1");
+            .style("opacity", 1)
+            .style("fill", "#1f8ef1")
 
         g
             .selectAll(".line")
@@ -96,23 +109,7 @@ export default function LineGraph({ data }) {
             .attr("fill", "none")
             .attr("stroke", "#1f8ef1")
             .style("filter", "url(#shadow)")
-            // .on("mouseover", (event, d) => {  // d is the datum
-            //     // show the tooltip
-            //     const [x, y] = d3.pointer(event);  // get the x and y coordinates of the cursor
-            //     const date = xScale.invert(x - margin.left);  // convert x coordinate to date
-            //     const value = d.find(item => item && new Date(item.datetime).getTime() === date.getTime())?.value;
-            //     // find the value corresponding to the date
-            //     tooltip.style("visibility", "visible").text(value);  // set the text of the tooltip
-            // })
-            // .on("mousemove", event => {
-            //     // move the tooltip with the cursor
-            //     const [x, y] = d3.pointer(event);
-            //     tooltip.style("top", (y + 20) + "px").style("left", (x + 20) + "px");
-            // })
-            // .on("mouseout", () => {
-            //     // hide the tooltip
-            //     tooltip.style("visibility", "hidden");
-            // });
+
 
         g.selectAll('.x-axis')
             .data([null]) // Pass a dummy dataset of one element
@@ -137,51 +134,42 @@ export default function LineGraph({ data }) {
             .call(g => g.select(".domain").remove()) // remove the domain line
             .call(g => g.selectAll(".tick line").remove()); // remove all the tick lines
 
-        // Append a transparent react to catch mouse events
-        g.append("rect")
-        .attr("width", width)
-        .attr("height", height)
-        .style("fill", "none")
-        .style("pointer-events", "all")
-        .on("mouseover", () => {
-            circles.style("opacity", 1);
-            tooltip.style("visibility", "visible");
-        })
-        .on("mousemove", (event) => {
-            const [x] = d3.pointer(event);  
-            let date = xScale.invert(x - margin.left);
-            let index = bisectDate(data, date, 1);
-            let d0 = data[index - 1];
-            let d1 = data[index];
-            let d = date - new Date(d0.datetime) > new Date(d1.datetime) - date ? d1 : d0;
-            circles.attr("cx", xScale(new Date(d.datetime))).attr("cy", yScale(d.value));
-            tooltip
-                .style("top", (yScale(d.value) + 20) + "px")
-                .style("left", (xScale(new Date(d.datetime)) + 20) + "px")
-                .text(`Date: ${d.datetime}, Value: ${d.value}`);
-        })
-        .on("mouseout", () => {
-            circles.style("opacity", 0);
-            tooltip.style("visibility", "hidden");
-        })
-            
+        circles
+            .on('mouseover', (event, d) => { // 'd' is the datum for the circle being hovered
+                // Show the tooltip
+                tooltip.style('visibility', 'visible');
+                // Set the text for the tooltip. This is where you can format the string to display the date and value.
+                tooltip.html(`${d3.timeFormat("%b")(new Date(d.datetime)).toUpperCase()}<br>£${d.value.toFixed(2)}`);
+            })
+            .on('mousemove', (event) => {
+                // move the tooltip with the cursor
+                const [x, y] = d3.pointer(event);
+                tooltip.style('top', (y + 50) + 'px').style('left', (x + 400) + 'px');
+                
+            })
+            .on('mouseout', () => {
+                // hide the tooltip
+                tooltip.style('visibility', 'hidden');
+            });
+    
     }, [data, dimensions]);
 
     return (
         <div ref={wrapperRef} className="line-graph-wrapper">
             <svg ref={svgRef}>
-                <defs>
-                    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
-                        <feOffset dx="0" dy="0" result="offsetblur" />
-                        <feFlood floodColor="black" floodOpacity="0.5" />
-                        <feComposite in2="offsetblur" operator="in" />
-                        <feMerge>
-                            <feMergeNode />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
+            <defs>
+                <filter id="shadow" x="0%" y="0%" width="200%" height="200%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                    <feOffset dx="0" dy="5" result="offsetblur" />
+                    <feFlood floodColor="#1f8ef1" floodOpacity="0.9" />
+                    <feComposite in2="offsetblur" operator="in" />
+                    <feMerge>
+                        <feMergeNode />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+
             </svg>
         </div>
     );
