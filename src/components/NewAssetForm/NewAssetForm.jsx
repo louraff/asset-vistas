@@ -2,6 +2,8 @@ import {Component} from 'react';
 import axios from 'axios';
 import Autosuggest from "react-autosuggest";
 import '../css/NewAssetForm.css'
+import "../css/LoginForm.css"
+import "../css/NewAssetForm.css"
 
 export default class NewAssetForm extends Component {
     state = {
@@ -121,27 +123,33 @@ export default class NewAssetForm extends Component {
   
 
         return (
-          <div>
-            <div className="asset-form-container">
+          <div className="login-parent">
+            <div className="asset-form-container login-form-container">
               <form autoComplete="off" onSubmit={this.handleSubmit}>
-                <label>Ticker</label>
+              <div className="form-group">
+          <h4 className="login-header">ADD ASSET</h4>
+                <label className='email'>Ticker</label>
                 <Autosuggest
+                  className="ticker-suggest"
                     suggestions={tickerSuggestions}
                     onSuggestionsFetchRequested={this.onTickerSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onTickerSuggestionsClearRequested}
                     getSuggestionValue={this.getTickerSuggestionValue}
                     renderSuggestion={this.renderTickerSuggestion}
                     inputProps={tickerInputProps}
+                    name="email"
                     theme={{
                         suggestionsContainer: 'suggestions-container',
                         suggestion: 'suggestion-item',
                         suggestionHighlighted: 'suggestion-item--highlighted'
                       }}                
                 />
-
-                <label>Units</label>
-                <input type="number" name="units" value={this.state.units} onChange={this.handleChange} required />
-                <label>Sector</label>
+                 </div>
+                 <div className="form-group">
+                <label className='email'>Units</label>
+                <input type="text" name="units"  value={this.state.units} onChange={this.handleChange} required />
+                </div>
+                <label className='email'>Sector</label>
                 <select name="sector" value={this.state.sector} onChange={this.handleChange} required>
                     <option value="Energy">Energy</option>
                     <option value="Materials">Materials</option>
@@ -155,10 +163,15 @@ export default class NewAssetForm extends Component {
                     <option value="Communication Services">Communication Services</option>
                     <option value="Real Estate">Real Estate</option>
                 </select>
-                <button type="submit">Add Asset</button>
+                <h3 className='required-fields'>* Required Fields</h3>
+        
+             <div className="button-container">
+                <button type="submit" className="asset-button">Add Asset</button>
+                </div>
               </form>
-            </div>
+            
             <p className="error-message">&nbsp;{this.state.error}</p>
+          </div>
           </div>
         );
       }

@@ -37,3 +37,15 @@
     font-weight: var(--unstable_DataGrid-headWeight);
     color: white;
       }
+
+.asset-button {
+
+}
+
+.button-container-asset {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+  
+  }
