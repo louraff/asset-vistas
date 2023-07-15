@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
+import "../css/LoginForm.css"
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function LoginForm({ setUser }) {
   const [credentials, setCredentials] = useState({
@@ -13,6 +15,8 @@ export default function LoginForm({ setUser }) {
     setError('');
   }
 
+  const navigate = useNavigate();
+
   async function handleSubmit(evt) {
     // Prevent form from being submitted to the server
     evt.preventDefault();
@@ -23,23 +27,35 @@ export default function LoginForm({ setUser }) {
       // payload of the JSON Web Token (JWT)
       const user = await usersService.login(credentials);
       setUser(user);
+      navigate.push('/dashboard');  
     } catch {
       setError('Log In Failed - Try Again');
     }
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-          <label>Password</label>
-          <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-          <button type="submit">LOG IN</button>
-        </form>
+    <div className="login-parent">
+  <div className="login-form-container">
+    <form autoComplete="off" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <h4 className="login-header">LOGIN FORM</h4>
+        <label className="email">Email Address *</label>
+        <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
       </div>
-      <p className="error-message">&nbsp;{error}</p>
-    </div>
+      <div className="form-group">
+        <label className='password'>Password *</label>
+        <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
+      </div>
+      <h3 className='required-fields'>* Required Fields</h3>
+      
+      <div className="button-container">
+      <Link to='/signup'>Don't have an account yet?</Link>
+        <button type="submit">LOG IN</button>
+      </div>
+    </form>
+    <p className="error-message">&nbsp;{error}</p>
+  </div>
+</div>
+
   );
-}
+  }  
