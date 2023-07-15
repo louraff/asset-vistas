@@ -9,7 +9,8 @@
 }
 
 .login-form-container {
-  flex: 0 0 40%;
+  /* flex: 0 0 40%; */
+  display: flex;
   max-width: 40%;
   background-color: #27293d;
   padding-top: 2vmin;
@@ -19,6 +20,9 @@
   border-radius: 0.5vmin;
   grid-column-start: 1;
   grid-column-end: 3;
+  min-width: 35%;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form-group {

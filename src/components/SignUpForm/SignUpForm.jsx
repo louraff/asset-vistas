@@ -18,7 +18,7 @@ export default class SignUpForm extends Component {
         });
       };
 
-    handleSubmit = async (evt) => {
+      handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
           const formData = {...this.state};
@@ -31,6 +31,7 @@ export default class SignUpForm extends Component {
           this.setState({ error: 'Sign Up Failed - Try Again' });
         }
       };
+      
 
       render() {
         const disable = this.state.password !== this.state.confirm;
@@ -49,7 +50,7 @@ export default class SignUpForm extends Component {
                 <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
                 <h3 className='required-fields'>* Required Fields</h3>
                 <div className="signup-button-container">
-                <button type="submit" disabled={disable}>SIGN UP</button>
+                <button type="submit" disabled={disable}>NEXT</button>
                 </div>
               </form>
             </div>
