@@ -81,8 +81,8 @@ h3.donut {
   background: #27293d;
   border-radius: 0.5vmin;
   margin-left: 1.2vmin;
-  margin-top: -2vmin;
-  width: 79.5%;
+  margin-top: -2.1vmin;
+  width: 94%;
 }
 
 .line-graph, .cards {
@@ -92,6 +92,7 @@ h3.donut {
 
 .line-graph {
   position: relative;
+  width: 96%;
 }
 
 .line-graph-title {
@@ -105,23 +106,32 @@ h3.donut {
   justify-content: space-between;
   gap: 1rem;
   margin-right: 2vmin;
-  width: 94%;
+  width: 96%;
 
 }
 
 .asset-table {
-  grid-row: 5;
-  margin-top: 10vmin;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  background: #27293d;
+  border-radius: 0.5vmin;
+  padding-top: 1vmin;
+  margin-left: -.5vmin;
+  margin-right: 2vmin;
+  margin-top: -2.2vmin;
 }
 
 
 /* GRAPH STYLING */
 
-h2.card-title {
+h2.card-title-main {
   font-size: 1.6875rem;
   margin-top: 0;
   line-height: 1.2;
-  font-weight: 200;
+  font-weight: 100;
+  color: #fff
 }
 
 
@@ -154,6 +164,7 @@ h2.card-title {
 
 .text-left {
   text-align: left !important;
+  margin-bottom: -2vmin;
 }
 
 .col-sm-6 {

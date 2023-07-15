@@ -7,7 +7,7 @@ export default class NewAssetForm extends Component {
     state = {
         ticker: '',
         units: '',
-        sector: '',
+        sector: 'Energy',
         tickerSuggestions: []
     }
 

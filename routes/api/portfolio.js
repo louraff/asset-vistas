@@ -103,11 +103,23 @@ router.put('/:userId/asset/:assetId', async (req, res) => {
         const updatedAssetData = req.body;
 
         // Find the asset directly and update it
-        const asset = await Asset.findByIdAndUpdate(assetId, updatedAssetData, { new: true });
+        // const asset = await Asset.findByIdAndUpdate(assetId, updatedAssetData, { new: true });
+
+        const asset = await Asset.findById(assetId);
+
 
         if (!asset) {
             return res.status(404).json({message: "Asset not found"});
         }
+        // Update the fields on the asset
+        if (updatedAssetData.currentPrice) {
+            // Update oldPrice to the currentPrice before updating currentPrice
+            asset.oldPrice = asset.currentPrice;
+        }
+        // Update the fields on the asset
+        Object.assign(asset, updatedAssetData);
+
+        await asset.save();
 
         res.json(asset);
     } catch (error) {

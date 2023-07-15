@@ -30,3 +30,12 @@
 .fa-bars:before {
   margin-right: 0.7vmin;
 }
+
+.sidebar-btn-wrapper {
+  padding-bottom: 2vmin;
+  margin-right: 1vmin;
+}
+
+a.text-decoration {
+  font-weight: 400;
+}

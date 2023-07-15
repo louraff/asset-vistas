@@ -1,0 +1,47 @@
+.MuiDataGrid-colCell {
+    border-right: none;
+}
+
+.MuiDataGrid-row {
+    margin-left: 10px;
+    margin-right: 10px;
+    max-height: 1.5vmin;
+    min-height: 1.5vmin;
+}
+
+.custom-data-grid {
+    border: none;
+  }
+  
+.custom-data-grid .MuiDataGrid-row {
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    color: hsla(0,0%,100%,.6);
+  }
+  
+  .custom-data-grid .MuiDataGrid-row:first-child {
+    border-top: none;
+  }
+  
+  .custom-data-grid .MuiDataGrid-row:last-child {
+    border-bottom: none;
+  }
+
+.MuiDataGrid-cellContent {
+    color: hsla(0,0%,100%,.7);
+}
+
+.custom-data-grid .MuiDataGrid-row {
+    /* color: #333;  */
+    /* Set the text color */
+  }
+  
+  .custom-data-grid .MuiDataGrid-row:nth-child(even) {
+    /* background-color: #f2f2f2;  */
+    /* Apply alternating row colors */
+  }
+  
+  .custom-data-grid .MuiDataGrid-cell {
+    padding-top: 8px; /* Adjust top padding */
+    padding-bottom: 8px; /* Adjust bottom padding */
+  }

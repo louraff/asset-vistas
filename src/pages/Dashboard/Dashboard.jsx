@@ -4,11 +4,11 @@ import HighestLossAssetCard from "../../components/Cards/HighestLossAssetCard";
 import HighestValueAssetCard from "../../components/Cards/HighestValueAssetCard";
 import TotalAssetsCard from "../../components/Cards/TotalAssetsCard";
 import axios from "axios";
-// import LineGraph from "../../Visuals/LineGraph";
 import PieChart from "../../Visuals/PieChart";
 import LineGraph from "../../Visuals/LineGraph";
 import AssetTable from "../../components/AssetTable/AssetTable";
 import { fetchHistoricalData } from "../../utilities/historicalData-api";
+import usePortfolio from "../../utilities/usePortfolio";
 import "../../components/css/Dashboard.css"
 import "../App/App.css"
 
@@ -21,7 +21,7 @@ export default function Dashboard({user}) {
   const [highestGrowthAsset, setHighestGrowthAsset] = useState({});
   const [highestLossAsset, setHighestLossAsset] = useState({});
   const [numAssets, setNumAssets] = useState(0);
-  
+  const { updateAsset, deleteAsset} = usePortfolio(user);
 
 
   const fetchAndCalculateAssetValues = async (assets) => {
@@ -240,7 +240,7 @@ const calculateNumberOfAssets = (assets) => {
     <div className="rowy">
     <div className="text-left col-sm-6">   
     <h5 className="card-categoryy">Total Portfolio Value</h5>
-    <h2 className="card-title">{portfolio.TotalValue}</h2>
+    <h2 className="card-title-main">£ {portfolio.TotalValue.toLocaleString()}</h2>
   </div>
   <div className="card-body">
   <div className="chart-area">
@@ -281,7 +281,14 @@ const calculateNumberOfAssets = (assets) => {
 </div>
 
      <div className="asset-table">
-      <AssetTable />
+     <h3 className="donut">My Assets</h3>
+     <AssetTable
+            portfolio={portfolio}
+            updateAsset={updateAsset}
+            deleteAsset={deleteAsset}
+            user={user}
+            setPortfolio={setPortfolio}
+          />
      </div>
     </div>
     )

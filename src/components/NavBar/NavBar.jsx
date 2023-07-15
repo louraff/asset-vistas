@@ -62,7 +62,7 @@ export default function NavBar({ user, setUser }) {
             padding: '20px 5px',
           }}
         >
-          Sidebar Footer
+          Asset Vistas
         </div>
       </CDBSidebarFooter>
     </CDBSidebar>

@@ -5,6 +5,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import NewAssetFormModal from '../AssetModal/AssetModal';
 import { v4 as uuidv4 } from 'uuid';
+import '../css/AssetTable.css';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+
 
 export default function AssetTable({ portfolio, setPortfolio, updateAsset, deleteAsset, user }) {
   const [assets, setAssets] = useState([]);
@@ -22,7 +26,31 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
   const columns = [
     { field: 'ticker', editable: true, sortable: true, filterable: true, width: 150 },
     { field: 'units', editable: true, sortable: true, filterable: true, width: 150 },
-    { field: 'sector', editable: true, sortable: true, filterable: true, width: 150 },
+    // { 
+    //   field: 'totalValue', 
+    //   headerName: 'Total Value', 
+    //   valueGetter: (params) => params.row.units * params.row.currentPrice,
+    //   editable: false,
+    //   sortable: true, 
+    //   filterable: true, 
+    //   width: 150 
+    // },
+    // {
+    //   field: 'priceChange',
+    //   headerName: 'Price Change',
+    //   renderCell: (params) => (
+    //     params.row.oldPrice !== undefined ? // Check if oldPrice is not undefined
+    //     params.row.currentPrice > params.row.oldPrice ? 
+    //       <ArrowUpwardIcon style={{ color: 'green' }} /> :
+    //       params.row.currentPrice < params.row.oldPrice ? 
+    //         <ArrowDownwardIcon style={{ color: 'red' }} /> : null
+    //     : null // oldPrice is undefined
+    //   ),
+    //   editable: false,
+    //   sortable: true, 
+    //   filterable: true, 
+    //   width: 150 
+    // },{ field: 'sector', editable: true, sortable: true, filterable: true, width: 150 }, 
     {
       field: 'action',
       headerName: 'Action',
@@ -56,7 +84,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
         </strong>
       ),
     },
-  ];
+];
 
   const handleClose = () => {
     setOpen(false);
@@ -68,7 +96,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
     if (assetToEdit) {
       console.log('Saving asset:', assetToEdit);
   
-      await updateAsset(assetToEdit);
+      const updatedAsset = await updateAsset(assetToEdit);
   
       const assetIndex = portfolio.assets.findIndex(asset => asset._id === assetToEdit._id);
       console.log('Asset index:', assetIndex);
@@ -76,7 +104,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
   
       if (assetIndex !== -1) {
         let updatedPortfolio = { ...portfolio };  // Create a local copy of the portfolio
-        updatedPortfolio.assets[assetIndex] = assetToEdit;  // Update the local copy
+        updatedPortfolio.assets[assetIndex] = updatedAsset;  // Update the local copy
   
         console.log('Updated assets:', updatedPortfolio.assets);
   
@@ -108,6 +136,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
       <DataGrid
         rows={portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []}
         columns={columns}
+        className="custom-data-grid"
         onEditCellChangeCommit={handleEditCellChangeCommit}
         getRowId={(row) => row.id}
         style={{ overflow: 'visible' }}
