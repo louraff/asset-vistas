@@ -16,6 +16,7 @@ import MyAssets from '../MyAssets/MyAssets'
 import Profile from '../Profile/Profile'
 import Dashboard from '../Dashboard/Dashboard'
 import NavBar from '../../components/NavBar/NavBar'
+import Gateway from '../Gateway/Gateway';
 
 export default function App() {
 
@@ -38,7 +39,10 @@ export default function App() {
           </Routes>
           </div>
         :
-        <AuthPage setUser={setUser}/>
+        <Routes>
+        <Route path="/signup" element={<AuthPage user={user} setUser={setUser}/>}/>
+        <Route path="/" element={<Gateway user={user} setUser={setUser}/>}/>
+        </Routes>
       }
     </main>
   );

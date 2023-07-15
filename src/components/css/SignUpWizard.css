@@ -1,0 +1,130 @@
+/* 
+
+.wizard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .progress-tracker {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 0;
+  }
+  
+  .wizard-btn {
+    margin: 10px;
+    padding: 10px 20px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .wizard-btn:disabled {
+    background: lightgray;
+  }
+  
+  .user-icon {
+    background: linear-gradient(to right, #3060f5, #1e89f8) !important;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  .user-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .nav-icon {
+    color: #1e89f8;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: white;
+  } */
+  
+  /* when the nav-item is active */
+  /* .form-wizard .active > .nav-icon {
+    color: white;
+    background: linear-gradient(to right, #3060f5, #1e89f8) !important;
+  } */
+  
+  /* when the nav-item is completed */
+  /* .form-wizard .completed > .nav-icon {
+    color: white;
+    background: linear-gradient(to right, #3060f5, #1e89f8) !important;
+  } */
+  
+  /* .wizard-progress-bar {
+    background: linear-gradient(to right, #3060f5, #1e89f8);
+  } */
+
+  .form-wizard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .step-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .step-icon {
+    font-size: 24px;
+    color: #9c27b0;
+    margin-right: 10px;
+  }
+  
+  .step-title {
+    font-size: 24px;
+    color: #9c27b0;
+  }
+  
+  .wizard-btn {
+    margin-top: 30px;
+    background-color: #9c27b0;
+    border: none;
+  }
+  
+  .wizard-btn:disabled {
+    background-color: lightgray;
+  }
+  
+  .step-icon-wrapper {
+    display: flex;
+    align-items: center;
+    color: #9c27b0;
+  }
+  
+  .step-icon-wrapper:not(.active) {
+    color: #BDBDBD; /* Change color for inactive steps */
+  }
+  
+  .step-icon-wrapper.active .progress {
+    background-color: #9c27b0;
+  }
+  
+  .step-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .step-title {
+    font-size: 24px;
+  }
+  
+  .wizard-btn {
+    margin-top: 30px;
+    background-color: #9c27b0;
+    border: none;
+  }
+  
+  .wizard-btn:disabled {
+    background-color: lightgray;
+  }
+  

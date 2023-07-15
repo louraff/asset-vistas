@@ -12,15 +12,15 @@ export default class NewAssetForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.asset !== prevProps.asset) {
-            if (this.props.asset) {
-                this.setState(this.props.asset);
-            } else {
-                this.setState({ticker: '', units: '', sector: '', tickerSuggestions: []});
-            }
-        }
-    }
-
+      if (this.props.asset !== prevProps.asset) {
+          if (this.props.asset) {
+              this.setState(this.props.asset);
+          } else {
+              this.setState({ticker: '', units: '', sector: '', tickerSuggestions: []});
+          }
+      }
+  }
+  
     handleChange = (evt) => {
         const newState = {
           [evt.target.name]: evt.target.value,
@@ -35,32 +35,33 @@ export default class NewAssetForm extends Component {
     
 
     handleSubmit = async (evt) => {
-        evt.preventDefault();
-        try {
-          const formData = {...this.state};
-          delete formData.confirm;
-          delete formData.error;
+      evt.preventDefault();
+      try {
+        const formData = {...this.state};
+        delete formData.confirm;
+        delete formData.error;
     
-          console.log(this.props.user._id)
-          console.log(formData);
-          // Check if this is an edit operation
-          if (this.props.asset && this.props.asset._id) {
-            // Update existing asset
-            await axios.put(`/api/portfolio/${this.props.user._id}/asset/${this.props.asset._id}`, formData);
-          } else {
-            // Create new asset
-            await axios.post(`/api/portfolio/${this.props.user._id}/asset`, formData);
-          }
-          // Call onSave function if provided (this is to support modal closing and other post-save operations)
-          if (this.props.onSave) {
-            this.props.onSave();
-          }
-        } catch(error) {
-          console.error(error);
-          this.setState({ error: 'Asset was not added. Please try again.' });
+        let asset;
+        if (this.props.asset && this.props.asset._id) {
+          // Update existing asset
+          asset = await axios.put(`/api/portfolio/${this.props.user._id}/asset/${this.props.asset._id}`, formData);
+        } else {
+          // Create new asset
+          asset = await axios.post(`/api/portfolio/${this.props.user._id}/asset`, formData);
         }
-      };
-
+        this.props.updateUserData(asset.data);
+        this.props.nextStep();
+    
+        // Call onSave function if provided (this is to support modal closing and other post-save operations)
+        if (this.props.onSave) {
+          this.props.onSave();
+        }
+      } catch(error) {
+        console.error(error);
+        this.setState({ error: 'Asset was not added. Please try again.' });
+      }
+    };
+    
       getTickerSuggestions = async (value) => {
         try {
           const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${value}&apikey=${process.env.REACT_APP_ALPHA_API_KEY}`, {
