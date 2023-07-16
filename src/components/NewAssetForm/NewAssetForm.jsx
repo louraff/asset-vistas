@@ -1,16 +1,18 @@
 import {Component} from 'react';
 import axios from 'axios';
 import Autosuggest from "react-autosuggest";
-import '../css/NewAssetForm.css'
-import "../css/LoginForm.css"
 import "../css/NewAssetForm.css"
+import "../css/LoginForm.css"
+
 
 export default class NewAssetForm extends Component {
     state = {
         ticker: '',
         units: '',
         sector: '',
-        tickerSuggestions: []
+        tickerSuggestions: [],
+        error: '',
+        successMessage: '',
     }
 
     componentDidUpdate(prevProps) {
@@ -18,7 +20,13 @@ export default class NewAssetForm extends Component {
             if (this.props.asset) {
                 this.setState(this.props.asset);
             } else {
-                this.setState({ticker: '', units: '', sector: '', tickerSuggestions: []});
+                this.setState({
+                ticker: '', 
+                units: '', 
+                sector: '', 
+                tickerSuggestions: [], 
+                error: '',
+                successMessage: '',});
             }
         }
     }
@@ -26,7 +34,8 @@ export default class NewAssetForm extends Component {
     handleChange = (evt) => {
         const newState = {
           [evt.target.name]: evt.target.value,
-          error: ''
+          error: '',
+          successMessage: '',
         };
         this.setState(newState, () => {
             if (this.props.onAssetChange) {
@@ -53,10 +62,27 @@ export default class NewAssetForm extends Component {
             // Create new asset
             await axios.post(`/api/portfolio/${this.props.user._id}/asset`, formData);
           }
+
+          // Reset form fields
+    this.setState({
+      ticker: '',
+      units: '',
+      sector: 'Energy',
+      tickerSuggestions: [],
+      error: '',
+      successMessage: 'Asset successfully added to your portfolio.',
+    });
+
           // Call onSave function if provided (this is to support modal closing and other post-save operations)
           if (this.props.onSave) {
             this.props.onSave();
           }
+
+          // Clear success message after 5 seconds
+      setTimeout(() => {
+        this.setState({ successMessage: '' });
+      }, 5000);
+
         } catch(error) {
           console.error(error);
           this.setState({ error: 'Asset was not added. Please try again.' });
@@ -83,12 +109,10 @@ export default class NewAssetForm extends Component {
 };
       
 
-    // Autosuggest will call this function every time you need to update suggestions.
     onTickerSuggestionsFetchRequested = ({ value }) => {
         this.getTickerSuggestions(value);
     };
 
-    // Autosuggest will call this function every time you need to clear suggestions.
     onTickerSuggestionsClearRequested = () => {
         this.setState({
         tickerSuggestions: []
@@ -110,7 +134,7 @@ export default class NewAssetForm extends Component {
     };
 
       render() {
-        const { ticker, tickerSuggestions } = this.state;
+        const { ticker, tickerSuggestions, successMessage } = this.state;
 
 
         // Autosuggest will pass through all these props to the input field.
@@ -124,10 +148,10 @@ export default class NewAssetForm extends Component {
 
         return (
           <div className="login-parent">
-            <div className="asset-form-container login-form-container">
+            <div className="asset-form-container">
               <form autoComplete="off" onSubmit={this.handleSubmit}>
               <div className="form-group">
-          <h4 className="login-header">ADD ASSET</h4>
+          <h4 className="asset-header">ADD ASSET</h4>
                 <label className='email'>Ticker</label>
                 <Autosuggest
                   className="ticker-suggest"
@@ -150,7 +174,7 @@ export default class NewAssetForm extends Component {
                 <input type="text" name="units"  value={this.state.units} onChange={this.handleChange} required />
                 </div>
                 <label className='email'>Sector</label>
-                <select name="sector" value={this.state.sector} onChange={this.handleChange} required>
+                <select name="sector" className="asset-sector" value={this.state.sector} onChange={this.handleChange} required>
                     <option value="Energy">Energy</option>
                     <option value="Materials">Materials</option>
                     <option value="Industrials">Industrials</option>
@@ -165,11 +189,11 @@ export default class NewAssetForm extends Component {
                 </select>
                 <h3 className='required-fields'>* Required Fields</h3>
         
-             <div className="button-container">
+             <div className="button-container-asset">
                 <button type="submit" className="asset-button">Add Asset</button>
                 </div>
               </form>
-            
+              {successMessage && <p className="success-message">{successMessage}</p>}
             <p className="error-message">&nbsp;{this.state.error}</p>
           </div>
           </div>

@@ -112,6 +112,7 @@ justify-content: space-between;
 align-items: center;
 margin-top: 10px;
 }
+
 .signup-button-container {
 display: flex;
 flex-direction: column;
@@ -121,7 +122,7 @@ margin-top: 10px;
 margin-bottom: 3vmin;
 }
 
-button[type="submit"] {
+.button-container-login {
   display: inline-block;
   width: 35%;
   padding: 1vmin;
@@ -135,7 +136,7 @@ button[type="submit"] {
   font-weight: 600;
   text-align: center;
   vertical-align: middle;
-padding: 11px 40px;
+  padding: 11px 40px;
   font-size: .875rem;
   line-height: 1.35em;
   transition: all .15s ease;
