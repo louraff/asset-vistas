@@ -281,7 +281,8 @@ const calculateNumberOfAssets = (assets) => {
 </div>
 
      <div className="asset-table">
-     <h3 className="donut">My Assets</h3>
+      <div className="asset-dash-container">
+     <h3 className="assets">My Assets</h3>
      <AssetTable
             portfolio={portfolio}
             updateAsset={updateAsset}
@@ -289,6 +290,7 @@ const calculateNumberOfAssets = (assets) => {
             user={user}
             setPortfolio={setPortfolio}
           />
+          </div>
      </div>
     </div>
     )
