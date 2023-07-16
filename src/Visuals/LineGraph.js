@@ -3,7 +3,7 @@ import { select, scaleLinear, scaleTime, axisBottom, axisLeft, line, extent } fr
 import * as d3 from 'd3';
 import '../components/css/LineGraph.css'
 
-const margin = { top: 40, right: 80, bottom: 60, left: 60 };
+const margin = { top: 40, right: 40, bottom: 60, left: 80 };
 
 export default function LineGraph({ data }) {
     const svgRef = useRef();
