@@ -122,3 +122,11 @@ h4.asset-header {
   font-weight: 100;
   margin-bottom: 2vmin;
 }
+
+.new-asset-header {
+  line-height: 1.45em;
+  font-size: 1.0625em;
+  color: #fff;
+  font-weight: 100;
+  margin-bottom: 2vmin;
+}

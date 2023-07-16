@@ -161,7 +161,7 @@ export default class EditAssetForm extends Component {
                     <option value="Communication Services">Communication Services</option>
                     <option value="Real Estate">Real Estate</option>
                 </select>
-                <h3 className='required-fields'>* Required Fields</h3>
+                
                 <div className="button-container">
                     <button onClick={this.props.onCancel} color="secondary" className="cancel-button">
                     Cancel

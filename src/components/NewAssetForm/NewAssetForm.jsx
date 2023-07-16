@@ -151,8 +151,8 @@ export default class NewAssetForm extends Component {
             <div className="asset-form-container">
               <form autoComplete="off" onSubmit={this.handleSubmit}>
               <div className="form-group">
-          <h4 className="asset-header">ADD ASSET</h4>
-                <label className='email'>Ticker</label>
+          <h4 className="new-asset-header">ADD ASSET</h4>
+                <label className='email'>Ticker *</label>
                 <Autosuggest
                   className="ticker-suggest"
                     suggestions={tickerSuggestions}
@@ -170,10 +170,10 @@ export default class NewAssetForm extends Component {
                 />
                  </div>
                  <div className="form-group">
-                <label className='email'>Units</label>
+                <label className='email'>Units *</label>
                 <input type="text" name="units"  value={this.state.units} onChange={this.handleChange} required />
                 </div>
-                <label className='email'>Sector</label>
+                <label className='email'>Sector *</label>
                 <select name="sector" className="asset-sector" value={this.state.sector} onChange={this.handleChange} required>
                     <option value="Energy">Energy</option>
                     <option value="Materials">Materials</option>
