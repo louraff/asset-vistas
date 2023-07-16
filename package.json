@@ -42,6 +42,7 @@
     "react-themeable": "^1.1.0",
     "reactstrap": "^9.2.0",
     "serve-favicon": "^2.5.0",
+    "themify-icons": "^1.0.0",
     "uuid": "^9.0.0"
   },
   "scripts": {
