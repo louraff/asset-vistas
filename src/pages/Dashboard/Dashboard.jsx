@@ -240,7 +240,7 @@ const calculateNumberOfAssets = (assets) => {
     <div className="rowy">
     <div className="text-left col-sm-6">   
     <h5 className="card-categoryy">Total Portfolio Value</h5>
-    <h2 className="card-title-main">£ {portfolio.TotalValue.toLocaleString()}</h2>
+    <h2 className="card-title">{portfolio.TotalValue}</h2>
   </div>
   <div className="card-body">
   <div className="chart-area">
@@ -281,16 +281,10 @@ const calculateNumberOfAssets = (assets) => {
 </div>
 
      <div className="asset-table">
-     <h3 className="donut">My Assets</h3>
-     <AssetTable
-            portfolio={portfolio}
-            updateAsset={updateAsset}
-            deleteAsset={deleteAsset}
-            user={user}
-            setPortfolio={setPortfolio}
-          />
+      <AssetTable />
      </div>
     </div>
     )
   }
+    
     
