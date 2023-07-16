@@ -87,6 +87,7 @@ h3.donut {
   position: relative;
   width: 100%;
   margin-top: 3vmin;
+  border-radius: 0.5vmin;
 }
 
 .line-graph-title {
@@ -99,8 +100,8 @@ h3.donut {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin-right: 2vmin;
-  width: 96%;
+  margin-right: 1vmin;
+  width: calc(100% - 5.4vmin);
 }
 .asset-table {
   grid-row-start: 3;
@@ -174,4 +175,5 @@ h5.card-categoryy {
   margin-left: 1vmin;
   margin-top: 2vmin;
   padding-left: 1vmin;
+  margin-right: 1vmin;
 }
