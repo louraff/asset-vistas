@@ -57,7 +57,7 @@ export default class EditAssetForm extends Component {
         // call onSubmit with the new asset data
         this.props.onSubmit(formData);
     };
-    
+
       getTickerSuggestions = async (value) => {
         try {
           const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${value}&apikey=${process.env.REACT_APP_ALPHA_API_KEY}`, {
@@ -104,6 +104,9 @@ export default class EditAssetForm extends Component {
 
       render() {
         const { ticker, tickerSuggestions, successMessage } = this.state;
+        const { asset } = this.props;
+
+        const title = asset ? `EDIT ASSET: ${asset.ticker}` : 'ADD ASSET';
 
 
         // Autosuggest will pass through all these props to the input field.
@@ -122,8 +125,8 @@ export default class EditAssetForm extends Component {
               onSubmit={this.handleSubmit}
               >
               <div className="form-group">
-          <h4 className="edit-header">EDIT ASSET</h4>
-                <label className='email'>Ticker</label>
+          <h4 className="edit-header">{title.toUpperCase()}</h4>
+                {/* <label className='email'>Ticker</label>
                 <Autosuggest
                   className="ticker-suggest"
                     suggestions={tickerSuggestions}
@@ -138,9 +141,9 @@ export default class EditAssetForm extends Component {
                         suggestion: 'suggestion-item',
                         suggestionHighlighted: 'suggestion-item--highlighted'
                       }}                
-                />
-                 </div>
-                 <div className="form-group">
+                /> */}
+              
+              
                 <label className='email'>Units</label>
                 <input type="text" name="units"  value={this.state.units} onChange={this.handleChange} required />
                 </div>
