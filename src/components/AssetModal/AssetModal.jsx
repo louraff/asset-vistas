@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import EditAssetForm from '../EditAssetForm/EditAssetForm';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -10,6 +10,8 @@ export default function NewAssetFormModal({ open, handleClose, onAssetChange, as
           mode: 'dark',
         },
       });
+
+      console.log(handleSave);
       
     return (
         <ThemeProvider theme={darkTheme}>
@@ -19,7 +21,7 @@ export default function NewAssetFormModal({ open, handleClose, onAssetChange, as
             onAssetChange={onAssetChange} 
             user={user} 
             asset={asset} 
-            onSave={handleSave} 
+            onSubmit={handleSave} 
             onCancel={handleClose} 
         />
             </DialogContent>

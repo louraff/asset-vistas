@@ -49,48 +49,15 @@ export default class EditAssetForm extends Component {
 
     handleSubmit = async (evt) => {
         evt.preventDefault();
-        try {
-          const formData = {...this.state};
-          delete formData.confirm;
-          delete formData.error;
+        const formData = {...this.state};
+        delete formData.confirm;
+        delete formData.error;
+        delete formData.successMessage;
     
-          console.log(this.props.user._id)
-          console.log(formData);
-          // Check if this is an edit operation
-          if (this.props.asset && this.props.asset._id) {
-            // Update existing asset
-            await axios.put(`/api/portfolio/${this.props.user._id}/asset/${this.props.asset._id}`, formData);
-          } else {
-            // Create new asset
-            await axios.post(`/api/portfolio/${this.props.user._id}/asset`, formData);
-          }
-
-          // Reset form fields
-    this.setState({
-      ticker: '',
-      units: '',
-      sector: 'Energy',
-      tickerSuggestions: [],
-      error: '',
-      successMessage: 'Asset successfully added to your portfolio.',
-    });
-
-          // Call onSave function if provided (this is to support modal closing and other post-save operations)
-          if (this.props.onSave) {
-            this.props.onSave();
-          }
-
-          // Clear success message after 5 seconds
-      setTimeout(() => {
-        this.setState({ successMessage: '' });
-      }, 5000);
-
-        } catch(error) {
-          console.error(error);
-          this.setState({ error: 'Asset was not added. Please try again.' });
-        }
-      };
-
+        // call onSubmit with the new asset data
+        this.props.onSubmit(formData);
+    };
+    
       getTickerSuggestions = async (value) => {
         try {
           const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${value}&apikey=${process.env.REACT_APP_ALPHA_API_KEY}`, {
@@ -151,7 +118,9 @@ export default class EditAssetForm extends Component {
         return (
           <div className="login-parent">
             <div className="edit-form-container">
-              <form autoComplete="off" onSubmit={this.handleSubmit}>
+              <form autoComplete="off" 
+              onSubmit={this.handleSubmit}
+              >
               <div className="form-group">
           <h4 className="edit-header">EDIT ASSET</h4>
                 <label className='email'>Ticker</label>
@@ -194,9 +163,9 @@ export default class EditAssetForm extends Component {
                     <button onClick={this.props.onCancel} color="secondary" className="cancel-button">
                     Cancel
                     </button>
-                    <Button onClick={this.props.handleSave} color="primary" className="asset-button">
-                    Save
-                    </Button>
+                    <Button onClick={this.handleSubmit} color="primary" className="asset-button">
+    Save
+</Button>
                  </div>
               </form>
               {successMessage && <p className="success-message">{successMessage}</p>}

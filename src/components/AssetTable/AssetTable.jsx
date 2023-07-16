@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import "../css/AssetTable.css"
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-
+import axios from 'axios';
 
 export default function AssetTable({ portfolio, setPortfolio, updateAsset, deleteAsset, user }) {
   const [assets, setAssets] = useState([]);
@@ -93,31 +93,49 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
     setPortfolio((prevPortfolio) => ({ ...prevPortfolio }));
   };
 
-  const handleSave = async () => {
-    if (assetToEdit) {
-      console.log('Saving asset:', assetToEdit);
-  
-      const updatedAsset = await updateAsset(assetToEdit);
-  
+  const updateAssetInComponent = async (newAsset) => {
+    try {
+        const response = await axios.put(`/api/portfolio/${user._id}/asset/${newAsset._id}`, newAsset);
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error('Failed to update asset');
+        }
+    } catch (error) {
+        console.error('Update Asset error:', error);
+    }
+};
+
+
+const handleSave = async () => {
+  if (assetToEdit) {
+    console.log('Saving asset:', assetToEdit);
+
+    const updatedAsset = await updateAsset(assetToEdit);
+
+    if (updatedAsset) {
       const assetIndex = portfolio.assets.findIndex(asset => asset._id === assetToEdit._id);
       console.log('Asset index:', assetIndex);
       console.log('Portfolio before update:', portfolio);
-  
+
       if (assetIndex !== -1) {
         let updatedPortfolio = { ...portfolio };  // Create a local copy of the portfolio
         updatedPortfolio.assets[assetIndex] = updatedAsset;  // Update the local copy
-  
+
         console.log('Updated assets:', updatedPortfolio.assets);
-  
+
         setPortfolio(updatedPortfolio);  // Set the portfolio state to the updated local copy
         setAssetToEdit(null);
-        setOpen(false);
+        handleClose();  // Close the modal
       }
-  
-      // This console log will still not reflect the updated state as setPortfolio is asynchronous
+
       console.log('Portfolio after update:', portfolio);
     }
-  };
+  }
+};
+
+  
+
   
   
 
