@@ -35,7 +35,7 @@ export default function App() {
             <Route path="/assets" element={<MyAssets user={user}/>}/>
             <Route path="/add-asset" element={<AddAsset user={user}/>} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/dashboard" element={<Dashboard user={user}/>} />
+            <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
           </Routes>
           </div>
         :

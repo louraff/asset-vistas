@@ -11,9 +11,10 @@ import { fetchHistoricalData } from "../../utilities/historicalData-api";
 import usePortfolio from "../../utilities/usePortfolio";
 import "../../components/css/Dashboard.css"
 import "../App/App.css"
+import NavBar from "../../components/NavBar/NavBar";
 
 
-export default function Dashboard({user}) {
+export default function Dashboard({user, setUser}) {
   const [portfolio, setPortfolio] = useState(null);
   const [historicalData, setHistoricalData] = useState([]);
   const [sectorAllocations, setSectorAllocations] = useState(null)
@@ -232,65 +233,69 @@ const calculateNumberOfAssets = (assets) => {
   // console.log("Historical data:", historicalData);
   return (
     <div className="main-content">
-    
-    <div className="row">
-    <div className="col-12">
-    <div className="card-chart cardd">
-    <div className="card-header">
-    <div className="rowy">
-    <div className="text-left col-sm-6">   
-    <h5 className="card-categoryy">Total Portfolio Value</h5>
-    <h2 className="card-title-main">£ {portfolio.TotalValue.toLocaleString()}</h2>
-  </div>
-  <div className="card-body">
-  <div className="chart-area">
-  <LineGraph data={historicalData} />
-  </div>
-  </div>
-  </div>
- 
-  </div>
-  </div>
-
-</div>
-</div>
+      <div className="navbar">
+      <NavBar user={user} setUser={setUser} />
+    </div>
+      <div className="top-section">
+        <div className="row">
+          <div className="col-12">
+            <div className="card-chart cardd">
+              <div className="card-header">
+                <div className="rowy">
+                  <div className="text-left col-sm-6">
+                    <h5 className="card-categoryy">Total Portfolio Value</h5>
+                    <h2 className="card-title-main">£ {portfolio.TotalValue.toLocaleString()}</h2>
+                  </div>
+                  <div className="card-body">
+                    <div className="chart-area">
+                      <LineGraph data={historicalData} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
   
-
-    <div className="cards">
-      <HighestValueAssetCard 
-        ticker={highestValueAsset ? highestValueAsset.ticker : 'Loading...'}
-        value={highestValueAsset ? highestValueAsset.totalValue : 'Loading...'}
-      />
-    
-      <HighestGrowthAssetCard 
-        ticker={highestGrowthAsset && highestGrowthAsset.asset ? highestGrowthAsset.asset.ticker : 'Loading...'}
-        value={highestGrowthAsset ? highestGrowthAsset.totalValue : 'Loading...'}
-      />
-<HighestLossAssetCard 
-        ticker={highestLossAsset && highestLossAsset.asset ? highestLossAsset.asset.ticker : 'Loading...'}
-        value={highestLossAsset ? highestLossAsset.totalValue : 'Loading...'}
-      />
-      <TotalAssetsCard 
-        numAssets={numAssets}
-      />
-     </div>
-
-     <div className="donut">
-  <h3 className="donut">Sector Allocation Overview</h3>
-  <PieChart data={sectorAllocations} />
-</div>
-
-     <div className="asset-table">
-     <h3 className="donut">My Assets</h3>
-     <AssetTable
+        <div className="cards">
+          <HighestValueAssetCard
+            ticker={highestValueAsset ? highestValueAsset.ticker : 'Loading...'}
+            value={highestValueAsset ? highestValueAsset.totalValue : 'Loading...'}
+          />
+  
+          <HighestGrowthAssetCard
+            ticker={highestGrowthAsset && highestGrowthAsset.asset ? highestGrowthAsset.asset.ticker : 'Loading...'}
+            value={highestGrowthAsset ? highestGrowthAsset.totalValue : 'Loading...'}
+          />
+  
+          <HighestLossAssetCard
+            ticker={highestLossAsset && highestLossAsset.asset ? highestLossAsset.asset.ticker : 'Loading...'}
+            value={highestLossAsset ? highestLossAsset.totalValue : 'Loading...'}
+          />
+  
+          <TotalAssetsCard
+            numAssets={numAssets}
+          />
+        </div>
+      </div>
+  
+      <div className="bottom-section">
+        <div className="donut">
+          <h3 className="donut">Sector Allocation Overview</h3>
+          <PieChart data={sectorAllocations} />
+        </div>
+  
+        <div className="asset-table">
+          <h3 className="donut">My Assets</h3>
+          <AssetTable
             portfolio={portfolio}
             updateAsset={updateAsset}
             deleteAsset={deleteAsset}
             user={user}
             setPortfolio={setPortfolio}
           />
-     </div>
+        </div>
+      </div>
     </div>
-    )
-  }
-    
+  );
+  }  

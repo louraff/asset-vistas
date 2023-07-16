@@ -1,14 +1,12 @@
 
 .App {
-  /* display: flex; */
-  height: 100vh;
+  /* height: 100vh; */
   overflow: hidden;
   background-color: #1e1e2f;
   font-family: 'Poppins', sans-serif;
 }
 
 .total-body {
-  display: flex;
   flex: 1;
   overflow: hidden;
   background-color: #1e1e2f;
@@ -23,7 +21,7 @@ body {
 }
 
 .navbar {
-  flex: 0 0 250px; /* initial width of the navbar */
+  flex: 0 0 250px; 
   height: 100%;
   overflow-y: auto;
   margin-left: 2vmin;
@@ -57,19 +55,35 @@ h3.donut {
 
 @media screen and (max-width: 768px) {
   .navbar {
-    flex-basis: 100px; /* reduce width of the navbar on smaller screens */
+    flex-basis: 100px; 
   }
 }
 
 .main-content {
-  flex: 1;
+  /* flex: 1;
   display: grid;
-  grid-template-rows: auto 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+
   height: 100%;
   overflow-y: auto;
-  padding: 0;
-  width: 100%;
+
+  width: 100%; */
+  display: flex;
+  height: calc(100vh - 20px); /* Subtract the top and bottom margins of the navbar */
+  overflow: hidden;
+
+
+
+}
+.top-section {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.bottom-section {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  overflow-y: auto;
 }
 
 .donut, .asset-table {
@@ -196,3 +210,4 @@ h5.card-categoryy {
     margin-left: 1vmin;
     margin-top: 2.7vmin;
 }
+
