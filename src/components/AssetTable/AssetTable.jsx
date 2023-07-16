@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import NewAssetFormModal from '../AssetModal/AssetModal';
 import { v4 as uuidv4 } from 'uuid';
-import '../css/AssetTable.css';
+import "../css/AssetTable.css"
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
@@ -24,8 +24,8 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
   };
 
   const columns = [
-    { field: 'ticker', editable: true, sortable: true, filterable: true, width: 150 },
-    { field: 'units', editable: true, sortable: true, filterable: true, width: 150 },
+    { field: 'ticker', headerName: 'TICKER', editable: true, sortable: true, filterable: true, width: 100 },
+    { field: 'units', headerName: 'UNITS',editable: true, sortable: true, filterable: true, width: 70 },
     // { 
     //   field: 'totalValue', 
     //   headerName: 'Total Value', 
@@ -50,10 +50,11 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
     //   sortable: true, 
     //   filterable: true, 
     //   width: 150 
-    // },{ field: 'sector', editable: true, sortable: true, filterable: true, width: 150 }, 
+    // }
+    { field: 'sector', headerName: 'SECTOR', editable: true, sortable: true, filterable: true, width: 250 }, 
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: 'EDIT',
       sortable: false,
       filterable: false,
       renderCell: (params) => (
@@ -132,7 +133,11 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
   console.log('Asset data: ', portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div className="asset-parent">
+    <div className='asset-table-container'>
+      <div className='table-group'>
+      <h4 className="asset-header">ASSET TABLE</h4>
+    <div className="table-container">
       <DataGrid
         rows={portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []}
         columns={columns}
@@ -150,6 +155,9 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
         user={user}
         onAssetChange={handleAssetChange}
       />
+      </div>
+    </div>
+    </div>
     </div>
   );
 }

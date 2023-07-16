@@ -8,7 +8,6 @@ export default function MyAssets({ user }) {
 
   return (
     <>
-      <h1>MyAssets</h1>
       {portfolio ? (
         <AssetTable
           portfolio={portfolio}

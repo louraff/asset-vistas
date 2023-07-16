@@ -1,4 +1,4 @@
-.MuiDataGrid-colCell {
+/* .MuiDataGrid-colCell {
     border-right: none;
 }
 
@@ -32,16 +32,190 @@
 }
 
 .custom-data-grid .MuiDataGrid-row {
-    /* color: #333;  */
-    /* Set the text color */
+
   }
   
   .custom-data-grid .MuiDataGrid-row:nth-child(even) {
-    /* background-color: #f2f2f2;  */
-    /* Apply alternating row colors */
+
   }
   
   .custom-data-grid .MuiDataGrid-cell {
-    padding-top: 8px; /* Adjust top padding */
-    padding-bottom: 8px; /* Adjust bottom padding */
+    padding-top: 8px; 
+    padding-bottom: 8px; 
   }
+
+.table-container {
+    height: 400px;
+    width: 40%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.MuiDataGrid-columnHeaders {
+  padding: 15px 15px 0;
+    border: 0;
+    color: hsla(0, 0%, 100%, 0.8);
+    font-weight: 400;
+    font-family: poppins,sans-serif;
+    font-size: .875rem;
+    line-height: 1.5;
+    text-align: left;
+    border-radius: 0.2232rem 0.2232rem 0 0;
+    margin-bottom: 0;
+}
+
+.MuiDataGrid-row {
+
+} */
+
+.asset-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vh;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.asset-table-container {
+  height: 50vmin;
+  display: flex;
+  width: 70%;
+  background-color: #27293d;
+  padding-top: 2vmin;
+  padding-left: 2vmin;
+  padding-right: 2vmin;
+  padding-bottom: 0vmin;
+  border-radius: 0.5vmin;
+  min-width: 35%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 40vmin;
+  width: 80vmin;
+}
+
+.custom-data-grid {
+  border: none;
+  width: 80%;
+  height: 100%;
+  background-color: #27293d;
+  color: #fff;
+}
+
+.MuiDataGrid-row {
+  border-bottom: 1px solid #32334d !important;
+}
+
+.MuiDataGrid-row:last-child {
+  border-bottom: none !important;
+}
+
+.MuiDataGrid-columnHeaders,
+.css-1iyq7zh-MuiDataGrid-columnHeaders
+{
+  color: hsla(0, 0%, 100%, 0.8);
+  font-weight: 400;
+  font-family: poppins,sans-serif;
+  font-size: .875rem;
+  line-height: 1.5;
+  text-align: left;
+  background-color: #27293d;
+}
+
+.MuiDataGrid-cell {
+  color: hsla(0,0%,100%,.6);
+}
+
+.MuiDataGrid-colCell, .MuiDataGrid-colCellTitle {
+  border-right: none !important;
+}
+.css-1lymaxv-MuiDataGrid-root {
+  --unstable_DataGrid-radius: 4px;
+    --unstable_DataGrid-headWeight: 500;
+    --unstable_DataGrid-overlayBackground: rgba(255, 255, 255, 0.38);
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    box-sizing: border-box;
+    position: relative;
+    border-width: 0px;
+    border-style: solid;
+    border-color: rgba(224, 224, 224, 1);
+    border-radius: var(--unstable_DataGrid-radius);
+    color: #525f7f;
+    font-family: "Poppins",sans-serif;
+    font-weight: 200;
+    font-size: 0.5rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    outline: none;
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow-anchor: none;
+}
+
+.css-1lymaxv-MuiDataGrid-root .MuiDataGrid-withBorderColor {
+  border-color: hsla(0, 0%, 100%, .1);
+}
+
+.asset-header {
+  line-height: 1.45em;
+  font-size: 1.0625em;
+  color: #fff;
+  font-weight: 100;
+  margin-bottom: 2vmin;
+    margin-top: -2vmin;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 8vmin;
+}
+
+
+.table-group {
+  margin-bottom: 10px;
+}
+
+.css-wop1k0-MuiDataGrid-footerContainer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: none;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: 52px;
+  border-top: 1px solid;
+}
+
+.custom-data-grid {
+  border: none;
+  width: 80%;
+}
