@@ -1,3 +1,4 @@
+import "../css/AssetTable.css"
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { IconButton} from '@mui/material';
@@ -5,7 +6,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import NewAssetFormModal from '../AssetModal/AssetModal';
 import { v4 as uuidv4 } from 'uuid';
-import "../css/AssetTable.css"
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axios from 'axios';
@@ -126,12 +126,12 @@ const handleSave = async () => {
 
         setPortfolio(updatedPortfolio);  // Set the portfolio state to the updated local copy
         setAssetToEdit(null);
-        handleClose();  // Close the modal
       }
 
       console.log('Portfolio after update:', portfolio);
     }
   }
+  handleClose();  // Close the modal
 };
 
   
