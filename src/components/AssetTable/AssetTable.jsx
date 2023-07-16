@@ -6,8 +6,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import NewAssetFormModal from '../AssetModal/AssetModal';
 import { v4 as uuidv4 } from 'uuid';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+// import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+// import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axios from 'axios';
 
 export default function AssetTable({ portfolio, setPortfolio, updateAsset, deleteAsset, user }) {
@@ -151,10 +151,10 @@ const handleSave = async () => {
   console.log('Asset data: ', portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
 
   return (
-    // <div className="asset-parent">
-    // <div className='asset-table-container'>
-    //   <div className='table-group'>
-    <>
+    <div className="asset-parent">
+    <div className='asset-table-container'>
+      <div className='table-group'>
+
       <h4 className="asset-header">ASSET TABLE</h4>
     <div className="table-container">
       <DataGrid
@@ -175,9 +175,9 @@ const handleSave = async () => {
         onAssetChange={handleAssetChange}
       />
       </div>
-      </>
-    // </div>
-    // </div>
-    // </div>
+ 
+    </div>
+    </div>
+    </div>
   );
 }

@@ -116,6 +116,7 @@
   color: #fff;
 }
 
+.css-1lymaxv-MuiDataGrid-root, 
 .MuiDataGrid-row {
   border-bottom: 1px solid #32334d !important;
 }
@@ -143,7 +144,8 @@
 .MuiDataGrid-colCell, .MuiDataGrid-colCellTitle {
   border-right: none !important;
 }
-.css-1lymaxv-MuiDataGrid-root {
+.css-1lymaxv-MuiDataGrid-root,
+.css-1lymaxv-MuiDataGrid-root  {
   --unstable_DataGrid-radius: 4px;
     --unstable_DataGrid-headWeight: 500;
     --unstable_DataGrid-overlayBackground: rgba(255, 255, 255, 0.38);
@@ -152,17 +154,17 @@
     flex: 1;
     box-sizing: border-box;
     position: relative;
-    border-width: 0px;
+    border-width: 0px !important;
     border-style: solid;
-    border-color: rgba(224, 224, 224, 1);
+    border-color: rgba(224, 224, 224, 1)  !important;
     border-radius: var(--unstable_DataGrid-radius);
-    color: #525f7f;
-    font-family: "Poppins",sans-serif;
-    font-weight: 200;
-    font-size: 0.5rem;
+    color: #525f7f  !important;
+    font-family: "Poppins",sans-serif  !important;
+    font-weight: 200  !important;
+    font-size: 0.5rem  !important;
     line-height: 1.43;
     letter-spacing: 0.01071em;
-    outline: none;
+    outline: none  !important;
     height: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -176,8 +178,9 @@
     overflow-anchor: none;
 }
 
-.css-1lymaxv-MuiDataGrid-root .MuiDataGrid-withBorderColor {
-  border-color: hsla(0, 0%, 100%, .1);
+.css-1lymaxv-MuiDataGrid-root, 
+.MuiDataGrid-withBorderColor {
+  border-color: hsla(0, 0%, 100%, .1)  !important;
 }
 
 .asset-header {
@@ -203,7 +206,7 @@
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
-  display: none;
+  display: none  !important;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   justify-content: space-between;

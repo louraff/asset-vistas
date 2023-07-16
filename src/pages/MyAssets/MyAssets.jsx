@@ -9,9 +9,7 @@ export default function MyAssets({ user }) {
 
   return (
     <>
-     <div className="asset-parent">
-    <div className='asset-table-container'>
-      <div className='table-group'>
+     
       {portfolio ? (
         <AssetTable
           portfolio={portfolio}
@@ -24,9 +22,7 @@ export default function MyAssets({ user }) {
       ) : (
         <p>Loading...</p>
       )}
-      </div>
-        </div>
-        </div>
+     
     </>
   );
 }
