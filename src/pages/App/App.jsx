@@ -29,7 +29,7 @@ export default function App() {
         <div className='total-body'>
         <div className="navbar">
           <NavBar user={user} setUser={setUser} />
-          </div>
+        </div>
           {/* // Routes is sitting inside this ternary so that the AuthPage is always rendered when a user state is null, no matter what the path is. When user has a value, it will render the relevant Route */}
           <Routes>
             <Route path="/assets" element={<MyAssets user={user}/>}/>

@@ -243,7 +243,7 @@ const calculateNumberOfAssets = (assets) => {
     <h2 className="card-title-main">£ {portfolio.TotalValue.toLocaleString()}</h2>
   </div>
   <div className="card-body">
-  <div className="chart-area">
+  <div className="chart-area line-graph">
   <LineGraph data={historicalData} />
   </div>
   </div>
