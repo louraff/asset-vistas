@@ -57,6 +57,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
       headerName: 'EDIT',
       sortable: false,
       filterable: false,
+      
       renderCell: (params) => (
         <strong>
           <IconButton

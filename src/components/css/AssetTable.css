@@ -102,10 +102,10 @@
 .table-container {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  height: 40vmin;
-  width: 80vmin;
+  height: 30vmin;
+  width: 60vmin;
 }
 
 .custom-data-grid {
@@ -114,6 +114,10 @@
   height: 100%;
   background-color: #27293d;
   color: #fff;
+}
+
+.css-204u17-MuiDataGrid-main {
+  width: 50vmin !important;
 }
 
 .css-1lymaxv-MuiDataGrid-root, 

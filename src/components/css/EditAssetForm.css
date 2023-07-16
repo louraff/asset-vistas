@@ -22,8 +22,8 @@
   
   .css-t89xny-MuiDataGrid-columnHeaderTitle {
     text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    overflow: hidden !important;
+    white-space: nowrap !important;
     font-weight: var(--unstable_DataGrid-headWeight);
     color: white;
       }
@@ -142,28 +142,28 @@ h4.edit-header {
 .css-ypiqx9-MuiDialogContent-root {
     flex: 1 1 auto;
     overflow-y: initial !important;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.9) !important;
 }
 .css-1qxadfk-MuiPaper-root-MuiDialog-paper {
-    background-color: rgba(0, 0, 0, 0.9);
-    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    color: #fff !important;
     -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     border-radius: 4px;
     box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2), 0px 24px 38px 3px rgba(0,0,0,0.14), 0px 9px 46px 8px rgba(0,0,0,0.12);
-    background-image: none;
-    margin: 32px;
-    position: relative;
-    overflow-y: initial;
+    background-image: none !important;
+    margin: 32px !important;
+    position: relative !important;
+    overflow-y: initial !important;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
+    display: flex !important;
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
-    max-height: calc(100% - 64px);
-    max-width: 600px;
+    max-height: calc(100% - 64px) !important;
+    max-width: 600px !important;
 }
 .button-container {
     display: flex;

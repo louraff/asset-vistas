@@ -280,15 +280,16 @@ const calculateNumberOfAssets = (assets) => {
   <PieChart data={sectorAllocations} />
 </div>
 
-     <div className="asset-table">
+     <div className="asset-table asset-table-dashboard">
       <div className="asset-dash-container">
-     <h3 className="assets">My Assets</h3>
+     {/* <h3 className="assets">My Assets</h3> */}
      <AssetTable
             portfolio={portfolio}
             updateAsset={updateAsset}
             deleteAsset={deleteAsset}
             user={user}
             setPortfolio={setPortfolio}
+            width="10%"
           />
           </div>
      </div>

@@ -85,12 +85,14 @@ h3.assets {
 }
 .donut {
   padding: 1vmin;
-    background: #27293d;
-    border-radius: 0.5vmin;
-    margin-left: 1.2vmin;
-    grid-row: 3/4;
-    grid-column: 1/2;
-    margin-top: -2.4vmin;
+  background: #27293d;
+  border-radius: 0.5vmin;
+  margin-left: 1.2vmin;
+  grid-row: 3/4;
+  grid-column: 1/2;
+  margin-top: -2.4vmin;
+  width: 96%;
+  height: 95%;
 }
 .line-graph, .cards {
   padding: 1rem;
@@ -126,7 +128,8 @@ h3.assets {
   padding-top: 1vmin;
   grid-row: 3/4;
   grid-column: 2/3;
-  margin-top: -2.4vmin;
+  margin-top: -0.4vmin;
+  margin-left: 0.5vmin;
 
 }
 /* GRAPH STYLING */
@@ -202,5 +205,12 @@ h5.card-categoryy {
   justify-content: center;
   align-items: center;
   margin-right: 5vmin;
-  max-width: vmin;
+  margin-top: -28vmin;
+  margin-left: 8vmin;
+}
+
+.asset-table-container {
+
+  width: 100%;
+
 }
