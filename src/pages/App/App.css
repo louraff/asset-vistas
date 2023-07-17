@@ -201,16 +201,11 @@ h5.card-categoryy {
 
 .asset-dash-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 5vmin;
-  margin-top: -28vmin;
-  margin-left: 8vmin;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5vmin;
+    margin-top: -34vmin;
+    margin-left: 8vmin;
 }
 
-.asset-table-container {
-
-  width: 100%;
-
-}
