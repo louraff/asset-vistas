@@ -13,16 +13,31 @@ import "../../components/css/Dashboard.css"
 import "../App/App.css"
 
 
-export default function Dashboard({user}) {
-  const [portfolio, setPortfolio] = useState(null);
-  const [historicalData, setHistoricalData] = useState([]);
-  const [sectorAllocations, setSectorAllocations] = useState(null)
-  const [highestValueAsset, setHighestValueAsset] = useState({});
-  const [highestGrowthAsset, setHighestGrowthAsset] = useState({});
-  const [highestLossAsset, setHighestLossAsset] = useState({});
-  const [numAssets, setNumAssets] = useState(0);
-  const { updateAsset, deleteAsset} = usePortfolio(user);
+export default function Dashboard({user,
+  portfolio,
+  setPortfolio,
+  historicalData,
+  setHistoricalData,
+  sectorAllocations,
+  setSectorAllocations,
+  highestValueAsset,
+  setHighestValueAsset,
+  highestGrowthAsset,
+  setHighestGrowthAsset,
+  highestLossAsset,
+  setHighestLossAsset,
+  numAssets,
+  setNumAssets,}) {
+  // const [portfolio, setPortfolio] = useState(null);
+  // const [historicalData, setHistoricalData] = useState([]);
+  // const [sectorAllocations, setSectorAllocations] = useState(null)
+  // const [highestValueAsset, setHighestValueAsset] = useState({});
+  // const [highestGrowthAsset, setHighestGrowthAsset] = useState({});
+  // const [highestLossAsset, setHighestLossAsset] = useState({});
+  // const [numAssets, setNumAssets] = useState(0);
+  // const { updateAsset, deleteAsset} = usePortfolio(user);
 
+  const { updateAsset, deleteAsset } = usePortfolio(user);
 
   const fetchAndCalculateAssetValues = async (assets) => {
     const assetValues = [];
@@ -43,7 +58,6 @@ export default function Dashboard({user}) {
           for (const pointData of timeSeries) {
             const closePrice = parseFloat(pointData.close);
             const datetime = new Date(pointData.date).getTime();
-            // const assetValue = closePrice * asset.units; 
     
             const assetValue = closePrice * asset.units;
             assetData.get(asset.ticker).push({ datetime: datetime, value: assetValue });
@@ -51,6 +65,8 @@ export default function Dashboard({user}) {
     
           // Attach the fetched data back to the asset
           asset.historicalData = assetData.get(asset.ticker);
+          asset.currentPrice = parseFloat(timeSeries[timeSeries.length - 1].close); // set currentPrice
+          asset.oldPrice = parseFloat(timeSeries[timeSeries.length - 2].close); // set oldPrice
         }
       } catch (error) {
         console.error('Error fetching and processing data for asset:', asset.ticker, error);

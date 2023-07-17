@@ -39,9 +39,9 @@ export default function NavBar({ user, setUser }) {
           <Link to='/dashboard'activeClassName="activeClicked">              
             <CDBSidebarMenuItem icon="chart-line">Dashboard</CDBSidebarMenuItem>
           </Link>
-          <Link to='/assets' activeClassName="activeClicked">
+          {/* <Link to='/assets' activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">My Assets</CDBSidebarMenuItem>
-          </Link>
+          </Link> */}
           <Link to='/add-asset' activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="plus">Add Asset</CDBSidebarMenuItem>
           </Link>

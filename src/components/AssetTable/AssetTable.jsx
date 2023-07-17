@@ -1,14 +1,15 @@
 import "../css/AssetTable.css"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import NewAssetFormModal from '../AssetModal/AssetModal';
 import { v4 as uuidv4 } from 'uuid';
-// import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-// import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axios from 'axios';
+import { fetchHistoricalData } from "../../utilities/historicalData-api";
 
 export default function AssetTable({ portfolio, setPortfolio, updateAsset, deleteAsset, user }) {
   const [assets, setAssets] = useState([]);
@@ -31,7 +32,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
     editable: false, 
     sortable: true, 
     filterable: true, 
-    width: 150,
+    width: 120,
     valueGetter: (params) => params.row.totalValue,
     valueFormatter: ({ value }) => `$${Number(value).toLocaleString()}`},
     // { 
@@ -43,22 +44,22 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
     //   filterable: true, 
     //   width: 150 
     // },
-    // {
-    //   field: 'priceChange',
-    //   headerName: 'Price Change',
-    //   renderCell: (params) => (
-    //     params.row.oldPrice !== undefined ? // Check if oldPrice is not undefined
-    //     params.row.currentPrice > params.row.oldPrice ? 
-    //       <ArrowUpwardIcon style={{ color: 'green' }} /> :
-    //       params.row.currentPrice < params.row.oldPrice ? 
-    //         <ArrowDownwardIcon style={{ color: 'red' }} /> : null
-    //     : null // oldPrice is undefined
-    //   ),
-    //   editable: false,
-    //   sortable: true, 
-    //   filterable: true, 
-    //   width: 150 
-    // }
+    {
+      field: 'priceChange',
+      headerName: '',
+      renderCell: (params) => (
+        params.row.oldPrice !== undefined ? // Check if oldPrice is not undefined
+          params.row.currentPrice > params.row.oldPrice ?
+            <ArrowUpwardIcon style={{ color: 'green' }} /> :
+            params.row.currentPrice < params.row.oldPrice ?
+              <ArrowDownwardIcon style={{ color: 'red' }} /> : null
+          : null // oldPrice is undefined
+      ),
+      editable: false,
+      sortable: true, 
+      filterable: true, 
+      width: 50 
+    },
     { field: 'sector', headerName: 'SECTOR', editable: true, sortable: true, filterable: true, width: 250 }, 
     {
       field: 'action',
@@ -143,7 +144,32 @@ const handleSave = async () => {
   handleClose();  // Close the modal
 };
 
+useEffect(() => {
+  (async function fetchAndSetAssetPrices() {
+    const updatedAssets = [...assets]; // Create a copy of the assets array
+    for (let i = 0; i < updatedAssets.length; i++) {
+      try {
+        const { oldPrice, currentPrice } = await fetchAssetPrices(updatedAssets[i].ticker);
+        updatedAssets[i].oldPrice = oldPrice;
+        updatedAssets[i].currentPrice = currentPrice;
+      } catch (error) {
+        console.error(`Failed to fetch prices for ${updatedAssets[i].ticker}: `, error);
+      }
+    }
+    setAssets(updatedAssets); // Update the state with the new array
+  })();
+}, []); // This effect runs whenever the `assets` array changes
+
+async function fetchAssetPrices(assetTicker) {
+  const historicalData = await fetchHistoricalData(assetTicker, '1y');
+  const currentPrice = historicalData[historicalData.length - 1].close;
+  const oldPrice = historicalData[0].close;
   
+  return {
+    oldPrice,
+    currentPrice,
+  };
+}
 
   
   
@@ -152,6 +178,9 @@ const handleSave = async () => {
     ({ id, field, props }) => {
       if (field === 'units') {
         updateAsset({ ...props.row, units: props.value });
+      }
+      if (field === 'currentPrice') {
+        updateAsset({ ...props.row, currentPrice: props.value });
       }
     },
     [updateAsset]
@@ -165,7 +194,7 @@ const handleSave = async () => {
     <div className='asset-table-container'>
       <div className='table-group'>
 
-      <h4 className="asset-header">ASSET TABLE</h4>
+      <h4 className="asset-header">My Assets</h4>
     <div className="table-container">
       <DataGrid
       

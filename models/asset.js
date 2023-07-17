@@ -27,20 +27,27 @@ const assetSchema = new Schema({
         required: true,
         default: 0,
     }, 
-    priceChange: {
-        type: Number,
-        default: 0,
-      },
+    // priceChange: {
+    //     type: Number,
+    //     default: 0,
+    //   },
     totalValue: {type: Number, default: 0,}
 })
 
 assetSchema.pre('save', function (next) {
-    if (!this.isNew && this.isModified('currentPrice')) {
+    if (!this.isNew && (this.isModified('currentPrice') || this.isModified('units'))) {
       this.oldPrice = this.get('currentPrice', null, { getters: false });
     }
     console.log('currentPrice:', this.currentPrice);
     console.log('units:', this.units);
     this.totalValue = this.currentPrice * this.units;
+    next();
+});
+
+assetSchema.post('save', function(doc, next) {
+    if (doc.isModified('currentPrice')) {
+        doc.oldPrice = doc.currentPrice;
+    }
     next();
 });
 

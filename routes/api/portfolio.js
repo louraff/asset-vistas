@@ -106,23 +106,30 @@ router.put('/:userId/asset/:assetId', async (req, res) => {
         const { userId, assetId } = req.params;
         const updatedAssetData = req.body;
 
-        // Find the asset directly and update it
-        // const asset = await Asset.findByIdAndUpdate(assetId, updatedAssetData, { new: true });
-
+        // Find the asset directly
         const asset = await Asset.findById(assetId);
-
 
         if (!asset) {
             return res.status(404).json({message: "Asset not found"});
         }
         // Update the fields on the asset
-        if (updatedAssetData.currentPrice) {
+        if (updatedAssetData.currentPrice !== undefined) {
             // Update oldPrice to the currentPrice before updating currentPrice
             asset.oldPrice = asset.currentPrice;
+            asset.currentPrice = updatedAssetData.currentPrice;
         }
-        // Update the fields on the asset
-        Object.assign(asset, updatedAssetData);
-
+        // Update other fields if necessary
+        if (updatedAssetData.units !== undefined) {
+            asset.units = updatedAssetData.units;
+        }
+        const data = await fetchHistoricalData(updatedAssetData.ticker, '1y');
+    
+        if(data && data.length > 0) {
+            const lastClosePrice = data[0].close;  // Get the last close price
+            asset.currentPrice = lastClosePrice; // Update the current price
+            asset.oldPrice = data[data.length - 1].close; // Set old price
+        }
+        
         await asset.save();
 
         res.json(asset);
@@ -131,6 +138,7 @@ router.put('/:userId/asset/:assetId', async (req, res) => {
         res.status(500).json({message: "Server Error"});
     }
 });
+
 
 router.delete('/:userId/asset/:assetId', async (req, res) => {
     console.log(`Received DELETE request for asset ${req.params.assetId} for user ${req.params.userId}`); 

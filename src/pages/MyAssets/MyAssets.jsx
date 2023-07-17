@@ -3,73 +3,61 @@ import AssetTable from '../../components/AssetTable/AssetTable';
 import axios from 'axios';
 import usePortfolio from '../../utilities/usePortfolio'; 
 import '../../components/css/AssetTable.css'
-import { fetchHistoricalData } from "../../utilities/historicalData-api";
+import { fetchHistoricalData } from '../../utilities/historicalData-api';
+import { v4 as uuidv4 } from 'uuid'; 
 
 
-export default function MyAssets({ user }) {
-  const { portfolio, updateAsset, deleteAsset, setPortfolio } = usePortfolio(user);
+export default function MyAssets({ user, portfolio, setPortfolio }) {
+  const { updateAsset, deleteAsset } = usePortfolio(user);
+  const [latestPrices, setLatestPrices] = useState({});
 
-  const fetchAndCalculateAssetValues = async (assets) => {
-    const assetValues = [];
-  
-    // Prepare an empty Map for each asset's data
-    const assetData = new Map(assets.map(asset => [asset.ticker, []]));
-    if (!assets || assets.length === 0) {
-      return assetValues;
-    }
-    
-    for (const asset of assets) {
-      try {
-        const data = await fetchHistoricalData(asset.ticker, '1y');
-    
-        if (data) {
-          const timeSeries = Array.isArray(data) ? data : [data];
-          
-          for (const pointData of timeSeries) {
-            const closePrice = parseFloat(pointData.close);
-            const datetime = new Date(pointData.date).getTime();
-            // const assetValue = closePrice * asset.units; 
-    
-            const assetValue = closePrice * asset.units;
-            assetData.get(asset.ticker).push({ datetime: datetime, value: assetValue });
-          }
-    
-          // Attach the fetched data back to the asset
-          asset.historicalData = assetData.get(asset.ticker);
-        }
-      } catch (error) {
-        console.error('Error fetching and processing data for asset:', asset.ticker, error);
-      }
-    }
-    
-  
-    let timestamps = [];
-    // combine all timestamps into one array
-    for (const asset of assets) {
-      const assetTimes = assetData.get(asset.ticker).map(a => a.datetime);
-      timestamps = [...new Set([...timestamps, ...assetTimes])]; // Set is used to eliminate duplicates
-    }
-  
-    timestamps.sort((a, b) => new Date(a) - new Date(b)); // sort timestamps
-  
-    // now we can calculate the total value for each timestamp
-    for (const timestamp of timestamps) {
-      let totalValueAtTimestamp = 0;
-  
-      for (const asset of assets) {
-        const assetValues = assetData.get(asset.ticker);
-        const assetAtTime = assetValues.find(a => a.datetime === timestamp);
-        // console.log('Asset at time for asset', asset.ticker, 'at timestamp', timestamp, ':', assetAtTime);
-        
-        totalValueAtTimestamp += assetAtTime ? assetAtTime.value : 0;
-      }
-  
-      assetValues.push({ datetime: timestamp, value: totalValueAtTimestamp });
-    }
-    // console.log('Asset values:', assetValues);
-    return assetValues;
+
+  const calculateTotalValue = (asset) => {
+    const latestPrice = latestPrices[asset.ticker]; // Get the latest price from the latestPrices object
+
+    const totalValue = latestPrice ? latestPrice * asset.units : 0; // Calculate the total value based on the latest price
+    return totalValue;
   };
 
+  useEffect(() => {
+    const fetchLatestPrices = async () => {
+      const tickers = portfolio ? portfolio.assets.map(asset => asset.ticker) : [];
+      const symbols = tickers.join(',');
+
+      try {
+        const response = await fetchHistoricalData(symbols, '1d'); // Fetch latest price data for the symbols
+        const prices = response.reduce((acc, data) => {
+          const { symbol, close } = data;
+          acc[symbol] = close; // Store the latest price for each symbol in the object
+          return acc;
+        }, {});
+
+        setLatestPrices(prices); // Update the latestPrices state with the fetched prices
+
+        const updatedAssets = portfolio.assets.map(asset => {
+          const totalValue = calculateTotalValue(asset);
+          return {
+            ...asset,
+            totalValue
+          };
+        });
+        setPortfolio({ ...portfolio, assets: updatedAssets });
+
+      } catch (error) {
+        console.error('Failed to fetch latest prices:', error);
+      }
+    };
+
+    fetchLatestPrices();
+  }, []);
+  
+  const rows = portfolio
+    ? portfolio.assets.map(asset => ({
+        id: asset._id || uuidv4(),
+        totalValue: calculateTotalValue(asset), // calculate totalValue
+        ...asset
+      }))
+    : [];
 
   return (
     <>
