@@ -147,7 +147,8 @@ export default class NewAssetForm extends Component {
   
 
         return (
-          <div className="login-parent">
+          <div className='asset-house'>
+          <div className="asset-parent">
             <div className="asset-form-container">
               <form autoComplete="off" onSubmit={this.handleSubmit}>
               <div className="form-group">
@@ -195,6 +196,7 @@ export default class NewAssetForm extends Component {
               </form>
               {successMessage && <p className="success-message">{successMessage}</p>}
             <p className="error-message">&nbsp;{this.state.error}</p>
+          </div>
           </div>
           </div>
         );

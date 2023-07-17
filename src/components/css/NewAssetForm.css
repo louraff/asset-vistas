@@ -100,19 +100,19 @@ select.asset-sector {
 }
 
 div.asset-form-container {
-    display: flex;
-    background-color: #27293d;
-    padding-top: 2vmin;
-    padding-left: 2vmin;
-    padding-right: 2vmin;
-    padding-bottom: 0vmin;
-    border-radius: 0.5vmin;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    min-width: 55%;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 2vmin;
+  display: flex;
+  background-color: #27293d;
+  padding-top: 2vmin;
+  padding-left: 2vmin;
+  padding-right: 2vmin;
+  border-radius: 0.5vmin;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  min-width: 55%;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 2vmin;
+  width: 100%;
 }
 
 h4.asset-header {
@@ -129,4 +129,22 @@ h4.asset-header {
   color: #fff;
   font-weight: 100;
   margin-bottom: 2vmin;
+}
+
+.asset-parent {
+  padding: 1vmin;
+  background: #27293d;
+  border-radius: 0.5vmin;
+  margin-top: -2.4vmin;
+  width: 50vmin;
+  height: 45%;
+  flex-direction: column;
+}
+
+.asset-house {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
