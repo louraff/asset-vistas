@@ -76,18 +76,22 @@ router.post('/:userId/asset', async (req, res) => {
 
         // Calculate the value of the new asset and add it to the total value of the portfolio
         const data = await fetchHistoricalData(newAsset.ticker, '1y');
-        console.log("Data fetched: ", data)
-        
-        if(data && data.length > 0) {
-            const lastClosePrice = data[0].close;  // Get the last close price
-            const assetValue = lastClosePrice * newAsset.units;
-            portfolio.TotalValue = (portfolio.TotalValue || 0) + assetValue;
+    console.log("Data fetched: ", data)
+    
+    if(data && data.length > 0) {
+        const lastClosePrice = data[0].close;  // Get the last close price
+        const assetValue = lastClosePrice * newAsset.units;
+        newAsset.currentPrice = lastClosePrice; // Update the current price
+        newAsset.totalValue = assetValue; // Update the total value
+        await newAsset.save(); // Save the changes
 
-            await portfolio.save();
-        }
-        else {
-            console.error('No historical data available for ticker: ', newAsset.ticker);
-        }
+        portfolio.TotalValue = (portfolio.TotalValue || 0) + assetValue;
+
+        await portfolio.save();
+    }
+    else {
+        console.error('No historical data available for ticker: ', newAsset.ticker);
+    }
 
         // Send response
         res.json(portfolio);

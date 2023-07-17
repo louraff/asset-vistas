@@ -26,6 +26,14 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
   const columns = [
     { field: 'ticker', headerName: 'TICKER', editable: true, sortable: true, filterable: true, width: 100 },
     { field: 'units', headerName: 'UNITS',editable: true, sortable: true, filterable: true, width: 70 },
+    {field: 'totalValue', 
+    headerName: 'TOTAL VALUE', 
+    editable: false, 
+    sortable: true, 
+    filterable: true, 
+    width: 150,
+    valueGetter: (params) => params.row.totalValue,
+    valueFormatter: ({ value }) => `$${Number(value).toLocaleString()}`},
     // { 
     //   field: 'totalValue', 
     //   headerName: 'Total Value', 
@@ -148,8 +156,9 @@ const handleSave = async () => {
     },
     [updateAsset]
   );
+  console.log("check if totalValue is being handled correctly in the front end: ", portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
 
-  console.log('Asset data: ', portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
+  // console.log('Asset data: ', portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
 
   return (
     <div className="asset-parent">
@@ -159,6 +168,7 @@ const handleSave = async () => {
       <h4 className="asset-header">ASSET TABLE</h4>
     <div className="table-container">
       <DataGrid
+      
         rows={portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []}
         columns={columns}
         className="custom-data-grid"
