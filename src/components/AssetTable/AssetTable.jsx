@@ -66,6 +66,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
       headerName: 'EDIT',
       sortable: false,
       filterable: false,
+      width: 250,
       
       renderCell: (params) => (
         <strong>

@@ -73,19 +73,15 @@
 } */
 
 .asset-parent {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  grid-row: 3/4;
+  grid-column: 2/3;
   min-width: 100vh;
-  grid-column-start: 1;
-  grid-column-end: 3;
 }
 
 .asset-table-container {
-  height: 50vmin;
+  height: 42vmin;
   display: flex;
-  width: 70%;
+  width: 74%;
   background-color: #27293d;
   padding-top: 2vmin;
   padding-left: 2vmin;
@@ -96,7 +92,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin-top: 25.2vmin;
+  margin-left: -5vmin;
 }
 
 .table-container {
@@ -105,19 +102,19 @@
   justify-content: center;
   align-items: center;
   height: 30vmin;
-  width: 60vmin;
+  width: 100%;
 }
 
 .custom-data-grid {
   border: none;
-  width: 80%;
+  width: 100%;
   height: 100%;
   background-color: #27293d;
-  color: #fff;
 }
 
 .css-204u17-MuiDataGrid-main {
-  width: 50vmin !important;
+  width: 60vmin !important;
+  margin-top: .5vmin;
 }
 
 .css-1lymaxv-MuiDataGrid-root, 
@@ -132,7 +129,7 @@
 .MuiDataGrid-columnHeaders,
 .css-1iyq7zh-MuiDataGrid-columnHeaders
 {
-  color: hsla(0, 0%, 100%, 0.8);
+  color: hsla(0, 0%, 100%, 0.7) !important;
   font-weight: 400;
   font-family: poppins,sans-serif;
   font-size: .875rem;
@@ -142,7 +139,7 @@
 }
 
 .MuiDataGrid-cell {
-  color: hsla(0,0%,100%,.6);
+  color: hsla(0,0%,100%,.7) !important;
 }
 
 .MuiDataGrid-colCell, .MuiDataGrid-colCellTitle {
@@ -162,7 +159,7 @@
     border-style: solid;
     border-color: rgba(224, 224, 224, 1)  !important;
     border-radius: var(--unstable_DataGrid-radius);
-    color: #525f7f  !important;
+    /* color: #525f7f  !important; */
     font-family: "Poppins",sans-serif  !important;
     font-weight: 200  !important;
     font-size: 0.5rem  !important;
@@ -188,17 +185,15 @@
 }
 
 .asset-header {
-  line-height: 1.45em;
-  font-size: 1.0625em;
-  color: #fff;
-  font-weight: 100;
-  margin-bottom: 2vmin;
-    margin-top: -2vmin;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-left: 8vmin;
+  font-size: 0.9rem;
+    margin-top: -6vmin;
+    line-height: 1.2;
+    font-weight: 200;
+    color: hsla(0, 0%, 100%, 0.7) !important;
+    padding-bottom: 1vmin;
+    margin-left: -5vmin;
+    height: 10%;
+    width: 70%;
 }
 
 
@@ -224,5 +219,5 @@
 
 .custom-data-grid {
   border: none;
-  width: 80%;
+  width: 100%;
 }
