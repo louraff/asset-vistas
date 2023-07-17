@@ -233,4 +233,5 @@ h5.card-categoryy {
   width: calc(100% - 3vmin);
   grid-row: 3/4;
   grid-column: 1/3;
+  height: 35.5vmin;
 }

@@ -10,6 +10,20 @@
     padding: 0;
     border-radius: 1vmin; */
   }
+
+.modal-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
   
   .suggestion-item {
     padding: 0.5vmin;
@@ -19,6 +33,10 @@
     width: 100%;
     color: white;
   }
+
+.modal-ticker {
+    font-weight: 400;
+}
   
   .css-t89xny-MuiDataGrid-columnHeaderTitle {
     text-overflow: ellipsis;
@@ -100,20 +118,13 @@ select.asset-sector {
 }
 
 div.edit-form-container {
-    display: flex;
     background-color: #27293d;
-    padding-top: 2vmin;
     padding-left: 2vmin;
     padding-right: 2vmin;
     padding-bottom: 0vmin;
     border-radius: 0.5vmin;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    min-width: 55%;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 50vmin;
-    margin-right: 40vmin;
+    padding-top: 2vmin;
+    width: 40vmin;
 }
 
 h4.edit-header {

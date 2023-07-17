@@ -72,7 +72,7 @@
 
 } */
 
-.asset-parent {
+.asset-parent-table {
   width: 100%;
     padding: 1vmin;
     background: #27293d;
@@ -181,16 +181,16 @@
 }
 
 .asset-header {
-    padding-bottom: 1vmin;
-    height: 10%;
-    width: 70%;
-    margin-bottom: 2vmin;
-    font-size: 0.9rem;
-    line-height: 1.2;
-    font-weight: 200;
-    color: hsla(0,0%,100%,.6);
-    margin-left: -5vmin;
-    margin-top: 0.2vmin;
+  padding-bottom: 1vmin;
+  height: 10%;
+  width: 70%;
+  margin-bottom: 1vmin;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  font-weight: 200;
+  color: hsla(0,0%,100%,.6);
+  margin-left: -3vmin;
+  margin-top: 0.5vmin;
 }
 
 

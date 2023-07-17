@@ -148,7 +148,7 @@ export default class NewAssetForm extends Component {
 
         return (
           <div className='asset-house'>
-          <div className="asset-parent">
+          <div className="asset-parent-form">
             <div className="asset-form-container">
               <form autoComplete="off" onSubmit={this.handleSubmit}>
               <div className="form-group">

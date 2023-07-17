@@ -191,7 +191,7 @@ async function fetchAssetPrices(assetTicker) {
   // console.log('Asset data: ', portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
 
   return (
-    <div className="asset-parent">
+    <div className="asset-parent-table">
     <div className='asset-table-container'>
       <div className='table-group'>
 

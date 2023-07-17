@@ -102,30 +102,35 @@ export default class EditAssetForm extends Component {
         });
     };
 
-      render() {
+    render() {
         const { ticker, tickerSuggestions, successMessage } = this.state;
         const { asset } = this.props;
-
-        const title = asset ? `EDIT ASSET: ${asset.ticker}` : 'ADD ASSET';
-
-
-        // Autosuggest will pass through all these props to the input field.
-    const tickerInputProps = {
-        placeholder: "Type a ticker",
-        value: ticker,
-        onChange: this.handleTickerChange,
-        className: "form-control"
-      };
-  
-
+    
+        let titlePart1 = 'ADD ASSET';
+        let titlePart2 = '';
+        if (asset) {
+            titlePart1 = 'EDIT ASSET: ';
+            titlePart2 = asset.ticker;
+        }
+        
+        const tickerInputProps = {
+            placeholder: "Type a ticker",
+            value: ticker,
+            onChange: this.handleTickerChange,
+            className: "form-control"
+        };
+      
         return (
-          <div className="login-parent">
-            <div className="edit-form-container">
-              <form autoComplete="off" 
-              onSubmit={this.handleSubmit}
-              >
+            <div className='modal-home'>
+            <div className="modal-parent">
+                <div className="edit-form-container">
+                    <form autoComplete="off" onSubmit={this.handleSubmit}>
+                        <h4 className="edit-header">
+                            <span style={{fontWeight: '100'}}>{titlePart1}</span>
+                            <span style={{fontWeight: '400'}}>{titlePart2}</span>
+                        </h4>
+    
               <div className="form-group">
-          <h4 className="edit-header">{title.toUpperCase()}</h4>
                 {/* <label className='email'>Ticker</label>
                 <Autosuggest
                   className="ticker-suggest"
@@ -173,6 +178,7 @@ export default class EditAssetForm extends Component {
               </form>
               {successMessage && <p className="success-message">{successMessage}</p>}
             <p className="error-message">&nbsp;{this.state.error}</p>
+          </div>
           </div>
           </div>
         );

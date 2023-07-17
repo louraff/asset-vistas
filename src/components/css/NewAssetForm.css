@@ -111,11 +111,11 @@ div.asset-form-container {
   min-width: 55%;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 2vmin;
+  padding-bottom: 3vmin;
   width: 100%;
 }
 
-h4.asset-header {
+h4.new-asset-header {
   line-height: 1.45em;
   font-size: 1.0625em;
   color: #fff;
@@ -131,7 +131,7 @@ h4.asset-header {
   margin-bottom: 2vmin;
 }
 
-.asset-parent {
+.asset-parent-form {
   padding: 1vmin;
   background: #27293d;
   border-radius: 0.5vmin;
