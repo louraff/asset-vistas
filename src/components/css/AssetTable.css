@@ -99,6 +99,7 @@
     width: 100%;
     margin-bottom: 1vmin;
     margin-top: -1vmin;
+    padding-bottom: 0.5vmin;
 }
 
 .custom-data-grid {

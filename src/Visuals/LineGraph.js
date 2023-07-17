@@ -66,14 +66,9 @@ export default function LineGraph({ data }) {
             .ticks(8); // set the number of ticks
 
         const tooltip = d3.select("body").append("div")
-            .style("position", "absolute")
-            .style("visibility", "hidden")
-            .style("background", "#fff")
-            .style("padding", "5px")
-            .style("border", "1px solid #000")
-            .style("border-radius", "5px")
-            .style("font-family", "poppins, sans-serif")
-            .style("font-size", ".875rem");
+            .attr("class", "tooltip")
+            .style("opacity", ".8")
+
 
         const bisectDate = d3.bisector(d => new Date(d.datetime)).left;
 

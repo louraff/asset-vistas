@@ -23,7 +23,7 @@ export default function PieChart({data, width=300, height=300, user, portfolio, 
 
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
-            .style("opacity", 1);
+            .style("opacity", .5);
 
         const totalValue = Object.values(data).reduce((acc, value) => acc + value, 0); // Calculate the total value
 

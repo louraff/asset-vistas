@@ -26,3 +26,17 @@ circle.circle {
     width: 1vmin;
     height: 1vmin;
 }
+.tooltip {
+    position: absolute;
+    visibility: hidden;
+    text-align: start;
+    width: 12vmin;
+    height: 5vmin;
+    padding: 5px;
+    font: 0.75rem, 'Poppins', sans-serif;
+    background: #fff;
+    border: 0px;
+    border-radius: 5px;
+    pointer-events: none;
+    opacity: .8;
+}
