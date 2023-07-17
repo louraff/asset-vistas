@@ -30,13 +30,18 @@ export default function App() {
   const [highestLossAsset, setHighestLossAsset] = useState({});
   const [numAssets, setNumAssets] = useState(0);
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   return (
+    
     <main className="App">
       {
         user ?
+        <div id="sidebar-wrapper" className={isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}>
         <div className='total-body'>
+          
         <div className="navbar">
-          <NavBar user={user} setUser={setUser} />
+          <NavBar user={user} setUser={setUser} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
         </div>
           {/* // Routes is sitting inside this ternary so that the AuthPage is always rendered when a user state is null, no matter what the path is. When user has a value, it will render the relevant Route */}
           <Routes>
@@ -65,11 +70,13 @@ export default function App() {
               />} />
           </Routes>
           </div>
+          </div>
         :
       <Routes>
           <Route path="/signup" element={<AuthPage  user={user} setUser={setUser}/>} />
           <Route path="/" element={<Gateway user={user} setUser={setUser} />} />
         </Routes>      }
     </main>
+
   );
 }

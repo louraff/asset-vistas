@@ -20,6 +20,21 @@
   width: 100%;
   height: 100%;
 }
+.main-content {
+  transition: margin-left 1s ease-in-out;
+}
+
+.sidebar-open .main-content {
+  /* styles for when the sidebar is open */
+  width: calc(100% + 250px);
+
+}
+
+.sidebar-closed .main-content {
+  /* styles for when the sidebar is closed */
+  margin-left: -150px;
+ }
+
 body {
   background-color: #1e1e2f;
   color: #e6e7e9;
@@ -215,7 +230,6 @@ h5.card-categoryy {
   gap: 1rem;
   margin-right: 1vmin;
   width: calc(100% - 3vmin);
-  height: 39.9vmin;
   grid-row: 3/4;
   grid-column: 1/3;
 }

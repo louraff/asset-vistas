@@ -14,7 +14,7 @@ import '../css/NavBar.css'
 
 import * as userService from '../../utilities/users-service';
 
-export default function NavBar({ user, setUser }) {
+export default function NavBar({ user, setUser, isBarOpen, setIsSidebarOpen }) {
 
   function handleLogOut() {
     userService.logOut();
@@ -28,8 +28,8 @@ export default function NavBar({ user, setUser }) {
     <div id="sidebar-wrapper">
     <div id="sidebar">
     <CDBSidebar id="sidebar-corners">
-      <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-        <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
+    <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>} onClick={() => setIsSidebarOpen(prevState => !prevState)}>
+        <a href="/dashboard" className="text-decoration-none" style={{ color: 'inherit' }}>
         Welcome, {user.name}
         </a>
       </CDBSidebarHeader>

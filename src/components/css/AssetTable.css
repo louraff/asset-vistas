@@ -82,7 +82,6 @@
 }
 
 .asset-table-container {
-  background-color: #27293d;
   border-radius: 0.5vmin;
   min-width: 35%;
   display: flex;
@@ -182,13 +181,14 @@
 }
 
 .asset-header {
-  color: hsla(0, 0%, 100%, 0.7) !important;
     padding-bottom: 1vmin;
     height: 10%;
     width: 70%;
-    line-height: 1.45em;
-    font-size: 1.0625em;
+    margin-bottom: 2vmin;
+    font-size: 0.9rem;
+    line-height: 1.2;
     font-weight: 200;
+    color: hsla(0,0%,100%,.6);
     margin-left: -5vmin;
     margin-top: 0.2vmin;
 }
@@ -216,5 +216,14 @@
 
 .custom-data-grid {
   border: none;
+  margin-top: -1vmin;
   width: 100%;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  color: hsla(0, 0%, 100%, 0.7) !important;
+}
+
+.MuiDataGrid-cellContent {
+  color: hsla(0,0%,100%,.7)!important;
 }

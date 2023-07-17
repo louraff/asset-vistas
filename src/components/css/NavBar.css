@@ -37,5 +37,17 @@
 }
 
 a.text-decoration {
-  font-weight: 400;
+  font-weight: 400 !important;
+}
+
+.gaTCvF {
+  background: rgb(17, 24, 39);
+  color: rgb(255, 255, 255);
+  height: 100%;
+  width: 270px;
+  min-width: 270px;
+  text-align: left;
+  transition: width 0s ease 0s, left 0s ease 0s, right 0s ease 0s, all 1.5s ease 0s;
+  position: relative;
+  z-index: 1009;
 }
