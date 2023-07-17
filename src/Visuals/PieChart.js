@@ -27,29 +27,38 @@ export default function PieChart({data, width=300, height=300, user, portfolio, 
 
         const totalValue = Object.values(data).reduce((acc, value) => acc + value, 0); // Calculate the total value
 
-
-        svg.selectAll('mySlices')
+        let path = svg.selectAll('mySlices')
             .data(data_ready)
             .enter()
             .append('path')
-            .attr('d', arcGenerator)
             .attr('fill', d => colorScale(d.data[0]))
             .attr('stroke', '')
             .style('stroke-width', '0px')
             .style('opacity', '0.7')
             .on("mouseover", (event, d) => {
                 tooltip.transition()
-                  .duration(200)
-                  .style("opacity", .9);
-                  tooltip.html(d.data[0] + "<br/>" + ((d.data[1] / totalValue) * 100).toFixed(0) + "%") // Calculate percentage based on total value
-                  .style("left", (event.pageX) + "px")
-                  .style("top", (event.pageY - 28) + "px");
-              })
-              .on("mouseout", (d) => {
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(d.data[0] + "<br/>" + ((d.data[1] / totalValue) * 100).toFixed(0) + "%") // Calculate percentage based on total value
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", (d) => {
                 tooltip.transition()
-                  .duration(500)
-                  .style("opacity", 0);
-              });
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+
+        path.transition()
+            .duration(1000)
+            .attrTween('d', function(d) { 
+                var i = d3.interpolate(d.startAngle+0.1, d.endAngle); 
+                return function(t) { 
+                    d.endAngle = i(t); 
+                    return arcGenerator(d)
+                }
+            });
+
     }, [data]);
 
     return <svg className="actual-donut" ref={ref} />

@@ -6,6 +6,7 @@
   min-width: 100vh;
   grid-column-start: 1;
   grid-column-end: 3;
+  flex-direction: column;
 }
 
 .login-form-container {
@@ -23,6 +24,27 @@
   min-width: 35%;
   flex-direction: column;
   justify-content: center;
+}
+
+h1.login {
+  font-size: 3rem;
+    color: #fff;
+    font-weight: 100;
+}
+
+h2.login {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 100;
+}
+
+div.login-headers {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20vmin;
+    margin-bottom: 4vmin;
 }
 
 .form-group {

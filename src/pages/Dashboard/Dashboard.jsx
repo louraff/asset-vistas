@@ -295,9 +295,8 @@ const calculateNumberOfAssets = (assets) => {
         <h3 className="donut">Sector Allocation Overview</h3>
         <PieChart data={sectorAllocations} />
       </div>
-     {/* <div className="asset-table asset-table-dashboard"> */}
-      {/* <div className="asset-dash-container"> */}
-     {/* <h3 className="assets">My Assets</h3> */}
+
+      
      <AssetTable
             portfolio={portfolio}
             updateAsset={updateAsset}
@@ -308,7 +307,6 @@ const calculateNumberOfAssets = (assets) => {
           />
           </div>
       </div>
-    // </div>
     )
   }
     

@@ -25,13 +25,13 @@
   transition: margin-left 1s ease-in-out;
 }
 
-.sidebar-open .main-content {
+.sidebar-closed .main-content {
   /* styles for when the sidebar is open */
-  margin-left: -150px;
+  margin-left: -163px;
   
 }
 
-.sidebar-closed .main-content {
+.sidebar-open .main-content {
   /* styles for when the sidebar is closed */
   width: calc(100% + 250px);
 
@@ -137,7 +137,7 @@ h3.assets {
     justify-content: space-between;
     gap: 1rem;
     margin-right: 1vmin;
-    width: calc(100% - 5.4vmin);
+    width: calc(100% - 4.4vmin);
     height: 17vmin;
     grid-row: 2/3;
     grid-column: 1/3;
@@ -161,10 +161,11 @@ h2.card-title-main {
   color: #fff
 }
 .row {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex; */
+  /* flex-wrap: wrap;
   margin-right: 3vmin;
-  margin-left: -15px;
+  margin-left: -15px; */
+  width: calc(100% + 1vmin);
   grid-column-start: 1;
   grid-column-end: 3;
 }
@@ -231,7 +232,7 @@ h5.card-categoryy {
   justify-content: space-between;
   gap: 1rem;
   margin-right: 1vmin;
-  width: calc(100% - 3vmin);
+  width: calc(100% - 2vmin);
   grid-row: 3/4;
   grid-column: 1/3;
   height: 35.5vmin;

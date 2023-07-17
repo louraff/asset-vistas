@@ -3,7 +3,7 @@ import './App.css';
 import '../../components/css/Dashboard.css'
 
 // React Components
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // Router
 import { Routes, Route } from 'react-router-dom'
@@ -30,7 +30,13 @@ export default function App() {
   const [highestLossAsset, setHighestLossAsset] = useState({});
   const [numAssets, setNumAssets] = useState(0);
 
+  const localStorageSidebarState = localStorage.getItem('isSidebarOpen');
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    localStorage.setItem('isSidebarOpen', isSidebarOpen);
+  }, [isSidebarOpen]);
 
   return (
     

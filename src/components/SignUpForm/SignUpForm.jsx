@@ -41,6 +41,11 @@ export default function SignUpForm({ setUser }) {
   
   return (
     <div className="login-parent">
+       <div className="login-headers">
+      <h1 className="login">Asset Vistas</h1>
+      <h2 className="login">Your Wealth, Your Landscape.</h2>
+      {/* <p className="login">Experience a new perspective on asset management with Asset Vistas</p> */}
+      </div>
       <div className="login-form-container">
         <h4 className="login-header">Welcome! Start by getting signed up</h4>
         <form autoComplete="off" onSubmit={handleSubmit}>

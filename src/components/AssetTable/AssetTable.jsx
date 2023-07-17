@@ -192,10 +192,11 @@ async function fetchAssetPrices(assetTicker) {
 
   return (
     <div className="asset-parent-table">
+      <h4 className="asset-header">My Assets</h4>
     <div className='asset-table-container'>
       <div className='table-group'>
 
-      <h4 className="asset-header">My Assets</h4>
+      {/* <h4 className="asset-header">My Assets</h4> */}
     <div className="table-container">
       <DataGrid
       

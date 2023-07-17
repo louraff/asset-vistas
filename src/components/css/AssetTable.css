@@ -182,15 +182,13 @@
 }
 
 .asset-header {
-  padding-bottom: 1vmin;
-  height: 10%;
+  padding-bottom: 1.1vmin;
   width: 70%;
-  margin-bottom: 1vmin;
   font-size: 0.9rem;
   line-height: 1.2;
   font-weight: 200;
   color: hsla(0,0%,100%,.6);
-  margin-left: -3vmin;
+  margin-left: 0.5vmin;
   margin-top: 0.5vmin;
 }
 
