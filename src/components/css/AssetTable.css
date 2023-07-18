@@ -71,7 +71,8 @@
   border-right: none !important;
 }
 .css-1lymaxv-MuiDataGrid-root,
-.css-1lymaxv-MuiDataGrid-root  {
+.css-1lymaxv-MuiDataGrid-root,
+.css-f75cnp  {
   --unstable_DataGrid-radius: 4px;
     --unstable_DataGrid-headWeight: 500;
     --unstable_DataGrid-overlayBackground: rgba(255, 255, 255, 0.38);
