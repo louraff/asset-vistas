@@ -11,7 +11,7 @@ export default class EditAssetForm extends Component {
     state = {
         ticker: '',
         units: '',
-        sector: '',
+        sector: 'Energy',
         tickerSuggestions: [],
         error: '',
         successMessage: '',

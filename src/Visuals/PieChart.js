@@ -45,7 +45,7 @@ export default function PieChart({data, width=300, height=300, user, portfolio, 
               .on('mousemove', (event) => {
                 // move the tooltip with the cursor
                 const [x, y] = d3.pointer(event);
-                tooltip.style('top', (event.pageY - 28) + "px").style("left", (event.pageX) + "px");
+                tooltip.style('top', (event.pageY - 90) + "px").style("left", (event.pageX) + "px");
             })
             .on('mouseout', () => {
                 // hide the tooltip
