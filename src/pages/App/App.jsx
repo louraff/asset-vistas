@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import { SnackbarProvider } from 'notistack';
 
 // Router
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Redirect } from 'react-router-dom'
 import { getUser } from '../../utilities/users-service';
 
 // Custom Components
@@ -86,6 +86,8 @@ export default function App() {
       <Routes>
           <Route path="/signup" element={<AuthPage  user={user} setUser={setUser}/>} />
           <Route path="/" element={<Gateway user={user} setUser={setUser} />} />
+          <Route path="*" element={<Redirect to="/"/>} />
+
         </Routes>      }
     </main>
     </SnackbarProvider>
