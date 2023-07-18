@@ -14,30 +14,31 @@ import "../App/App.css"
 
 
 export default function Dashboard({user,
-  portfolio,
-  setPortfolio,
-  historicalData,
-  setHistoricalData,
-  sectorAllocations,
-  setSectorAllocations,
-  highestValueAsset,
-  setHighestValueAsset,
-  highestGrowthAsset,
-  setHighestGrowthAsset,
-  highestLossAsset,
-  setHighestLossAsset,
-  numAssets,
-  setNumAssets,}) {
-  // const [portfolio, setPortfolio] = useState(null);
-  // const [historicalData, setHistoricalData] = useState([]);
-  // const [sectorAllocations, setSectorAllocations] = useState(null)
-  // const [highestValueAsset, setHighestValueAsset] = useState({});
-  // const [highestGrowthAsset, setHighestGrowthAsset] = useState({});
-  // const [highestLossAsset, setHighestLossAsset] = useState({});
-  // const [numAssets, setNumAssets] = useState(0);
-  // const { updateAsset, deleteAsset} = usePortfolio(user);
+  // portfolio,
+  // setPortfolio,
+  // historicalData,
+  // setHistoricalData,
+  // sectorAllocations,
+  // setSectorAllocations,
+  // highestValueAsset,
+  // setHighestValueAsset,
+  // highestGrowthAsset,
+  // setHighestGrowthAsset,
+  // highestLossAsset,
+  // setHighestLossAsset,
+  // numAssets,
+  // setNumAssets,
+}) {
+  const [portfolio, setPortfolio] = useState(null);
+  const [historicalData, setHistoricalData] = useState([]);
+  const [sectorAllocations, setSectorAllocations] = useState(null)
+  const [highestValueAsset, setHighestValueAsset] = useState({});
+  const [highestGrowthAsset, setHighestGrowthAsset] = useState({});
+  const [highestLossAsset, setHighestLossAsset] = useState({});
+  const [numAssets, setNumAssets] = useState(0);
+  const { updateAsset, deleteAsset} = usePortfolio(user);
 
-  const { updateAsset, deleteAsset } = usePortfolio(user);
+  // const { updateAsset, deleteAsset } = usePortfolio(user);
 
   const fetchAndCalculateAssetValues = async (assets) => {
     const assetValues = [];

@@ -131,22 +131,7 @@ export default class EditAssetForm extends Component {
                         </h4>
     
               <div className="form-group">
-                {/* <label className='email'>Ticker</label>
-                <Autosuggest
-                  className="ticker-suggest"
-                    suggestions={tickerSuggestions}
-                    onSuggestionsFetchRequested={this.onTickerSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={this.onTickerSuggestionsClearRequested}
-                    getSuggestionValue={this.getTickerSuggestionValue}
-                    renderSuggestion={this.renderTickerSuggestion}
-                    inputProps={tickerInputProps}
-                    name="email"
-                    theme={{
-                        suggestionsContainer: 'suggestions-container',
-                        suggestion: 'suggestion-item',
-                        suggestionHighlighted: 'suggestion-item--highlighted'
-                      }}                
-                /> */}
+             
               
               
                 <label className='email'>Units</label>

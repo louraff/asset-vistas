@@ -29,18 +29,23 @@ export default function usePortfolio(user) {
     }
   };
 
-  const deleteAsset = (id) => {
-    axios
-      .delete(`/api/portfolio/${user._id}/asset/${id}`)
-      .then((res) => {
-        if (res.data) {
-          setPortfolio(res.data);
+  async function deleteAsset(assetId) {
+    try {
+        const response = await axios.delete(`/api/portfolio/${user._id}/asset/${assetId}`);
+        if (response.status === 200) {
+            console.log('Delete Asset response from server:', response.data);
+            console.log('Portfolio before delete:', portfolio);
+            setPortfolio(response.data);
+            console.log('Portfolio after delete:', portfolio);
+        } else {
+            throw new Error('Failed to delete asset');
         }
-      })
-      .catch((error) => {
-        console.error('Error deleting asset: ', error);
-      });
-  };
+    } catch(error) {
+        console.error('Delete Asset error:', error);
+    }
+}
+
+  
 
   useEffect(() => {
     fetchPortfolio();

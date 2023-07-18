@@ -106,44 +106,56 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
 
   const updateAssetInComponent = async (newAsset) => {
     try {
-        const response = await axios.put(`/api/portfolio/${user._id}/asset/${newAsset._id}`, newAsset);
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            throw new Error('Failed to update asset');
-        }
+      const response = await axios.put(`/api/portfolio/${user._id}/asset/${newAsset._id}`, newAsset);
+      if (response.status === 200) {
+        console.log('Updated asset returned from server:', response.data);
+        return response.data;
+      } else {
+        throw new Error('Failed to update asset');
+      }
     } catch (error) {
-        console.error('Update Asset error:', error);
+      console.error('Update Asset error:', error);
+      return null;
     }
-};
+  };
+  
 
 
 const handleSave = async () => {
   if (assetToEdit) {
     console.log('Saving asset:', assetToEdit);
 
-    const updatedAsset = await updateAsset(assetToEdit);
+    const updatedAsset = await updateAssetInComponent(assetToEdit);
+
+    if (!updatedAsset) {
+      console.error('Error updating asset:', assetToEdit);
+      return;
+    }
 
     if (updatedAsset) {
+      console.log('Updated asset:', updatedAsset);
       const assetIndex = portfolio.assets.findIndex(asset => asset._id === assetToEdit._id);
       console.log('Asset index:', assetIndex);
       console.log('Portfolio before update:', portfolio);
 
       if (assetIndex !== -1) {
-        let updatedPortfolio = { ...portfolio };  // Create a local copy of the portfolio
+        setPortfolio((prevPortfolio) => {
+        let updatedPortfolio = { ...prevPortfolio };  // Create a local copy of the portfolio
         updatedPortfolio.assets[assetIndex] = updatedAsset;  // Update the local copy
 
-        console.log('Updated assets:', updatedPortfolio.assets);
 
-        setPortfolio(updatedPortfolio);  // Set the portfolio state to the updated local copy
+        return updatedPortfolio;  // Set the portfolio state to the updated local copy
+        });
         setAssetToEdit(null);
       }
 
-      console.log('Portfolio after update:', portfolio);
     }
   }
   handleClose();  // Close the modal
 };
+useEffect(() => {
+  console.log('Portfolio after update:', portfolio);
+}, [portfolio])
 
 useEffect(() => {
   (async function fetchAndSetAssetPrices() {
@@ -175,17 +187,13 @@ async function fetchAssetPrices(assetTicker) {
   
   
 
-  const handleEditCellChangeCommit = React.useCallback(
-    ({ id, field, props }) => {
-      if (field === 'units') {
-        updateAsset({ ...props.row, units: props.value });
-      }
-      if (field === 'currentPrice') {
-        updateAsset({ ...props.row, currentPrice: props.value });
-      }
-    },
-    [updateAsset]
-  );
+const handleEditCellChangeCommit = React.useCallback(({ id, field, props }) => {
+  if (field === 'units') {
+    updateAsset({ ...props.row, units: props.value });
+  } else if (field === 'sector') {
+    updateAsset({ ...props.row, sector: props.value });
+  }
+}, [updateAsset]);
   console.log("check if totalValue is being handled correctly in the front end: ", portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
 
   // console.log('Asset data: ', portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);

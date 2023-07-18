@@ -92,7 +92,8 @@ select.asset-sector {
 
 .success-message {
   margin-top: 3vmin;
-    margin-bottom: -0.5vmin;
+    margin-bottom: -1.5vmin;
+    background-color: transparent important!;
 }
 
 .form-control {
@@ -101,7 +102,7 @@ select.asset-sector {
 
 div.asset-form-container {
   display: flex;
-  background-color: #27293d;
+  background-color: transparent;
   padding-top: 2vmin;
   padding-left: 2vmin;
   padding-right: 2vmin;

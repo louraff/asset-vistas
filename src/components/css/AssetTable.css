@@ -1,76 +1,3 @@
-/* .MuiDataGrid-colCell {
-    border-right: none;
-}
-
-.MuiDataGrid-row {
-    margin-left: 10px;
-    margin-right: 10px;
-    max-height: 1.5vmin;
-    min-height: 1.5vmin;
-}
-
-.custom-data-grid {
-    border: none;
-  }
-  
-.custom-data-grid .MuiDataGrid-row {
-    border-top: 1px solid #dee2e6;
-    border-bottom: 1px solid #dee2e6;
-    color: hsla(0,0%,100%,.6);
-  }
-  
-  .custom-data-grid .MuiDataGrid-row:first-child {
-    border-top: none;
-  }
-  
-  .custom-data-grid .MuiDataGrid-row:last-child {
-    border-bottom: none;
-  }
-
-.MuiDataGrid-cellContent {
-    color: hsla(0,0%,100%,.7);
-}
-
-.custom-data-grid .MuiDataGrid-row {
-
-  }
-  
-  .custom-data-grid .MuiDataGrid-row:nth-child(even) {
-
-  }
-  
-  .custom-data-grid .MuiDataGrid-cell {
-    padding-top: 8px; 
-    padding-bottom: 8px; 
-  }
-
-.table-container {
-    height: 400px;
-    width: 40%;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-}
-
-.MuiDataGrid-columnHeaders {
-  padding: 15px 15px 0;
-    border: 0;
-    color: hsla(0, 0%, 100%, 0.8);
-    font-weight: 400;
-    font-family: poppins,sans-serif;
-    font-size: .875rem;
-    line-height: 1.5;
-    text-align: left;
-    border-radius: 0.2232rem 0.2232rem 0 0;
-    margin-bottom: 0;
-}
-
-.MuiDataGrid-row {
-
-} */
 
 .asset-parent-table {
   width: 100%;
@@ -110,8 +37,9 @@
 }
 
 .css-204u17-MuiDataGrid-main {
-  width: 60vmin !important;
-  margin-top: .5vmin;
+  width: 76% !important;
+  margin-top: 0.5vmin;
+  margin-left: 9vmin;
 }
 
 .css-1lymaxv-MuiDataGrid-root, 
