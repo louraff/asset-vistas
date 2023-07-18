@@ -10,12 +10,15 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axios from 'axios';
 import { fetchHistoricalData } from "../../utilities/historicalData-api";
+import { useSnackbar } from 'notistack';
+
 
 export default function AssetTable({ portfolio, setPortfolio, updateAsset, deleteAsset, user }) {
   const [assets, setAssets] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [open, setOpen] = useState(false);
   const [assetToEdit, setAssetToEdit] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleAssetChange = (newAssetData) => {
     setAssetToEdit((prevAsset) => ({
@@ -89,7 +92,9 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
         console.log('Delete button investigation. Params.row: ', params.row);
         console.log('Delete button clicked. Params.row._id:', params.row._id);
         deleteAsset(params.row._id);
-        deleteAssetLocally(params.row._id); 
+        deleteAssetLocally(params.row._id);
+        enqueueSnackbar("Refresh the page for updated insights!", { variant: 'info', anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
+ 
             }}
           >
             <DeleteIcon />
@@ -153,6 +158,7 @@ const handleSave = async () => {
 
     }
   }
+  enqueueSnackbar("Asset updated successfully", { variant: 'success', anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
   handleClose();  // Close the modal
 };
 useEffect(() => {
@@ -203,7 +209,10 @@ const handleEditCellChangeCommit = React.useCallback(({ id, field, props }) => {
         console.log('Updating sector');
     updateAsset({ ...props.row, sector: props.value });
   }
+  
 }, [updateAsset]);
+
+
   console.log("check if totalValue is being handled correctly in the front end: ", portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);
 
   // console.log('Asset data: ', portfolio ? portfolio.assets.map(asset => ({ id: asset._id || uuidv4(), ...asset })) : []);

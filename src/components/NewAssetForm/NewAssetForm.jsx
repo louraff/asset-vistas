@@ -91,14 +91,19 @@ export default class NewAssetForm extends Component {
 
       getTickerSuggestions = async (value) => {
         try {
-          const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${value}&apikey=${process.env.REACT_APP_ALPHA_API_KEY}`, {
+          const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${value}&apikey=${process.env.REACT_APP_ALPHA_API_KEY}`, 
+          {
               headers: {
-                //   'User-Agent': 'request'
+                 // 'User-Agent': 'request'
               }
           });
-          
+
+          console.log("Alpha Vantage API response:", response.data);
+
           if (response.data && response.data['bestMatches']) {
             this.setState({ tickerSuggestions: response.data['bestMatches'] });
+            console.log('Updated tickerSuggestions:', this.state.tickerSuggestions);
+
         } else {
             this.setState({ tickerSuggestions: [] });
         }
@@ -121,11 +126,14 @@ export default class NewAssetForm extends Component {
         // When suggestion is clicked, Autosuggest needs to populate the input field based on the clicked suggestion.
     getTickerSuggestionValue = (suggestion) => suggestion['1. symbol'];
 
-    renderTickerSuggestion = (suggestion) => (
+    renderTickerSuggestion = (suggestion) => {
+      console.log('Suggestion:', suggestion);
+
+      return (
         <div key={suggestion['1. symbol']} className="suggestion-item">
         {`${suggestion['1. symbol']} - ${suggestion['2. name']}`}
       </div>
-    );
+    )};
     
     handleTickerChange = (event, { newValue }) => {
         this.setState({

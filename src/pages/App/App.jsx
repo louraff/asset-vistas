@@ -4,6 +4,7 @@ import '../../components/css/Dashboard.css'
 
 // React Components
 import { useState, useEffect } from 'react'
+import { SnackbarProvider } from 'notistack';
 
 // Router
 import { Routes, Route } from 'react-router-dom'
@@ -39,7 +40,7 @@ export default function App() {
   }, [isSidebarOpen]);
 
   return (
-    
+    <SnackbarProvider autoHideDuration={7000}>
     <main className="App">
       {
         user ?
@@ -57,6 +58,8 @@ export default function App() {
               setPortfolio={setPortfolio}/>}/>
             <Route path="/add-asset" element={<AddAsset user={user}/>} />
             <Route path="/profile" element={<Profile />} />
+         
+
             <Route path="/dashboard" element={<Dashboard 
               user={user}
               portfolio={portfolio}
@@ -74,6 +77,8 @@ export default function App() {
               numAssets={numAssets}
               setNumAssets={setNumAssets}
               />} />
+           
+
           </Routes>
           </div>
           </div>
@@ -83,6 +88,6 @@ export default function App() {
           <Route path="/" element={<Gateway user={user} setUser={setUser} />} />
         </Routes>      }
     </main>
-
+    </SnackbarProvider>
   );
 }
