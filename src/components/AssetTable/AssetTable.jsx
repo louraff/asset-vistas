@@ -86,9 +86,10 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
             aria-label="delete asset"
             onClick={() => {
               console.log('Delete button clicked. Params:', params);
-              console.log('Delete button investigation. Params.row: ', params.row);
-              console.log('Delete button clicked. Params.row._id:', params.row._id);
-              deleteAsset(params.row._id);
+        console.log('Delete button investigation. Params.row: ', params.row);
+        console.log('Delete button clicked. Params.row._id:', params.row._id);
+        deleteAsset(params.row._id);
+        deleteAssetLocally(params.row._id); 
             }}
           >
             <DeleteIcon />
@@ -185,7 +186,13 @@ async function fetchAssetPrices(assetTicker) {
   };
 }
 
-  
+const deleteAssetLocally = (assetId) => {
+  setPortfolio(prevPortfolio => {
+      const updatedAssets = prevPortfolio.assets.filter(asset => asset._id !== assetId);
+      return { ...prevPortfolio, assets: updatedAssets };
+  });
+};
+
   
 
 const handleEditCellChangeCommit = React.useCallback(({ id, field, props }) => {
