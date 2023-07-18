@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import * as d3 from 'd3';
-import '../components/css/Donut.css'
+import "../components/css/Donut.css";
 
 export default function PieChart({data, width=300, height=300, user, portfolio, setPortfolio}) {
     const ref = useRef();
@@ -23,31 +23,35 @@ export default function PieChart({data, width=300, height=300, user, portfolio, 
 
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
-            .style("opacity", .5);
+            .style("opacity", ".8")
+            .style("height", "7.5vmin")
 
         const totalValue = Object.values(data).reduce((acc, value) => acc + value, 0); // Calculate the total value
+
 
         let path = svg.selectAll('mySlices')
             .data(data_ready)
             .enter()
             .append('path')
+            .attr('d', arcGenerator)
             .attr('fill', d => colorScale(d.data[0]))
             .attr('stroke', '')
             .style('stroke-width', '0px')
-            .style('opacity', '0.7')
+            .style('opacity', '0.8')
             .on("mouseover", (event, d) => {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9);
-                tooltip.html(d.data[0] + "<br/>" + ((d.data[1] / totalValue) * 100).toFixed(0) + "%") // Calculate percentage based on total value
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY - 28) + "px");
+                tooltip.style('visibility', 'visible');
+                tooltip.html(d.data[0] + "<br/>" + ((d.data[1] / totalValue) * 100).toFixed(0) + "%")
+              })
+              .on('mousemove', (event) => {
+                // move the tooltip with the cursor
+                const [x, y] = d3.pointer(event);
+                tooltip.style('top', (event.pageY - 28) + "px").style("left", (event.pageX) + "px");
             })
-            .on("mouseout", (d) => {
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
+            .on('mouseout', () => {
+                // hide the tooltip
+                tooltip.style('visibility', 'hidden');
             });
+
 
         path.transition()
             .duration(1000)
@@ -58,7 +62,6 @@ export default function PieChart({data, width=300, height=300, user, portfolio, 
                     return arcGenerator(d)
                 }
             });
-
     }, [data]);
 
     return <svg className="actual-donut" ref={ref} />

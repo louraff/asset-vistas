@@ -1,17 +1,26 @@
 .tooltip {
     position: absolute;
+     visibility: hidden;
     text-align: start;
     width: 11vmin;
-    height: 8vmin;
+    height: 10vmin;
     padding: 1vmin;
     font: 0.75rem, 'Poppins', sans-serif;
     background: #fff;
     border: 0px;
     border-radius: 0.5vmin;
     pointer-events: none;
+    z-index: 9999;
 }
 
 .actual-donut {
     margin-top: 1vmin;
     margin-left: 3vmin;
+    position: relative;
+}
+
+.actual-donut .tooltip {
+    width: 11vmin;
+    height: 10vmin;
+    padding: 1vmin;
 }

@@ -68,6 +68,7 @@ export default function LineGraph({ data }) {
         const tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", ".8")
+            .style("margin-bottom", "1vmin")
 
 
         const bisectDate = d3.bisector(d => new Date(d.datetime)).left;
@@ -91,7 +92,7 @@ export default function LineGraph({ data }) {
             .attr("class", "circle")
             .attr("cx", d => xScale(new Date(d.datetime)))
             .attr("cy", d => yScale(d.value))
-            .attr("r", 4)
+            .attr("r", 5)
             .style("opacity", 1)
             .style("fill", "#1f8ef1")
 
@@ -104,6 +105,15 @@ export default function LineGraph({ data }) {
             .attr("fill", "none")
             .attr("stroke", "#1f8ef1")
             .style("filter", "url(#shadow)")
+            .attr("stroke-dasharray", function() {
+                const length = this.getTotalLength();
+                return `${length} ${length}`;
+            })
+            .attr("stroke-dashoffset", function() {
+                return this.getTotalLength();
+            })
+            .transition().duration(2000)
+            .attr("stroke-dashoffset", 0)
 
 
         g.selectAll('.x-axis')
@@ -134,7 +144,7 @@ export default function LineGraph({ data }) {
                 // Show the tooltip
                 tooltip.style('visibility', 'visible');
                 // Set the text for the tooltip. This is where you can format the string to display the date and value.
-                tooltip.html(`${d3.timeFormat("%b")(new Date(d.datetime)).toUpperCase()}<br>£${d.value.toFixed(2)}`);
+                tooltip.html(`${d3.timeFormat("%b")(new Date(d.datetime)).toUpperCase()}<br>£${d.value.toLocaleString()}`);
             })
             .on('mousemove', (event) => {
                 // move the tooltip with the cursor

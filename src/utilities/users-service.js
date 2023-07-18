@@ -8,12 +8,15 @@
 
 import * as usersAPI from './users-api'
 
+
 export async function signUp(userData) {
+
   // Delegate the request to the users-api
   // which will ultimately return a JSON Web Token (JWT)
   const token = await usersAPI.signUp(userData);
   // Persist the token 
   localStorage.setItem('token', token);
+
   return getUser();
 }
 
