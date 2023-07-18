@@ -17,10 +17,15 @@ export default function usePortfolio(user) {
 
   const updateAsset = async (updatedAsset) => {
     try {
+      console.log('Sending updated asset to server:', updatedAsset);
       const res = await axios.put(`/api/portfolio/${user._id}/asset/${updatedAsset._id}`, updatedAsset);
       if (res.data) {
+        console.log('Successfully updated asset:', res.data);
+
         // Asset update was successful, fetch the portfolio again
         await fetchPortfolio();
+      } else {
+        console.log('No data returned from server');
       }
     } catch (error) {
       console.error('Error updating asset: ', error);
@@ -29,9 +34,9 @@ export default function usePortfolio(user) {
     }
   };
 
-  async function deleteAsset(assetId) {
+  async function deleteAsset(id) {
     try {
-        const response = await axios.delete(`/api/portfolio/${user._id}/asset/${assetId}`);
+        const response = await axios.delete(`/api/portfolio/${user._id}/asset/${id}`);
         if (response.status === 200) {
             console.log('Delete Asset response from server:', response.data);
             console.log('Portfolio before delete:', portfolio);

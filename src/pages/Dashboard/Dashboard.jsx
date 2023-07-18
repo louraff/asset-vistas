@@ -13,7 +13,7 @@ import "../../components/css/Dashboard.css"
 import "../App/App.css"
 
 
-export default function Dashboard({user,
+export default function Dashboard({user
   // portfolio,
   // setPortfolio,
   // historicalData,

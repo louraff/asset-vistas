@@ -122,6 +122,9 @@ router.put('/:userId/asset/:assetId', async (req, res) => {
         if (updatedAssetData.units !== undefined) {
             asset.units = updatedAssetData.units;
         }
+        if (updatedAssetData.sector !== undefined) { 
+            asset.sector = updatedAssetData.sector;
+        }
         const data = await fetchHistoricalData(updatedAssetData.ticker, '1y');
     
         if(data && data.length > 0) {
@@ -138,6 +141,7 @@ router.put('/:userId/asset/:assetId', async (req, res) => {
         res.status(500).json({message: "Server Error"});
     }
 });
+
 
 
 router.delete('/:userId/asset/:assetId', async (req, res) => {

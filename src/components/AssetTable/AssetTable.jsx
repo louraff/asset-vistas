@@ -140,11 +140,12 @@ const handleSave = async () => {
 
       if (assetIndex !== -1) {
         setPortfolio((prevPortfolio) => {
-        let updatedPortfolio = { ...prevPortfolio };  // Create a local copy of the portfolio
-        updatedPortfolio.assets[assetIndex] = updatedAsset;  // Update the local copy
-
-
-        return updatedPortfolio;  // Set the portfolio state to the updated local copy
+          let updatedAssets = [...prevPortfolio.assets];  // Create a new array
+          updatedAssets[assetIndex] = updatedAsset;  // Update the new array
+      
+          let updatedPortfolio = { ...prevPortfolio, assets: updatedAssets };  // Assign new array to the portfolio
+      
+          return updatedPortfolio;  // Set the portfolio state to the updated portfolio
         });
         setAssetToEdit(null);
       }
@@ -189,8 +190,10 @@ async function fetchAssetPrices(assetTicker) {
 
 const handleEditCellChangeCommit = React.useCallback(({ id, field, props }) => {
   if (field === 'units') {
+        console.log('Updating units');
     updateAsset({ ...props.row, units: props.value });
   } else if (field === 'sector') {
+        console.log('Updating sector');
     updateAsset({ ...props.row, sector: props.value });
   }
 }, [updateAsset]);
