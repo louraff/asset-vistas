@@ -93,7 +93,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
         console.log('Delete button clicked. Params.row._id:', params.row._id);
         deleteAsset(params.row._id);
         deleteAssetLocally(params.row._id);
-        enqueueSnackbar("Refresh the page for updated insights!", { variant: 'info', anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
+        enqueueSnackbar("Refresh the page for updated insights!", { anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
  
             }}
           >
@@ -160,6 +160,7 @@ const handleSave = async () => {
   }
   enqueueSnackbar("Refresh the page for updated insights!", { anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
   handleClose();  // Close the modal
+  
 };
 useEffect(() => {
   console.log('Portfolio after update:', portfolio);
