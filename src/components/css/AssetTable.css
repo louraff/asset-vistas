@@ -126,11 +126,15 @@
   margin-bottom: 10px;
 }
 
-.css-wop1k0-MuiDataGrid-footerContainer {
+.css-wop1k0-MuiDataGrid-footerContainer,
+.css-9ffb5l,
+.css-whi0l6:last-child,
+.css-whi0l6 
+ {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
-  display: none  !important;
+  display: none !important;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   justify-content: space-between;
