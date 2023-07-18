@@ -34,7 +34,7 @@ export default function AssetTable({ portfolio, setPortfolio, updateAsset, delet
     filterable: true, 
     width: 120,
     valueGetter: (params) => params.row.totalValue,
-    valueFormatter: ({ value }) => `$${Number(value).toLocaleString()}`},
+    valueFormatter: ({ value }) => `$${Number(value).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`},
     // { 
     //   field: 'totalValue', 
     //   headerName: 'Total Value', 

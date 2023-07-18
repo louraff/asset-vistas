@@ -144,7 +144,7 @@ export default function LineGraph({ data }) {
                 // Show the tooltip
                 tooltip.style('visibility', 'visible');
                 // Set the text for the tooltip. This is where you can format the string to display the date and value.
-                tooltip.html(`${d3.timeFormat("%b")(new Date(d.datetime)).toUpperCase()}<br>£${d.value.toLocaleString()}`);
+                tooltip.html(`${d3.timeFormat("%b")(new Date(d.datetime)).toUpperCase()}<br>$${d.value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
             })
             .on('mousemove', (event) => {
                 // move the tooltip with the cursor

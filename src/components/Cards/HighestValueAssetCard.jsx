@@ -11,7 +11,7 @@ export default function HighestGrowthAssetCard({ ticker, value }) {
         </div>
         <div className="col-info">
           <p className="ticker">{ticker}</p>
-          <h2 className="value">£{parseFloat(value).toLocaleString()}</h2>
+          <h2 className="value">${parseFloat(value).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
         </div>
       </div>
       <hr className="divider"/>

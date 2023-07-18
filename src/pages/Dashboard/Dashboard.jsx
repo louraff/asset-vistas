@@ -257,7 +257,7 @@ const calculateNumberOfAssets = (assets) => {
     <div className="rowy">
     <div className="text-left col-sm-6">   
     <h5 className="card-categoryy">Total Portfolio Value</h5>
-    <h2 className="card-title-main">£ {portfolio.TotalValue.toLocaleString()}</h2>
+    <h2 className="card-title-main">$ {portfolio.TotalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
   </div>
   <div className="card-body">
   <div className="chart-area line-graph">
