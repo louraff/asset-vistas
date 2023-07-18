@@ -26,14 +26,7 @@ export default function NewAssetFormModal({ open, handleClose, onAssetChange, as
         />
             </DialogContent>
             <DialogActions>
-            {/* <div className="button-container">
-                    <button onClick={handleClose} color="secondary" className="cancel-button">
-                    Cancel
-                    </button>
-                    <Button onClick={handleSave} color="primary" className="asset-button">
-                    Save
-                    </Button>
-                 </div> */}
+          
             </DialogActions>
         </Dialog>
         </ThemeProvider>
