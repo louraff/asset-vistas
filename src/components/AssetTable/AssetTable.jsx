@@ -158,7 +158,7 @@ const handleSave = async () => {
 
     }
   }
-  enqueueSnackbar("Asset updated successfully", { variant: 'success', anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
+  enqueueSnackbar("Refresh the page for updated insights!", { anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
   handleClose();  // Close the modal
 };
 useEffect(() => {
