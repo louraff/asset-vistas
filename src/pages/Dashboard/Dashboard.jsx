@@ -199,6 +199,7 @@ const calculateNumberOfAssets = (assets) => {
       .then(async (res) => {
         // check if res.data exists and it contains the assets property
         if (res.data && res.data.assets) {
+          console.log("res.data", res.data);
           setPortfolio(res.data);
   
           const sectorAllocation = res.data.assets.reduce((acc, asset) => {
