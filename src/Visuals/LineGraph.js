@@ -51,7 +51,7 @@ export default function LineGraph({ data }) {
             .range([0, width]);
 
         const yScale = scaleLinear()
-            .domain(extent([0, 500000]))
+            .domain(extent(data, d => d.value))
             .range([height, 0]);
 
         const lineGenerator = line()
