@@ -37,6 +37,7 @@ export default function Dashboard({user
   const [highestLossAsset, setHighestLossAsset] = useState({});
   const [numAssets, setNumAssets] = useState(0);
   const { updateAsset, deleteAsset} = usePortfolio(user);
+  const [totalPortfolioValue, setTotalPortfolioValue] = useState(0);
 
   // const { updateAsset, deleteAsset } = usePortfolio(user);
 
@@ -192,6 +193,18 @@ const calculateNumberOfAssets = (assets) => {
   }, [sectorAllocations]);
 
   useEffect(() => {
+    // Check if the historicalData array is not empty
+    if (historicalData.length > 0) {
+      // Get the latest (i.e., last) data point
+      const latestDataPoint = historicalData[historicalData.length - 1];
+      
+      // Update the total portfolio value
+      setTotalPortfolioValue(latestDataPoint.value);
+    }
+  }, [historicalData]);  // Depend on the historicalData
+  
+
+  useEffect(() => {
     const userId = user._id;
   
     axios
@@ -258,7 +271,7 @@ const calculateNumberOfAssets = (assets) => {
     <div className="rowy">
     <div className="text-left col-sm-6">   
     <h5 className="card-categoryy">Total Portfolio Value</h5>
-    <h2 className="card-title-main">$ {portfolio.TotalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
+    <h2 className="card-title-main">$ {totalPortfolioValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
   </div>
   <div className="card-body">
   <div className="chart-area line-graph">
