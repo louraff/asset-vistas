@@ -45,7 +45,7 @@ export default function NavBar({ user, setUser, isBarOpen, setIsSidebarOpen }) {
           <Link to='/add-asset' activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="plus">Add Asset</CDBSidebarMenuItem>
           </Link>
-          <Link to='/profile' activeClassName="activeClicked">
+          <Link to='/dashboard' activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="user">Profile</CDBSidebarMenuItem>
           </Link>
           <Link to='' onClick={handleLogOut} activeClassName="activeClicked">
