@@ -57,7 +57,7 @@ export default function App() {
               portfolio={portfolio}
               setPortfolio={setPortfolio}/>}/>
             <Route path="/add-asset" element={<AddAsset user={user}/>} />
-            <Route path="/profile" element={<Profile />} />
+            {/* <Route path="/profile" element={<Profile />} /> */}
          
 
             <Route path="/dashboard" element={<Dashboard 
@@ -87,8 +87,8 @@ export default function App() {
           <Route path="/signup" element={<AuthPage  user={user} setUser={setUser}/>} />
           <Route path="/" element={<Gateway user={user} setUser={setUser} />} />
           <Route path='*' element={<Navigate to="/signup" />}/>
-
-        </Routes>      }
+      </Routes>      
+        }
     </main>
     </SnackbarProvider>
   );
