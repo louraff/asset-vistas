@@ -30,8 +30,8 @@
 
 Diving headfirst into the culmination of my GA SEI journey, I built a MERN stack application, Asset Vistas, the Investment Portfolio Tracker. With no formal background in economics or investments, I braved the challenge of creating a data-driven, user-centric application, designed to aid users in managing their investment portfolios. Pulling real-time data from third-party APIs and using D3.js for data visualisation, I overcame steep learning curves to deliver a user experience that marries functionality with aesthetics. This application is a testament to my ability to adapt, learn rapidly, and harness new technologies, making this an embodiment of my development philosophy and passion for web development.
 
-![Dashboard gif](../asset-vistas/src/assets/readme/dashboardherogif.gif)
-![Dashboard](../asset-vistas/src/assets/readme/dash.png)
+![Dashboard gif](/src/assets/readme/dashboardherogif.gif)
+![Dashboard](/src/assets/readme/dash.png)
 
 ## Deployment Link
 
@@ -181,11 +181,11 @@ I dove into resources like Investopedia, Yahoo Finance, and Morningstar, soaking
 
 This was a journey towards creating a user-friendly application that would be a powerhouse of insightful data for the user, without overwhelming them. Like a skilled sculptor, I envisaged chiselling a dashboard where users could see key indicators at a glance - total portfolio value, total number of assets, allocation percentages, historical performance, and more.
 
-![Project Wireframe](../asset-vistas/src/assets/readme/a-dash.png)
+![Project Wireframe](/src/assets/readme/a-dash.png)
 
 My wireframes mapped out (clockwise from the top left) the Dashboard, Signup, Login, Add Assets and My Assets pages, with the final frame and imagining of the edit asset functionality.
 
-![Modal](../asset-vistas/src/assets/readme/modal.gif)
+![Modal](/src/assets/readme/modal.gif)
 
 To keep my sanity intact amidst this information explosion, I turned to Trello, my trusted companion for project management. User stories neatly filed into 'MVP', ‘Stretch Goals’, and 'Completed' columns provided a clear roadmap for my project while ensuring that the scope didn't run wild.
 
@@ -193,7 +193,7 @@ Now, here's where the fun really began: harnessing the power of D3.js. My intent
 
 Behold my pride and joy: my first D3.js graphs… (just a small note on the image below- I was drinking a Coke when I created the user).
 
-![Draft Graphs](../asset-vistas/src/assets/readme/draftgraph.png)
+![Draft Graphs](/src/assets/readme/draftgraph.png)
 
 Initial planning led me down the path of Bootstrap templates, but I soon discovered that creating smaller, custom components granted me more control over styling. I had a clear vision for how I wanted the application to look and feel and I wasn’t ready to compromise - a revelation that led me to experiment with other Bootstrap libraries.
 
@@ -201,7 +201,7 @@ API selection was another round of roulette where my planning didn’t quite cut
 
 Planning the integration of third-party API data into my database was like playing chess with an invisible opponent. It involved thorough research, brainstorming, and a generous helping of trial and error along the way. The Entity Relationship Diagrams (ERDs) I created served as my chessboard, giving me a clear picture of data relationships.
 
-![EDR](../asset-vistas/src/assets/readme/AssetEDR.png)
+![EDR](/src/assets/readme/AssetEDR.png)
 
 My coding strategy was as methodical as a seasoned detective building a case. My plan began with user authentication, gradually moving on to fetch asset data from the API, updating the portfolio value, and pie charts, and finally managing assets. I decided to dedicate half my time to backend logic, with the other half assigned to frontend work, a balanced diet for a well-rounded project.
 
@@ -221,8 +221,8 @@ Next up was user authentication, essentially our bouncer at the door, ensuring o
 
 ###### controllers/users.js
 
-![code](../asset-vistas/src/assets/readme/a1.png)
-![code](../asset-vistas/src/assets/readme/a2.png)
+![code](/src/assets/readme/a1.png)
+![code](/src/assets/readme/a2.png)
 
 Data Integration:
 Real-time data from IEX Cloud API added depth and dynamism. Server-side logic fetched asset data, and portfolio values are constantly updated with the latest data.
@@ -230,34 +230,34 @@ Real-time data from IEX Cloud API added depth and dynamism. Server-side logic fe
 Dashboard:
 The puzzle's central image started forming with the dashboard, a central hub offering a snapshot of key indicators. By leveraging user portfolio data, I calculated the total value and designed a line chart to show portfolio growth. I also created four cards showcasing the highest value asset, highest growth, total number of assets and highest loss assets. Here's a snippet of the card creation in Dashboard.jsx:
 
-![code](../asset-vistas/src/assets/readme/a3.png)
+![code](/src/assets/readme/a3.png)
 
 Asset Management:
 Giving users the tools to add, update or remove assets from their portfolios was the next piece of the puzzle. Much like deciding which piece goes where users can customise their portfolio based on their personal investment strategies. This code snippet below is defining a callback function called handleEditCellChangeCommit, which is used to handle cell edits in the DataGrid component. The DataGrid is a part of the Material-UI library and is used to display and edit tabular data.
 
 ###### AssetTable.jsx
 
-![code](../asset-vistas/src/assets/readme/a4.png)
-![Modal](../asset-vistas/src/assets/readme/modal.gif)
+![code](/src/assets/readme/a4.png)
+![Modal](/src/assets/readme/modal.gif)
 
 Asset Allocation:
 Finally, using D3.js, I pieced together a pie chart (pun fully intended) showcasing sector allocations. As the portfolio updated, the chart dynamically adjusted, providing a constant visual aid for the user's investments. Here's a glimpse into the asset allocation pie chart:
 
 ###### Dashboard.jsx (inside useEffect)
 
-![code](../asset-vistas/src/assets/readme/a5.png)
+![code](/src/assets/readme/a5.png)
 
 ###### PieChart.js
 
-![code](../asset-vistas/src/assets/readme/a6.png)
-![code](../asset-vistas/src/assets/readme/a7.png)
+![code](/src/assets/readme/a6.png)
+![code](/src/assets/readme/a7.png)
 
-![Pie Chart](../asset-vistas/src/assets/readme/pietooltip.gif)
+![Pie Chart](/src/assets/readme/pietooltip.gif)
 
 Responsive UI:
 Now that the borders of the puzzle were forming, it was time to fill in the middle, ensuring the app was as easy on the eyes as it was to use. Bootstrap came to the rescue for quick responsiveness, and custom CSS sprinkled in a touch of personality. The aim was a well-rounded user experience across devices.
 
-![Dynamic Navbar](../asset-vistas/src/assets/readme/navbar.gif)
+![Dynamic Navbar](/src/assets/readme/navbar.gif)
 
 In the end, building a MERN stack application was a lot like piecing together a puzzle. There's a method to the madness, a certain charm in seeing disparate parts come together, and the satisfaction of stepping back to admire the completed work. As you navigate through my application, I hope you appreciate the careful thought and problem-solving that went into each 'piece'. Now, who's up for another puzzle?
 
@@ -271,7 +271,7 @@ Software development often presents interesting obstacles and, in the spirit of 
 
 While building the 'Add Asset' feature of my MERN stack investment portfolio tracker, I faced a challenge with my implemented twelvedata API. It was supposed to allow users to search for their ticker symbol but didn't provide enough free credits for consistent use. I decided to switch to the Alpha Vantage symbol search API and this led to a series of problem-solving endeavors.
 
-![Add Asset Gif](../asset-vistas/src/assets/readme/addasset.gif)
+![Add Asset Gif](/src/assets/readme/addasset.gif)
 
 **Step 1: Implementing the Alpha Vantage API**
 
@@ -289,7 +289,7 @@ The next hurdle was the appearance of empty bullet points when entering letters 
 
 I understood that my getTickerSuggestionValue and renderTickerSuggestion functions were not correctly managing this data structure. Hence, I updated them to correctly retrieve and display the symbol and the name of the company:
 
-![code](../asset-vistas/src/assets/readme/a8.png)
+![code](/src/assets/readme/a8.png)
 
 **Step 3: Refactoring the Suggestions State Function**
 
@@ -326,7 +326,7 @@ To uncover the cause of this issue, I revisited the Autosuggest component docume
 
 To fix this, I updated the getTickerSuggestions function to ensure it always sets tickerSuggestions to an array:
 
-![code](../asset-vistas/src/assets/readme/a9.png)
+![code](/src/assets/readme/a9.png)
 
 With this modification, the ticker input field began functioning as expected. I was now able to enter letters in the ticker input field and select from a list of suggestions that appeared.
 
@@ -385,7 +385,7 @@ So, I updated the function fetchAndCalculateAssetValues to handle the data as an
 
 ##### Dashboard.jsx
 
-![code](../asset-vistas/src/assets/readme/a10.png)
+![code](/src/assets/readme/a10.png)
 
 **Step 4: Matching the Data Fields**
 
@@ -395,7 +395,7 @@ With this information, I restructured the pointData object to match these fields
 
 ##### Dashboard.jsx
 
-![code](../asset-vistas/src/assets/readme/a11.png)
+![code](/src/assets/readme/a11.png)
 
 **Step 5: Verifying the Solution**
 
@@ -425,11 +425,11 @@ Initially, I was confused as to why the dots were not visible on the graph. I ha
 
 ##### LineGraph.js (adjusted opacity to 1)
 
-![code](../asset-vistas/src/assets/readme/a12.png)
+![code](/src/assets/readme/a12.png)
 
 **Step 2: Filtering Dots for Each Month**
 
-![Warty Graph](../asset-vistas/src/assets/readme/wartgraph.png)
+![Warty Graph](/src/assets/readme/wartgraph.png)
 
 While I now had visible dots on the graph, they were plotted for every data point and made the graph look warty, to say the least- not a good look.
 To enhance the graph's clarity and user interaction, I wanted to limit the dots to the start of each month. However, I was unsure of how to implement this. So, I embarked on a research mission and found a helpful thread on Stack Overflow. From this, I learnt about the concept of filtering the data to include only the first (or last) data point of each month.
@@ -438,10 +438,10 @@ I implemented this by creating a new array to store the monthly data and iterati
 
 ##### LineGraph.js
 
-![code](../asset-vistas/src/assets/readme/a13.png)
+![code](/src/assets/readme/a13.png)
 
 // using monthlyData instead of data to plot my dots
-![code](../asset-vistas/src/assets/readme/a14.png)
+![code](/src/assets/readme/a14.png)
 
 This approach ensured that the dots were placed only at the points where the line intersects each new month on the x-axis.
 
@@ -449,7 +449,7 @@ This approach ensured that the dots were placed only at the points where the lin
 
 With these changes, the graph was significantly improved. It was not only more visually appealing but also more interactive and intuitive. The addition of visible dots marking the start of each month enhanced the usability of the tooltips, thus augmenting the overall user experience.
 
-![Line Graph Tooltips](../asset-vistas/src/assets/readme/linetooltipgif.gif)
+![Line Graph Tooltips](/src/assets/readme/linetooltipgif.gif)
 
 ### TotalValue and PriceChange Implementation
 
@@ -477,7 +477,7 @@ Looking back, this challenge taught me an invaluable lesson about state manageme
 
 My proudest win is the design of the project. The application's interface presents data and insights in an easily digestible, yet visually appealing manner, that doesn't overwhelm the user. The blend of the colour scheme and the animated elements of the line graph, pie chart, and navigation bar certainly make you sit up and take notice. I mean, isn't that graph just drool-worthy?
 
-![Dashboard gif](../asset-vistas/src/assets/readme/dashboardherogif.gif)
+![Dashboard gif](/src/assets/readme/dashboardherogif.gif)
 
 **Scaling the Learning Mountain**
 
@@ -542,8 +542,8 @@ Duplicate Tickers in User Portfolio: Currently, users can add the same ticker mu
 
 Page Refresh Required for Asset Table Updates: At the moment, when changes are made to the asset table, a manual page reload is required to display updated insights. It's a bit old-school, I admit, and something that I'm planning to address. Automatic page updates are on the horizon! For now, I’ve added a snack bar popup to let users know to refresh the page for updated insights.
 
-![Snackbar gif](../asset-vistas/src/assets/readme/snackbardelete.gif)
-![Edit gif](../asset-vistas/src/assets/readme/re4fresh-page-demo.gif)
+![Snackbar gif](/src/assets/readme/snackbardelete.gif)
+![Edit gif](/assets/readme/re4fresh-page-demo.gif)
 
 ## Future Improvements
 
